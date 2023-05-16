@@ -51,7 +51,31 @@ struct RP_struct_type
 
 	UInt_t		uPlanesOn ;
 	UInt_t		vPlanesOn ;
+  
+  RP_struct_type() ;
+  void clear_variables() ;
+  
 } ;
+
+RP_struct_type::RP_struct_type()
+{
+  clear_variables() ;
+}
+
+void RP_struct_type::clear_variables()
+{
+  validity = kFALSE ;
+
+  x = 0 ;
+  y = 0 ;
+
+  thx = 0 ;
+  thy = 0 ;
+
+  uPlanesOn = 0 ;
+  vPlanesOn = 0 ;
+  
+}
 
 class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  {
   public:
@@ -65,6 +89,8 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
   virtual void beginJob() override;
   virtual void analyze(const edm::Event&, const edm::EventSetup&) override;
   virtual void endJob() override;
+  
+  virtual void clear_variables() ;
 
   edm::EDGetTokenT<std::vector<CTPPSLocalTrackLite>> tracksToken_;  //used to select what tracks to read from configuration file
 
@@ -103,10 +129,33 @@ ElasticAnalyzer::~ElasticAnalyzer()
 {
 }
 
+void ElasticAnalyzer::clear_variables() 
+{
+  event_info_timestamp = 0 ;
+  trigger_data_run_num = 0 ;
+  trigger_data_bunch_num = 0 ;
+  trigger_data_event_num = 0 ;
+  trigger_data_trigger_num = 0 ;
+  trigger_data_input_status_bits = 0 ;
+
+  left_near.clear_variables() ;
+  left_far.clear_variables() ;
+  right_near.clear_variables() ;
+  right_far.clear_variables() ;
+
+  left_near_horizontal.clear_variables() ;
+  left_far_horizontal.clear_variables() ;
+  right_near_horizontal.clear_variables() ;
+  right_far_horizontal.clear_variables() ;
+
+}
+
 void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
   using namespace edm;
-
+  
+  clear_variables() ;
+  
   for(const auto& track : iEvent.get(tracksToken_) )
   {
     CTPPSDetId rpId(track.getRPId());
