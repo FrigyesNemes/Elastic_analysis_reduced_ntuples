@@ -112,10 +112,30 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     CTPPSDetId rpId(track.getRPId());
     unsigned int rpDecId = (100*rpId.arm()) + (10*rpId.station()) + (1*rpId.rp());
 
-    if(rpDecId == 124)
+
+    if(rpDecId ==  25)
+    {
+      left_far.x = track.getX() ;
+      left_far.y = track.getY() ;
+    }
+    else if(rpDecId ==   5)
+    {
+      left_near.x = track.getX() ;
+      left_near.y = track.getY() ;
+    }
+    else if(rpDecId == 104)
+    {
+      right_near.x = track.getX() ;
+      right_near.y = track.getY() ;
+    }
+    else if(rpDecId == 124)
     {
       right_far.x = track.getX() ;
       right_far.y = track.getY() ;
+    }
+    else
+    {
+      cout << "Unknown rpDecId " << rpDecId << endl ;
     }
     
     histosTH2F["scatter_plot_xy"]->Fill(right_far.x, right_far.y) ;
