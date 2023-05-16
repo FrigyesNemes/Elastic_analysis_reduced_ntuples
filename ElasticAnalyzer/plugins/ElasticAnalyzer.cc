@@ -73,6 +73,10 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
   map<string, TH2F*> histosTH2F;
 
   RP_struct_type right_far ;
+  RP_struct_type left_far ;
+
+  RP_struct_type right_near ;
+  RP_struct_type left_near ;
 
   TTree *tree ;
 };
@@ -120,6 +124,18 @@ void ElasticAnalyzer::beginJob()
   tree->Branch("track_right_far_valid", &right_far.validity,  "track_right_far_valid/O") ;
   tree->Branch("track_right_far_x",     &right_far.x,         "track_right_far_x/D") ;
   tree->Branch("track_right_far_y",     &right_far.y,         "track_right_far_y/D") ;
+
+  tree->Branch("track_left_far_valid",  &left_far.validity,   "track_left_far_valid/O") ;
+  tree->Branch("track_left_far_x",      &left_far.x,          "track_left_far_x/D") ;
+  tree->Branch("track_left_far_y",      &left_far.y,          "track_left_far_y/D") ;
+
+  tree->Branch("track_right_near_valid",&right_near.validity, "track_right_near_valid/O") ;
+  tree->Branch("track_right_near_x",    &right_near.x,        "track_right_near_x/D") ;
+  tree->Branch("track_right_near_y",    &right_near.y,        "track_right_near_y/D") ;
+
+  tree->Branch("track_left_near_valid", &left_near.validity,  "track_left_near_valid/O") ;
+  tree->Branch("track_left_near_x",     &left_near.x,         "track_left_near_x/D") ;
+  tree->Branch("track_left_near_y",     &left_near.y,         "track_left_near_y/D") ;
 
 }
 
