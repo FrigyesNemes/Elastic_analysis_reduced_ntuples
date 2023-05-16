@@ -71,12 +71,24 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
   std::string outputFileName;  
 
   map<string, TH2F*> histosTH2F;
+  
+  // Declaration of leaf types
+  ULong64_t       event_info_timestamp;
+  UInt_t          trigger_data_run_num;
+  UInt_t          trigger_data_bunch_num;
+  UInt_t          trigger_data_event_num;
+  UInt_t          trigger_data_trigger_num;
+  UInt_t          trigger_data_input_status_bits;
 
-  RP_struct_type right_far ;
-  RP_struct_type left_far ;
-
-  RP_struct_type right_near ;
   RP_struct_type left_near ;
+  RP_struct_type left_far ;
+  RP_struct_type right_near ;
+  RP_struct_type right_far ;
+
+  RP_struct_type left_near_horizontal ;
+  RP_struct_type left_far_horizontal ;
+  RP_struct_type right_near_horizontal ;
+  RP_struct_type right_far_horizontal ;
 
   TTree *tree ;
 };
@@ -136,6 +148,49 @@ void ElasticAnalyzer::beginJob()
   tree->Branch("track_left_near_valid", &left_near.validity,  "track_left_near_valid/O") ;
   tree->Branch("track_left_near_x",     &left_near.x,         "track_left_near_x/D") ;
   tree->Branch("track_left_near_y",     &left_near.y,         "track_left_near_y/D") ;
+
+  tree->Branch("event_info_timestamp",                    &event_info_timestamp,                  "event_info_timestamp/l") ;
+  tree->Branch("trigger_data_run_num",                    &trigger_data_run_num,                  "trigger_data_run_num/i") ;
+  tree->Branch("trigger_data_bunch_num",                  &trigger_data_bunch_num,                "trigger_data_bunch_num/i") ;
+  tree->Branch("trigger_data_event_num",                  &trigger_data_event_num,                "trigger_data_event_num/i") ;
+  tree->Branch("trigger_data_trigger_num",                &trigger_data_trigger_num,              "trigger_data_trigger_num/i") ;
+  tree->Branch("trigger_data_input_status_bits",          &trigger_data_input_status_bits,        "trigger_data_input_status_bits/i") ;
+  tree->Branch("track_left_near_thx",                     &left_near.thx,                         "track_left_near_thx/D") ;
+  tree->Branch("track_left_near_thy",                     &left_near.thy,                         "track_left_near_thy/D") ;
+  tree->Branch("track_left_near_uPlanesOn",               &left_near.uPlanesOn,                   "track_left_near_uPlanesOn/i") ;
+  tree->Branch("track_left_near_vPlanesOn",               &left_near.vPlanesOn,                   "track_left_near_vPlanesOn/i") ;
+  tree->Branch("track_left_far_thx",                      &left_far.thx,                          "track_left_far_thx/D") ;
+  tree->Branch("track_left_far_thy",                      &left_far.thy,                          "track_left_far_thy/D") ;
+  tree->Branch("track_left_far_uPlanesOn",                &left_far.uPlanesOn,                    "track_left_far_uPlanesOn/i") ;
+  tree->Branch("track_left_far_vPlanesOn",                &left_far.vPlanesOn,                    "track_left_far_vPlanesOn/i") ;
+  tree->Branch("track_right_near_thx",                    &right_near.thx,                        "track_right_near_thx/D") ;
+  tree->Branch("track_right_near_thy",                    &right_near.thy,                        "track_right_near_thy/D") ;
+  tree->Branch("track_right_near_uPlanesOn",              &right_near.uPlanesOn,                  "track_right_near_uPlanesOn/i") ;
+  tree->Branch("track_right_near_vPlanesOn",              &right_near.vPlanesOn,                  "track_right_near_vPlanesOn/i") ;
+  tree->Branch("track_right_far_thx",                     &right_far.thx,                         "track_right_far_thx/D") ;
+  tree->Branch("track_right_far_thy",                     &right_far.thy,                         "track_right_far_thy/D") ;
+  tree->Branch("track_right_far_uPlanesOn",               &right_far.uPlanesOn,                   "track_right_far_uPlanesOn/i") ;
+  tree->Branch("track_right_far_vPlanesOn",               &right_far.vPlanesOn,                   "track_right_far_vPlanesOn/i") ;
+  tree->Branch("track_left_near_horizontal_valid",        &left_near_horizontal.validity,         "track_left_near_horizontal_valid/O") ;
+  tree->Branch("track_left_near_horizontal_x",            &left_near_horizontal.x,                "track_left_near_horizontal_x/D") ;
+  tree->Branch("track_left_near_horizontal_y",            &left_near_horizontal.y,                "track_left_near_horizontal_y/D") ;
+  tree->Branch("track_left_near_horizontal_thx",          &left_near_horizontal.thx,              "track_left_near_horizontal_thx/D") ;
+  tree->Branch("track_left_near_horizontal_thy",          &left_near_horizontal.thy,              "track_left_near_horizontal_thy/D") ;
+  tree->Branch("track_left_far_horizontal_valid",         &left_far_horizontal.validity,          "track_left_far_horizontal_valid/O") ;
+  tree->Branch("track_left_far_horizontal_x",             &left_far_horizontal.x,                 "track_left_far_horizontal_x/D") ;
+  tree->Branch("track_left_far_horizontal_y",             &left_far_horizontal.y,                 "track_left_far_horizontal_y/D") ;
+  tree->Branch("track_left_far_horizontal_thx",           &left_far_horizontal.thx,               "track_left_far_horizontal_thx/D") ;
+  tree->Branch("track_left_far_horizontal_thy",           &left_far_horizontal.thy,               "track_left_far_horizontal_thy/D") ;
+  tree->Branch("track_right_near_horizontal_valid",       &right_near_horizontal.validity,        "track_right_near_horizontal_valid/O") ;
+  tree->Branch("track_right_near_horizontal_x",           &right_near_horizontal.x,               "track_right_near_horizontal_x/D") ;
+  tree->Branch("track_right_near_horizontal_y",           &right_near_horizontal.y,               "track_right_near_horizontal_y/D") ;
+  tree->Branch("track_right_near_horizontal_thx",         &right_near_horizontal.thx,             "track_right_near_horizontal_thx/D") ;
+  tree->Branch("track_right_near_horizontal_thy",         &right_near_horizontal.thy,             "track_right_near_horizontal_thy/D") ;
+  tree->Branch("track_right_far_horizontal_valid",        &right_far_horizontal.validity,         "track_right_far_horizontal_valid/O") ;
+  tree->Branch("track_right_far_horizontal_x",            &right_far_horizontal.x,                "track_right_far_horizontal_x/D") ;
+  tree->Branch("track_right_far_horizontal_y",            &right_far_horizontal.y,                "track_right_far_horizontal_y/D") ;
+  tree->Branch("track_right_far_horizontal_thx",          &right_far_horizontal.thx,              "track_right_far_horizontal_thx/D") ;
+  tree->Branch("track_right_far_horizontal_thy",          &right_far_horizontal.thy,              "track_right_far_horizontal_thy/D") ;
 
 }
 
