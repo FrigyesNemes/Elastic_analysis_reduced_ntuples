@@ -36,7 +36,7 @@ process.source = cms.Source("PoolSource",
 
 process.analyzer = cms.EDAnalyzer("ElasticAnalyzer",
   tracks = cms.untracked.InputTag('ctppsLocalTrackLiteProducer'),
-
+  diagonal = cms.string("LBRT"),
   outputFileName = cms.string("output.root")
 )
 

@@ -94,6 +94,7 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
 
   edm::EDGetTokenT<std::vector<CTPPSLocalTrackLite>> tracksToken_;  //used to select what tracks to read from configuration file
 
+  std::string diagonal;  
   std::string outputFileName;  
 
   map<string, TH2F*> histosTH2F;
@@ -120,10 +121,9 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
 };
 
 ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) : tracksToken_(consumes<std::vector<CTPPSLocalTrackLite>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks"))),
-  outputFileName(iConfig.getParameter<std::string>("outputFileName"))
+  diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName"))
 {
 }
-
 
 ElasticAnalyzer::~ElasticAnalyzer()
 {
@@ -153,46 +153,88 @@ void ElasticAnalyzer::clear_variables()
 void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
   using namespace edm;
+
+	cout << "Eventinfo " << iEvent.run() << " " <<  iEvent.id() << endl ;
   
   clear_variables() ;
+
+  bool rp_valid_004 = false;
+  bool rp_valid_005 = false;
+  bool rp_valid_024 = false;
+  bool rp_valid_025 = false;
+
+  bool rp_valid_104 = false;
+  bool rp_valid_105 = false;
+  bool rp_valid_124 = false;
+  bool rp_valid_125 = false;
   
   for(const auto& track : iEvent.get(tracksToken_) )
   {
     CTPPSDetId rpId(track.getRPId());
     unsigned int rpDecId = (100*rpId.arm()) + (10*rpId.station()) + (1*rpId.rp());
+    
+    // if(2,3,22,23)
+    
+    if((rpId.rp() == 2) || (rpId.rp() == 3))
+    {
+      cout << "a_horizontal " << rpId.rp() << " " << rpId.arm() << " " << rpId.station() << endl ;
+    }
 
+    if(diagonal.compare("LBRT") == 0)
+    {
+      if(rpDecId ==  25)
+      {
+        rp_valid_025 = true;
 
-    if(rpDecId ==  25)
-    {
-      left_far.x = track.getX() ;
-      left_far.y = track.getY() ;
+        left_far.validity = kTRUE ;
+        left_far.x = track.getX() ;
+        left_far.y = track.getY() ;
+      }
+      else if(rpDecId ==   5)
+      {
+        rp_valid_005 = true;
+
+        left_near.validity = kTRUE ;
+        left_near.x = track.getX() ;
+        left_near.y = track.getY() ;
+      }
+      else if(rpDecId == 104)
+      {
+        rp_valid_104 = true;
+
+        right_near.validity = kTRUE ;
+        right_near.x = track.getX() ;
+        right_near.y = track.getY() ;
+      }
+      else if(rpDecId == 124)
+      {
+        rp_valid_124 = true;
+
+        right_far.validity = kTRUE ;
+        right_far.x = track.getX() ;
+        right_far.y = track.getY() ;
+      }
+      else
+      {
+        cout << "Unknown rpDecId " << rpDecId << endl ;
+      }
     }
-    else if(rpDecId ==   5)
+    else if(diagonal.compare("LTRB") == 0)
     {
-      left_near.x = track.getX() ;
-      left_near.y = track.getY() ;
-    }
-    else if(rpDecId == 104)
-    {
-      right_near.x = track.getX() ;
-      right_near.y = track.getY() ;
-    }
-    else if(rpDecId == 124)
-    {
-      right_far.x = track.getX() ;
-      right_far.y = track.getY() ;
     }
     else
     {
-      cout << "Unknown rpDecId " << rpDecId << endl ;
+      cout << "Unknown diagonal: " << diagonal << endl ;
+      exit(1) ;
     }
-    
-    histosTH2F["scatter_plot_xy"]->Fill(right_far.x, right_far.y) ;
-    
-    tree->Fill() ;
-
-    cout << rpDecId << " " << right_far.x << " " << right_far.y << endl ;
   }
+  
+  if(rp_valid_025 && rp_valid_005 && rp_valid_104 && rp_valid_124)
+  {
+    cout << "left_bottom_right_top" << endl ;
+    tree->Fill() ;  
+  }
+
 }
 
 
