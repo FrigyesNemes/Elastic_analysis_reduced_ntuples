@@ -221,6 +221,42 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     }
     else if(diagonal.compare("LTRB") == 0)
     {
+      if(rpDecId ==  24)
+      {
+        rp_valid_024 = true;
+
+        left_far.validity = kTRUE ;
+        left_far.x = track.getX() ;
+        left_far.y = track.getY() ;
+      }
+      else if(rpDecId ==   4)
+      {
+        rp_valid_004 = true;
+
+        left_near.validity = kTRUE ;
+        left_near.x = track.getX() ;
+        left_near.y = track.getY() ;
+      }
+      else if(rpDecId == 105)
+      {
+        rp_valid_105 = true;
+
+        right_near.validity = kTRUE ;
+        right_near.x = track.getX() ;
+        right_near.y = track.getY() ;
+      }
+      else if(rpDecId == 125)
+      {
+        rp_valid_125 = true;
+
+        right_far.validity = kTRUE ;
+        right_far.x = track.getX() ;
+        right_far.y = track.getY() ;
+      }
+      else
+      {
+        cout << "Unknown rpDecId " << rpDecId << endl ;
+      }
     }
     else
     {
@@ -232,6 +268,12 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   if(rp_valid_025 && rp_valid_005 && rp_valid_104 && rp_valid_124)
   {
     cout << "left_bottom_right_top" << endl ;
+    tree->Fill() ;  
+  }
+
+  if(rp_valid_024 && rp_valid_004 && rp_valid_105 && rp_valid_125)
+  {
+    cout << "left_top_right_bottom" << endl ;
     tree->Fill() ;  
   }
 
