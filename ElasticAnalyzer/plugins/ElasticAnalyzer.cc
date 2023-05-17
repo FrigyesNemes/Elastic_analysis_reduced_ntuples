@@ -92,6 +92,8 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
   
   virtual void clear_variables() ;
 
+  int verbosity;
+
   edm::EDGetTokenT<std::vector<CTPPSLocalTrackLite>> tracksToken_;  //used to select what tracks to read from configuration file
 
   std::string diagonal;  
@@ -120,7 +122,8 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
   TTree *tree ;
 };
 
-ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) : tracksToken_(consumes<std::vector<CTPPSLocalTrackLite>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks"))),
+ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(iConfig.getUntrackedParameter<int>("verbosity")),
+  tracksToken_(consumes<std::vector<CTPPSLocalTrackLite>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks"))),
   diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName"))
 {
 }
@@ -154,7 +157,14 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 {
   using namespace edm;
 
-	cout << "Eventinfo " << iEvent.run() << " " <<  iEvent.id() << endl ;
+  EventNumber_t event_number = iEvent.id().event() ;
+  RunNumber_t run_number = iEvent.run() ;
+
+
+	if(verbosity > 0)
+  {
+    cout << "Eventinfo " << run_number << " " << event_number << " (" <<  iEvent.id() << ")" << endl ;
+  }
   
   clear_variables() ;
 
@@ -168,6 +178,13 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   bool rp_valid_124 = false;
   bool rp_valid_125 = false;
   
+  event_info_timestamp = iEvent.time().unixTime();
+  trigger_data_run_num = run_number ;
+  trigger_data_bunch_num = iEvent.bunchCrossing();
+  trigger_data_event_num = event_number ;
+  trigger_data_trigger_num = 0 ;
+  trigger_data_input_status_bits = 0 ;
+
   for(const auto& track : iEvent.get(tracksToken_) )
   {
     CTPPSDetId rpId(track.getRPId());
@@ -177,8 +194,10 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     
     if((rpId.rp() == 2) || (rpId.rp() == 3))
     {
-      cout << "a_horizontal " << rpId.rp() << " " << rpId.arm() << " " << rpId.station() << endl ;
+      if(verbosity > 1) cout << "a_horizontal " << rpId.rp() << " " << rpId.arm() << " " << rpId.station() << endl ;
     }
+    
+    if(verbosity > 1) cout << "time: " << track.getTime() << endl ;
 
     if(diagonal.compare("LBRT") == 0)
     {
@@ -216,7 +235,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       }
       else
       {
-        cout << "Unknown rpDecId " << rpDecId << endl ;
+        if(verbosity > 1) cout << "Info: not in diagonal " << diagonal << " " << rpDecId << endl ;
       }
     }
     else if(diagonal.compare("LTRB") == 0)
@@ -255,7 +274,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       }
       else
       {
-        cout << "Unknown rpDecId " << rpDecId << endl ;
+        if(verbosity > 1)  cout << "Info: not in diagonal " << diagonal << " " << rpDecId << endl ;
       }
     }
     else
@@ -267,13 +286,13 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   
   if(rp_valid_025 && rp_valid_005 && rp_valid_104 && rp_valid_124)
   {
-    cout << "left_bottom_right_top" << endl ;
+    if(verbosity > 1) cout << "left_bottom_right_top" << endl ;
     tree->Fill() ;  
   }
 
   if(rp_valid_024 && rp_valid_004 && rp_valid_105 && rp_valid_125)
   {
-    cout << "left_top_right_bottom" << endl ;
+    if(verbosity > 1) cout << "left_top_right_bottom" << endl ;
     tree->Fill() ;  
   }
 
@@ -285,6 +304,13 @@ void ElasticAnalyzer::beginJob()
   histosTH2F["scatter_plot_xy"] = new TH2F("scatter_plot_xy", "scatter_plot_xy" , 100, -40.0, 40.0, 100, -40.0, 40.0);
   
   tree = new TTree("TReducedNtuple", "TReducedNtuple") ;  
+
+  tree->Branch("event_info_timestamp",                    &event_info_timestamp,                  "event_info_timestamp/l") ;
+  tree->Branch("trigger_data_run_num",                    &trigger_data_run_num,                  "trigger_data_run_num/i") ;
+  tree->Branch("trigger_data_bunch_num",                  &trigger_data_bunch_num,                "trigger_data_bunch_num/i") ;
+  tree->Branch("trigger_data_event_num",                  &trigger_data_event_num,                "trigger_data_event_num/i") ;
+  tree->Branch("trigger_data_trigger_num",                &trigger_data_trigger_num,              "trigger_data_trigger_num/i") ;
+  tree->Branch("trigger_data_input_status_bits",          &trigger_data_input_status_bits,        "trigger_data_input_status_bits/i") ;
 
   tree->Branch("track_right_far_valid", &right_far.validity,  "track_right_far_valid/O") ;
   tree->Branch("track_right_far_x",     &right_far.x,         "track_right_far_x/D") ;
@@ -302,12 +328,6 @@ void ElasticAnalyzer::beginJob()
   tree->Branch("track_left_near_x",     &left_near.x,         "track_left_near_x/D") ;
   tree->Branch("track_left_near_y",     &left_near.y,         "track_left_near_y/D") ;
 
-  tree->Branch("event_info_timestamp",                    &event_info_timestamp,                  "event_info_timestamp/l") ;
-  tree->Branch("trigger_data_run_num",                    &trigger_data_run_num,                  "trigger_data_run_num/i") ;
-  tree->Branch("trigger_data_bunch_num",                  &trigger_data_bunch_num,                "trigger_data_bunch_num/i") ;
-  tree->Branch("trigger_data_event_num",                  &trigger_data_event_num,                "trigger_data_event_num/i") ;
-  tree->Branch("trigger_data_trigger_num",                &trigger_data_trigger_num,              "trigger_data_trigger_num/i") ;
-  tree->Branch("trigger_data_input_status_bits",          &trigger_data_input_status_bits,        "trigger_data_input_status_bits/i") ;
   tree->Branch("track_left_near_thx",                     &left_near.thx,                         "track_left_near_thx/D") ;
   tree->Branch("track_left_near_thy",                     &left_near.thy,                         "track_left_near_thy/D") ;
   tree->Branch("track_left_near_uPlanesOn",               &left_near.uPlanesOn,                   "track_left_near_uPlanesOn/i") ;
