@@ -204,24 +204,32 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       left_far_horizontal.validity = kTRUE ;
       left_far_horizontal.x = track.getX() ;
       left_far_horizontal.y = track.getY() ;
+      left_far_horizontal.thx = track.getTx() ;
+      left_far_horizontal.thy = track.getTy() ;
     }
     else if(rpDecId == 003)
     {
       left_near_horizontal.validity = kTRUE ;
       left_near_horizontal.x = track.getX() ;
       left_near_horizontal.y = track.getY() ;
+      left_near_horizontal.thx = track.getTx() ;
+      left_near_horizontal.thy = track.getTy() ;
     }
     else if(rpDecId == 103)
     {
       right_near_horizontal.validity = kTRUE ;
       right_near_horizontal.x = track.getX() ;
       right_near_horizontal.y = track.getY() ;
+      right_near_horizontal.thx = track.getTx() ;
+      right_near_horizontal.thy = track.getTy() ;
     }
     else if(rpDecId == 123)
     {
       right_far_horizontal.validity = kTRUE ;
       right_far_horizontal.x = track.getX() ;
       right_far_horizontal.y = track.getY() ;
+      right_far_horizontal.thx = track.getTx() ;
+      right_far_horizontal.thy = track.getTy() ;
     }
     else
     {
