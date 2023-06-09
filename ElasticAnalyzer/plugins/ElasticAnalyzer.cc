@@ -194,10 +194,39 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     
     if((rpId.rp() == 2) || (rpId.rp() == 3))
     {
-      if(verbosity > 1) cout << "a_horizontal " << rpId.rp() << " " << rpId.arm() << " " << rpId.station() << endl ;
+      if(verbosity > 1) cout << "a_horizontal " << rpDecId << " " << rpId.rp() << " " << rpId.arm() << " " << rpId.station() << endl ;
     }
     
     if(verbosity > 1) cout << "time: " << track.getTime() << endl ;
+
+    if(rpDecId ==  23)
+    {
+      left_far_horizontal.validity = kTRUE ;
+      left_far_horizontal.x = track.getX() ;
+      left_far_horizontal.y = track.getY() ;
+    }
+    else if(rpDecId == 003)
+    {
+      left_near_horizontal.validity = kTRUE ;
+      left_near_horizontal.x = track.getX() ;
+      left_near_horizontal.y = track.getY() ;
+    }
+    else if(rpDecId == 103)
+    {
+      right_near_horizontal.validity = kTRUE ;
+      right_near_horizontal.x = track.getX() ;
+      right_near_horizontal.y = track.getY() ;
+    }
+    else if(rpDecId == 123)
+    {
+      right_far_horizontal.validity = kTRUE ;
+      right_far_horizontal.x = track.getX() ;
+      right_far_horizontal.y = track.getY() ;
+    }
+    else
+    {
+      if(verbosity > 1 && ((rpId.rp() == 2) || (rpId.rp() == 3))) cout << "Info: horizontal not in code" << rpDecId << endl ;
+    }
 
     if(diagonal.compare("LBRT") == 0)
     {
@@ -296,12 +325,38 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     tree->Fill() ;  
   }
 
+
+  for(const auto& track : iEvent.get(tracksToken_) )
+  {
+    CTPPSDetId rpId(track.getRPId());
+    unsigned int rpDecId = (100*rpId.arm()) + (10*rpId.station()) + (1*rpId.rp());
+
+    histosTH2F["scatter_plot_xy"]->Fill(track.getX(), track.getY()) ;
+
+    stringstream ss ;
+    ss << rpDecId ;
+
+    histosTH2F[("scatter_plot_xy_" + ss.str()).c_str()]->Fill(track.getX(), track.getY()) ;
+  }
+
 }
 
 
 void ElasticAnalyzer::beginJob()
 {
+
+  vector<int> RP_numbers = {3, 4, 5, 23, 24, 25, 103, 104, 105, 123, 124, 125} ;
   histosTH2F["scatter_plot_xy"] = new TH2F("scatter_plot_xy", "scatter_plot_xy" , 100, -40.0, 40.0, 100, -40.0, 40.0);
+
+  for(unsigned int i = 0 ; i < RP_numbers.size() ; ++i)
+  {
+    stringstream ss ;
+    ss << RP_numbers[i] ;
+
+    string name = "scatter_plot_xy_" + ss.str() ;
+
+    histosTH2F[name] = new TH2F(name.c_str(), name.c_str(), 100, -40.0, 40.0, 100, -40.0, 40.0);
+  }
   
   tree = new TTree("TReducedNtuple", "TReducedNtuple") ;  
 
@@ -371,7 +426,7 @@ void ElasticAnalyzer::endJob()
 {
   TFile * f_out = TFile::Open(outputFileName.c_str(), "RECREATE");
 
-  // for (const auto &p : histosTH2F) p.second->Write(p.first.c_str());
+  for (const auto &p : histosTH2F) p.second->Write(p.first.c_str());
 
   tree->Write() ;
 
