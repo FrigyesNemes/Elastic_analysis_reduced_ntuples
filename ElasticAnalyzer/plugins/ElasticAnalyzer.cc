@@ -245,6 +245,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         left_far.validity = kTRUE ;
         left_far.x = track.getX() ;
         left_far.y = track.getY() ;
+        left_far.thx = track.getTx() ;
+        left_far.thy = track.getTy() ;
       }
       else if(rpDecId ==   5)
       {
@@ -253,6 +255,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         left_near.validity = kTRUE ;
         left_near.x = track.getX() ;
         left_near.y = track.getY() ;
+        left_near.thx = track.getTx() ;
+        left_near.thy = track.getTy() ;
       }
       else if(rpDecId == 104)
       {
@@ -261,6 +265,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         right_near.validity = kTRUE ;
         right_near.x = track.getX() ;
         right_near.y = track.getY() ;
+        right_near.thx = track.getTx() ;
+        right_near.thy = track.getTy() ;
       }
       else if(rpDecId == 124)
       {
@@ -269,6 +275,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         right_far.validity = kTRUE ;
         right_far.x = track.getX() ;
         right_far.y = track.getY() ;
+        right_far.thx = track.getTx() ;
+        right_far.thy = track.getTy() ;
       }
       else
       {
@@ -284,6 +292,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         left_far.validity = kTRUE ;
         left_far.x = track.getX() ;
         left_far.y = track.getY() ;
+        left_far.thx = track.getTx() ;
+        left_far.thy = track.getTy() ;
       }
       else if(rpDecId ==   4)
       {
@@ -292,6 +302,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         left_near.validity = kTRUE ;
         left_near.x = track.getX() ;
         left_near.y = track.getY() ;
+        left_near.thx = track.getTx() ;
+        left_near.thy = track.getTy() ;
       }
       else if(rpDecId == 105)
       {
@@ -300,6 +312,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         right_near.validity = kTRUE ;
         right_near.x = track.getX() ;
         right_near.y = track.getY() ;
+        right_near.thx = track.getTx() ;
+        right_near.thy = track.getTy() ;
       }
       else if(rpDecId == 125)
       {
@@ -308,6 +322,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         right_far.validity = kTRUE ;
         right_far.x = track.getX() ;
         right_far.y = track.getY() ;
+        right_far.thx = track.getTx() ;
+        right_far.thy = track.getTy() ;
       }
       else
       {
