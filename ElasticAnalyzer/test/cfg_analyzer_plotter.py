@@ -27,8 +27,8 @@ process.maxEvents = cms.untracked.PSet(
 
 process.source = cms.Source("PoolSource",
   fileNames = cms.untracked.vstring(
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/Totem1/version3/run_324536.1_re_reco_Totem1.root",
 #"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/Totem1/version5/run_324536.1_re_reco_Totem1.root",
-"root://eostotem//eos/totem/data/offline/2018/450GeV/beta11/Totem1/version5/run_324575.0_re_reco_Totem1.root",
 #"root://eostotem.cern.ch///eos/totem/data/offline/2018/450GeV/beta100/Totem1/version5/run_324458.1_re_reco_Totem1.root",
 #"root://eostotem.cern.ch///eos/totem/data/offline/2018/450GeV/beta100/Totem1/version5/run_324530.2_re_reco_Totem1.root",
 )
@@ -37,7 +37,7 @@ process.source = cms.Source("PoolSource",
 
 process.analyzer = cms.EDAnalyzer("ElasticAnalyzer",
   verbosity = cms.untracked.int32(1),
-  diagonal = cms.string("LBRT"),
+  diagonal = cms.string("LTRB"),
   tracks = cms.untracked.InputTag('ctppsLocalTrackLiteProducer'),
   outputFileName = cms.string("output.root")
 )
