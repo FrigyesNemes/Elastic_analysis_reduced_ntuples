@@ -41,6 +41,8 @@ using namespace std;
 
 struct RP_struct_type
 {
+  unsigned int rpDecId ;
+
 	Bool_t		validity ;
 
 	Double_t	x ;
@@ -64,6 +66,7 @@ RP_struct_type::RP_struct_type()
 
 void RP_struct_type::clear_variables()
 {
+  rpDecId = 0 ;
   validity = kFALSE ;
 
   x = 0 ;
@@ -349,11 +352,15 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     tree->Fill() ;  
   }
 
+  map <int, int> map_RPids_occurance_in_event ;
+  map<unsigned int, RP_struct_type> map_RPs ;
 
   for(const auto& track : iEvent.get(tracksToken_) )
   {
     CTPPSDetId rpId(track.getRPId());
     unsigned int rpDecId = (100*rpId.arm()) + (10*rpId.station()) + (1*rpId.rp());
+
+    map_RPids_occurance_in_event[rpDecId]++;
 
     histosTH2F["scatter_plot_xy"]->Fill(track.getX(), track.getY()) ;
 
@@ -361,6 +368,62 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     ss << rpDecId ;
 
     histosTH2F[("scatter_plot_xy_" + ss.str()).c_str()]->Fill(track.getX(), track.getY()) ;
+
+    RP_struct_type my_RP_struct ;
+
+    my_RP_struct.validity = kTRUE ;
+    my_RP_struct.rpDecId = rpDecId ;
+    my_RP_struct.x = track.getX() ;
+    my_RP_struct.y = track.getY() ;
+    my_RP_struct.thx = track.getTx() ;
+    my_RP_struct.thy = track.getTy() ;
+    
+    map_RPs[rpDecId] = my_RP_struct ;
+    
+  }
+
+  for(map <int, int>::iterator it = map_RPids_occurance_in_event.begin() ; it != map_RPids_occurance_in_event.end() ; ++it)
+  for(map <int, int>::iterator it2 = map_RPids_occurance_in_event.begin() ; it2 != map_RPids_occurance_in_event.end() ; ++it2)
+  {
+    histosTH2F["RP_correlation"]->Fill(it->first, it2->first) ;
+  }
+
+  for(map<unsigned int, RP_struct_type>::iterator it = map_RPs.begin() ; it != map_RPs.end() ; ++it)
+  for(map<unsigned int, RP_struct_type>::iterator it2 = it ; it2 != map_RPs.end() ; ++it2)
+  {
+    if(it == it2) continue ;
+
+    unsigned int rpDecId1 = it->first ;
+    unsigned int rpDecId2 = it2->first ;
+
+    if(rpDecId1 > rpDecId2)
+    {
+      cout << "strange " << iEvent.id() << endl ;
+    }
+
+    if((rpDecId1 == 4) && (rpDecId2 == 24))
+    {
+      histosTH2F["diff_x_vs_dx_24_4_vs_4"]->Fill(it->second.x, (it2->second.x - it->second.x)) ;
+      histosTH2F["diff_x_vs_dx_24_4_vs_24"]->Fill(it2->second.x, (it2->second.x - it->second.x)) ;
+    }
+
+    if((rpDecId1 == 5) && (rpDecId2 == 25))
+    {
+      histosTH2F["diff_x_vs_dx_25_5_vs_5"]->Fill(it->second.x, (it2->second.x - it->second.x)) ;
+      histosTH2F["diff_x_vs_dx_25_5_vs_25"]->Fill(it2->second.x, (it2->second.x - it->second.x)) ;
+    }
+
+    if((rpDecId1 == 104) && (rpDecId2 == 124))
+    {
+      histosTH2F["diff_x_vs_dx_124_104_vs_104"]->Fill(it->second.x, (it2->second.x - it->second.x)) ;
+      histosTH2F["diff_x_vs_dx_124_104_vs_124"]->Fill(it2->second.x, (it2->second.x - it->second.x)) ;
+    }
+
+    if((rpDecId1 == 105) && (rpDecId2 == 125))
+    {
+      histosTH2F["diff_x_vs_dx_125_105_vs_105"]->Fill(it->second.x, (it2->second.x - it->second.x)) ;
+      histosTH2F["diff_x_vs_dx_125_105_vs_125"]->Fill(it2->second.x, (it2->second.x - it->second.x)) ;
+    }
   }
 
 }
@@ -370,7 +433,22 @@ void ElasticAnalyzer::beginJob()
 {
 
   vector<int> RP_numbers = {3, 4, 5, 23, 24, 25, 103, 104, 105, 123, 124, 125} ;
+
+  histosTH2F["RP_correlation"] = new TH2F("RP_correlation", "RP_correlation" , (125 - 3) + 1, 3, 125, (125 - 3) + 1, 3, 125);
+  histosTH2F["RP_covariance"] = new TH2F("RP_covariance", "RP_covariance" , (125 - 3) + 1, 3, 125, (125 - 3) + 1, 3, 125);
   histosTH2F["scatter_plot_xy"] = new TH2F("scatter_plot_xy", "scatter_plot_xy" , 100, -40.0, 40.0, 100, -40.0, 40.0);
+
+  histosTH2F["diff_x_vs_dx_24_4_vs_4"] = new TH2F("diff_x_vs_dx_24_4_vs_4", "diff_x_vs_dx_24_4_vs_4" , 100, -40.0, 40.0, 100, -40.0, 40.0);
+  histosTH2F["diff_x_vs_dx_24_4_vs_24"] = new TH2F("diff_x_vs_dx_24_4_vs_24", "diff_x_vs_dx_24_4_vs_24" , 100, -40.0, 40.0, 100, -40.0, 40.0);
+
+  histosTH2F["diff_x_vs_dx_25_5_vs_5"] = new TH2F("diff_x_vs_dx_25_5_vs_5", "diff_x_vs_dx_25_5_vs_5" , 100, -40.0, 40.0, 100, -40.0, 40.0);
+  histosTH2F["diff_x_vs_dx_25_5_vs_25"] = new TH2F("diff_x_vs_dx_25_5_vs_25", "diff_x_vs_dx_25_5_vs_25" , 100, -40.0, 40.0, 100, -40.0, 40.0);
+
+  histosTH2F["diff_x_vs_dx_124_104_vs_104"] = new TH2F("diff_x_vs_dx_124_104_vs_104", "diff_x_vs_dx_124_104_vs_104" , 100, -40.0, 40.0, 100, -40.0, 40.0);
+  histosTH2F["diff_x_vs_dx_124_104_vs_124"] = new TH2F("diff_x_vs_dx_124_104_vs_124", "diff_x_vs_dx_124_104_vs_124" , 100, -40.0, 40.0, 100, -40.0, 40.0);
+
+  histosTH2F["diff_x_vs_dx_125_105_vs_105"] = new TH2F("diff_x_vs_dx_125_105_vs_105", "diff_x_vs_dx_125_105_vs_105" , 100, -40.0, 40.0, 100, -40.0, 40.0);
+  histosTH2F["diff_x_vs_dx_125_105_vs_125"] = new TH2F("diff_x_vs_dx_125_105_vs_125", "diff_x_vs_dx_125_105_vs_125" , 100, -40.0, 40.0, 100, -40.0, 40.0);
 
   for(unsigned int i = 0 ; i < RP_numbers.size() ; ++i)
   {
@@ -394,33 +472,33 @@ void ElasticAnalyzer::beginJob()
   tree->Branch("track_right_far_valid", &right_far.validity,  "track_right_far_valid/O") ;
   tree->Branch("track_right_far_x",     &right_far.x,         "track_right_far_x/D") ;
   tree->Branch("track_right_far_y",     &right_far.y,         "track_right_far_y/D") ;
+  tree->Branch("track_right_far_thx",   &right_far.thx,        "track_right_far_thx/D") ;
+  tree->Branch("track_right_far_thy",   &right_far.thy,        "track_right_far_thy/D") ;
 
   tree->Branch("track_left_far_valid",  &left_far.validity,   "track_left_far_valid/O") ;
   tree->Branch("track_left_far_x",      &left_far.x,          "track_left_far_x/D") ;
   tree->Branch("track_left_far_y",      &left_far.y,          "track_left_far_y/D") ;
+  tree->Branch("track_left_far_thx",    &left_far.thx,        "track_left_far_thx/D") ;
+  tree->Branch("track_left_far_thy",    &left_far.thy,        "track_left_far_thy/D") ;
 
   tree->Branch("track_right_near_valid",&right_near.validity, "track_right_near_valid/O") ;
   tree->Branch("track_right_near_x",    &right_near.x,        "track_right_near_x/D") ;
   tree->Branch("track_right_near_y",    &right_near.y,        "track_right_near_y/D") ;
+  tree->Branch("track_right_near_thx",  &right_near.thx,      "track_right_near_thx/D") ;
+  tree->Branch("track_right_near_thy",  &right_near.thy,      "track_right_near_thy/D") ;
 
   tree->Branch("track_left_near_valid", &left_near.validity,  "track_left_near_valid/O") ;
   tree->Branch("track_left_near_x",     &left_near.x,         "track_left_near_x/D") ;
   tree->Branch("track_left_near_y",     &left_near.y,         "track_left_near_y/D") ;
+  tree->Branch("track_left_near_thx",   &left_near.thx,       "track_left_near_thx/D") ;
+  tree->Branch("track_left_near_thy",   &left_near.thy,       "track_left_near_thy/D") ;
 
-  tree->Branch("track_left_near_thx",                     &left_near.thx,                         "track_left_near_thx/D") ;
-  tree->Branch("track_left_near_thy",                     &left_near.thy,                         "track_left_near_thy/D") ;
   tree->Branch("track_left_near_uPlanesOn",               &left_near.uPlanesOn,                   "track_left_near_uPlanesOn/i") ;
   tree->Branch("track_left_near_vPlanesOn",               &left_near.vPlanesOn,                   "track_left_near_vPlanesOn/i") ;
-  tree->Branch("track_left_far_thx",                      &left_far.thx,                          "track_left_far_thx/D") ;
-  tree->Branch("track_left_far_thy",                      &left_far.thy,                          "track_left_far_thy/D") ;
   tree->Branch("track_left_far_uPlanesOn",                &left_far.uPlanesOn,                    "track_left_far_uPlanesOn/i") ;
   tree->Branch("track_left_far_vPlanesOn",                &left_far.vPlanesOn,                    "track_left_far_vPlanesOn/i") ;
-  tree->Branch("track_right_near_thx",                    &right_near.thx,                        "track_right_near_thx/D") ;
-  tree->Branch("track_right_near_thy",                    &right_near.thy,                        "track_right_near_thy/D") ;
   tree->Branch("track_right_near_uPlanesOn",              &right_near.uPlanesOn,                  "track_right_near_uPlanesOn/i") ;
   tree->Branch("track_right_near_vPlanesOn",              &right_near.vPlanesOn,                  "track_right_near_vPlanesOn/i") ;
-  tree->Branch("track_right_far_thx",                     &right_far.thx,                         "track_right_far_thx/D") ;
-  tree->Branch("track_right_far_thy",                     &right_far.thy,                         "track_right_far_thy/D") ;
   tree->Branch("track_right_far_uPlanesOn",               &right_far.uPlanesOn,                   "track_right_far_uPlanesOn/i") ;
   tree->Branch("track_right_far_vPlanesOn",               &right_far.vPlanesOn,                   "track_right_far_vPlanesOn/i") ;
   tree->Branch("track_left_near_horizontal_valid",        &left_near_horizontal.validity,         "track_left_near_horizontal_valid/O") ;
