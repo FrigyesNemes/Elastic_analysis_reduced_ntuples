@@ -189,13 +189,22 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   bool rp_valid_105 = false;
   bool rp_valid_124 = false;
   bool rp_valid_125 = false;
-  
+
   event_info_timestamp = iEvent.time().unixTime();
   trigger_data_run_num = run_number ;
   trigger_data_bunch_num = iEvent.bunchCrossing();
   trigger_data_event_num = event_number ;
   trigger_data_trigger_num = 0 ;
   trigger_data_input_status_bits = 0 ;
+
+  std::uint32_t time_date_stamp = iEvent.time().unixTime();
+  std::time_t temp = time_date_stamp;
+  std::tm* t = std::gmtime(&temp);
+  std::stringstream ss; // or if you're going to print, just input directly into the output stream
+  ss << std::put_time(t, "%Y-%m-%d %I:%M:%S %p");
+  std::string output = ss.str();
+
+  cout << iEvent.time().unixTime() << " " << output << endl ;
 
   for(const auto& track : iEvent.get(tracksToken_) )
   {
@@ -683,7 +692,6 @@ void ElasticAnalyzer::endJob()
   for (const auto &p : histosTH2F)
   {
     p.second->Write(p.first.c_str());
-    p.second->SaveAs(p.first.c_str());
   }
 
   tree->Write() ;
