@@ -1,6 +1,0 @@
-09-Jun-2023 17:46:16 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta11/Totem1/version5/run_324575.0_re_reco_Totem1.root
-%MSG-w XrdAdaptor:  file_open 09-Jun-2023 17:46:18 CEST pre-events
-Data is served from cern.ch instead of original site eoscms
-%MSG
-09-Jun-2023 17:46:19 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta11/Totem1/version5/run_324575.0_re_reco_Totem1.root
-09-Jun-2023 17:46:27 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta11/Totem1/version5/run_324575.0_re_reco_Totem1.root
