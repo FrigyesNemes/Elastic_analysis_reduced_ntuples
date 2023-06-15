@@ -20,14 +20,30 @@ void make_plots()
 	filenames.push_back("dy_23_25") ;
 	filenames.push_back("dy_3_4") ;
 	filenames.push_back("dy_3_5") ;
+  
+	filenames.push_back("xy_3_if_3_4") ;
+	filenames.push_back("xy_4_if_3_4") ;
 
-	TFile *myfile = new TFile("output.root") ;
+	filenames.push_back("xy_3_if_3_5") ;
+	filenames.push_back("xy_5_if_3_5") ;
+
+	filenames.push_back("xy_103_if_103_104") ;
+	filenames.push_back("xy_104_if_103_104") ;
+
+	filenames.push_back("xy_103_if_103_105") ;
+	filenames.push_back("xy_105_if_103_105") ;
+
+	TFile *myfile = new TFile("output.root", "READ") ;
 
 	TCanvas c ;
+  
+  c.SetLogz() ;
+  // c.SetGridx() ;
+  // c.SetGridy() ;
 	
 	for(int i = 0 ; i < filenames.size() ; ++i)
 	{
-		TH1F *hist1 = (TH1F *)myfile->Get(filenames[i].c_str()) ;
+		TH2F *hist1 = (TH2F *)myfile->Get(filenames[i].c_str()) ;
 		hist1->Draw("colz") ;
 	
 		c.SaveAs(("plots/" + filenames[i] + ".pdf").c_str()) ;
