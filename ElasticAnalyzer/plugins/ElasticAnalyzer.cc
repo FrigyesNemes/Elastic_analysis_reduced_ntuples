@@ -94,6 +94,8 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
   virtual void endJob() override;
   
   virtual void clear_variables() ;
+  virtual void addLabels() ;
+  virtual void addLabels(int, int) ;
 
   int verbosity;
 
@@ -163,7 +165,7 @@ const double dx_threshold_between_vertical_and_horizontal_mm = 0.5 ;
 const double vertical_limit_mm = 0.4 ;
 
 const double horizontal_boundary_mm = 20.0 ;
-const double vertical_boundary_mm = 2.0 ;
+const double vertical_boundary_mm = 0.5 ;
 
 void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
@@ -481,7 +483,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       if(fabs(it2->second.x - it->second.x) < dx_threshold_between_vertical_and_horizontal_mm)
       {
         histosTH2F["xy_3_if_3_5"]->Fill(it->second.x, it->second.y) ;
-        histosTH2F["xy_4_if_3_5"]->Fill(it2->second.x, it2->second.y) ;
+        histosTH2F["xy_5_if_3_5"]->Fill(it2->second.x, it2->second.y) ;
       }
     }
 
@@ -536,6 +538,44 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
 }
 
+void ElasticAnalyzer::addLabels(int first, int second)
+{
+  stringstream ss1, ss2 ;
+  
+  ss1 << first ;
+  ss2 << second ;
+  
+  string name_x  = "dx_" + ss1.str() + "_" + ss2.str() ;
+  string name_y  = "dy_" + ss1.str() + "_" + ss2.str() ;
+
+  string name_xx = "x_{RP, " + ss2.str() + "} (mm)" ;
+  string name_xy = "x_{RP, " + ss2.str() + "} - x_{RP, " + ss1.str() + "} (mm)" ;
+
+  string name_yx = "y_{RP, " + ss2.str() + "} (mm)" ;
+  string name_yy = "y_{RP, " + ss2.str() + "} - y_{RP, " + ss1.str() + "} (mm)" ;
+
+  histosTH2F[name_x]->GetXaxis()->SetTitle(name_xx.c_str()) ;
+  histosTH2F[name_x]->GetYaxis()->SetTitle(name_xy.c_str()) ;
+
+  histosTH2F[name_y]->GetXaxis()->SetTitle(name_yx.c_str()) ;
+  histosTH2F[name_y]->GetYaxis()->SetTitle(name_yy.c_str()) ;
+
+}
+
+void ElasticAnalyzer::addLabels()
+{
+  addLabels(3, 4) ;
+  addLabels(3, 5) ;
+
+  addLabels(23, 24) ;
+  addLabels(23, 25) ;
+
+  addLabels(103, 104) ;
+  addLabels(103, 105) ;
+
+  addLabels(123, 124) ;
+  addLabels(123, 125) ;
+}
 
 void ElasticAnalyzer::beginJob()
 {
@@ -574,28 +614,28 @@ void ElasticAnalyzer::beginJob()
   histosTH2F["th_y_local_vs_RP"] = new TH2F("th_y_local_vs_RP", "th_y_local_vs_RP" , 100, -5.0e-4, 5.0e-4, 100, -5.0e-4, 5.0e-4);
 
   histosTH2F["dx_3_4"] = new TH2F("dx_3_4", "dx_3_4" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  histosTH2F["dy_3_4"] = new TH2F("dy_3_4", "dy_3_4" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
+  histosTH2F["dy_3_4"] = new TH2F("dy_3_4", "dy_3_4" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
 
   histosTH2F["dx_3_5"] = new TH2F("dx_3_5", "dx_3_5" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  histosTH2F["dy_3_5"] = new TH2F("dy_3_5", "dy_3_5" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
+  histosTH2F["dy_3_5"] = new TH2F("dy_3_5", "dy_3_5" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
 
   histosTH2F["dx_23_24"] = new TH2F("dx_23_24", "dx_23_24" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  histosTH2F["dy_23_24"] = new TH2F("dy_23_24", "dy_23_24" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
+  histosTH2F["dy_23_24"] = new TH2F("dy_23_24", "dy_23_24" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
 
   histosTH2F["dx_23_25"] = new TH2F("dx_23_25", "dx_23_25" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  histosTH2F["dy_23_25"] = new TH2F("dy_23_25", "dy_23_25" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
+  histosTH2F["dy_23_25"] = new TH2F("dy_23_25", "dy_23_25" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
 
   histosTH2F["dx_103_104"] = new TH2F("dx_103_104", "dx_103_104" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  histosTH2F["dy_103_104"] = new TH2F("dy_103_104", "dy_103_104" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
+  histosTH2F["dy_103_104"] = new TH2F("dy_103_104", "dy_103_104" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
 
   histosTH2F["dx_103_105"] = new TH2F("dx_103_105", "dx_103_105" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  histosTH2F["dy_103_105"] = new TH2F("dy_103_105", "dy_103_105" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
+  histosTH2F["dy_103_105"] = new TH2F("dy_103_105", "dy_103_105" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
 
   histosTH2F["dx_123_124"] = new TH2F("dx_123_124", "dx_123_124" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  histosTH2F["dy_123_124"] = new TH2F("dy_123_124", "dy_123_124" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
+  histosTH2F["dy_123_124"] = new TH2F("dy_123_124", "dy_123_124" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
 
   histosTH2F["dx_123_125"] = new TH2F("dx_123_125", "dx_123_125" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  histosTH2F["dy_123_125"] = new TH2F("dy_123_125", "dy_123_125" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
+  histosTH2F["dy_123_125"] = new TH2F("dy_123_125", "dy_123_125" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
   
   // Conditional plots
 
@@ -603,13 +643,13 @@ void ElasticAnalyzer::beginJob()
   histosTH2F["xy_4_if_3_4"] = new TH2F("xy_4_if_3_4", "xy_4_if_3_4" , 100, -20.0, 20.0, 100, -20.0, 20.0);
 
   histosTH2F["xy_3_if_3_5"] = new TH2F("xy_3_if_3_5", "xy_3_if_3_5" , 100, -20.0, 20.0, 100, -20.0, 20.0);
-  histosTH2F["xy_4_if_3_5"] = new TH2F("xy_4_if_3_5", "xy_4_if_3_5" , 100, -20.0, 20.0, 100, -20.0, 20.0);
+  histosTH2F["xy_5_if_3_5"] = new TH2F("xy_5_if_3_5", "xy_5_if_3_5" , 100, -20.0, 20.0, 100, -20.0, 20.0);
 
   histosTH2F["xy_103_if_103_104"] = new TH2F("xy_103_if_103_104", "xy_103_if_103_104" , 100, -20.0, 20.0, 100, -20.0, 20.0);
   histosTH2F["xy_104_if_103_104"] = new TH2F("xy_104_if_103_104", "xy_104_if_103_104" , 100, -20.0, 20.0, 100, -20.0, 20.0);
 
   histosTH2F["xy_103_if_103_105"] = new TH2F("xy_103_if_103_105", "xy_103_if_103_105" , 100, -20.0, 20.0, 100, -20.0, 20.0);
-  histosTH2F["xy_105_if_103_105"] = new TH2F("xy_104_if_103_105", "xy_104_if_103_105" , 100, -20.0, 20.0, 100, -20.0, 20.0);
+  histosTH2F["xy_105_if_103_105"] = new TH2F("xy_105_if_103_105", "xy_105_if_103_105" , 100, -20.0, 20.0, 100, -20.0, 20.0);
 
   for(unsigned int i = 0 ; i < RP_numbers.size() ; ++i)
   {
@@ -620,6 +660,8 @@ void ElasticAnalyzer::beginJob()
 
     histosTH2F[name] = new TH2F(name.c_str(), name.c_str(), 100, -40.0, 40.0, 100, -40.0, 40.0);
   }
+  
+  addLabels() ;
   
   tree = new TTree("TReducedNtuple", "TReducedNtuple") ;  
 
