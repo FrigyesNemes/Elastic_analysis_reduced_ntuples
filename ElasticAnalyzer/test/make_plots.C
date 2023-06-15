@@ -1,7 +1,26 @@
 
 void make_plots()
 {
+	vector<string> TH1_names ;
 	vector<string> filenames ;
+
+  TH1_names.push_back("hdx_103_104") ;
+  TH1_names.push_back("hdx_103_105") ;
+  TH1_names.push_back("hdx_123_124") ;
+  TH1_names.push_back("hdx_123_125") ;
+  TH1_names.push_back("hdx_23_24") ;
+  TH1_names.push_back("hdx_23_25") ;
+  TH1_names.push_back("hdx_3_4") ;
+  TH1_names.push_back("hdx_3_5") ;
+  TH1_names.push_back("hdy_103_104") ;
+  TH1_names.push_back("hdy_103_105") ;
+  TH1_names.push_back("hdy_123_124") ;
+  TH1_names.push_back("hdy_123_125") ;
+  TH1_names.push_back("hdy_23_24") ;
+  TH1_names.push_back("hdy_23_25") ;
+  TH1_names.push_back("hdy_3_4") ;
+  TH1_names.push_back("hdy_3_5") ;
+
 
   filenames.push_back("RP_correlation") ;
   filenames.push_back("RP_covariance") ;
@@ -71,12 +90,28 @@ void make_plots()
 
 	TFile *myfile = new TFile("output.root", "READ") ;
 
-	TCanvas c ;
+	TCanvas sum ;
   
-  c.SetLogz() ;
-  // c.SetGridx() ;
-  // c.SetGridy() ;
+	for(int i = 0 ; i < TH1_names.size() ; ++i)
+	{
+		TH1F *hist1 = (TH1F *)myfile->Get(TH1_names[i].c_str()) ;
+
+    if(TH1_names[i].substr(0,3).compare("hdx") == 0) hist1->SetLineColor(kRed) ;
+    if(TH1_names[i].substr(0,3).compare("hdy") == 0) hist1->SetLineColor(kBlue) ;
+
+		hist1->Draw(i==0? "": "same") ;
 	
+		// c.SaveAs(("plots/" + TH1_names[i] + ".pdf").c_str()) ;
+	}
+
+  sum.SaveAs("plots/sum.pdf") ;
+  sum.SaveAs("plots/sum.root") ;
+
+	TCanvas c ;
+  c.SetLogz() ;
+  c.SetGridx() ;
+  c.SetGridy() ;
+
 	for(int i = 0 ; i < filenames.size() ; ++i)
 	{
 		TH2F *hist1 = (TH2F *)myfile->Get(filenames[i].c_str()) ;

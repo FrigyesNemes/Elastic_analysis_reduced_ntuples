@@ -108,6 +108,7 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
   std::string diagonal;  
   std::string outputFileName;  
 
+  map<string, TH1F*> histosTH1F;
   map<string, TH2F*> histosTH2F;
   
   // Declaration of leaf types
@@ -188,6 +189,9 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
 
     histosTH2F[name_x]->Fill(it2->second.x, it2->second.x - it1->second.x) ;
     histosTH2F[name_y]->Fill(it2->second.y, it2->second.y - it1->second.y) ;
+
+    histosTH1F[("h" + name_x).c_str()]->Fill(it2->second.x - it1->second.x) ;
+    histosTH1F[("h" + name_y).c_str()]->Fill(it2->second.y - it1->second.y) ;
 
     if(fabs(it2->second.x - it1->second.x) < dx_threshold_between_vertical_and_horizontal_mm)
     {
@@ -584,6 +588,17 @@ void ElasticAnalyzer::addHistos()
       histosTH2F[name1] = new TH2F(name1.c_str(), name1.c_str() , 100, -20.0, 20.0, 100, -20.0, 20.0);
       histosTH2F[name2] = new TH2F(name2.c_str(), name2.c_str() , 100, -20.0, 20.0, 100, -20.0, 20.0);
 
+      string name3 = "dx_" + ss1.str() +"_" + ss2.str() ;
+      string name4 = "dy_" + ss1.str() +"_" + ss2.str() ;
+
+      string name5 = "h" + name3 ;
+      string name6 = "h" + name4 ; 
+
+      histosTH2F[name3] = new TH2F(name3.c_str(), name3.c_str() , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
+      histosTH2F[name4] = new TH2F(name4.c_str(), name4.c_str() , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
+
+      histosTH1F[name5] = new TH1F(name5.c_str(), name5.c_str() , 100, -vertical_boundary_mm, vertical_boundary_mm);
+      histosTH1F[name6] = new TH1F(name6.c_str(), name6.c_str() , 100, -vertical_boundary_mm, vertical_boundary_mm);
 
     }
   }
@@ -623,30 +638,6 @@ void ElasticAnalyzer::beginJob()
   histosTH2F["th_x_local_vs_RP"] = new TH2F("th_x_local_vs_RP", "th_x_local_vs_RP" , 100, -5.0e-4, 5.0e-4, 100, -5.0e-4, 5.0e-4);
   histosTH2F["th_y_local_vs_RP"] = new TH2F("th_y_local_vs_RP", "th_y_local_vs_RP" , 100, -5.0e-4, 5.0e-4, 100, -5.0e-4, 5.0e-4);
 
-  histosTH2F["dx_3_4"] = new TH2F("dx_3_4", "dx_3_4" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  histosTH2F["dy_3_4"] = new TH2F("dy_3_4", "dy_3_4" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-
-  histosTH2F["dx_3_5"] = new TH2F("dx_3_5", "dx_3_5" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  histosTH2F["dy_3_5"] = new TH2F("dy_3_5", "dy_3_5" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-
-  histosTH2F["dx_23_24"] = new TH2F("dx_23_24", "dx_23_24" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  histosTH2F["dy_23_24"] = new TH2F("dy_23_24", "dy_23_24" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-
-  histosTH2F["dx_23_25"] = new TH2F("dx_23_25", "dx_23_25" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  histosTH2F["dy_23_25"] = new TH2F("dy_23_25", "dy_23_25" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-
-  histosTH2F["dx_103_104"] = new TH2F("dx_103_104", "dx_103_104" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  histosTH2F["dy_103_104"] = new TH2F("dy_103_104", "dy_103_104" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-
-  histosTH2F["dx_103_105"] = new TH2F("dx_103_105", "dx_103_105" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  histosTH2F["dy_103_105"] = new TH2F("dy_103_105", "dy_103_105" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-
-  histosTH2F["dx_123_124"] = new TH2F("dx_123_124", "dx_123_124" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  histosTH2F["dy_123_124"] = new TH2F("dy_123_124", "dy_123_124" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-
-  histosTH2F["dx_123_125"] = new TH2F("dx_123_125", "dx_123_125" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  histosTH2F["dy_123_125"] = new TH2F("dy_123_125", "dy_123_125" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
-  
   addHistos() ;
   addLabels() ;
   
@@ -717,6 +708,15 @@ void ElasticAnalyzer::beginJob()
 void ElasticAnalyzer::endJob()
 {
   TFile * f_out = TFile::Open(outputFileName.c_str(), "RECREATE");
+
+  for (const auto &p : histosTH1F)
+  {
+    p.second->Write(p.first.c_str());
+    cout << "  TH1_names.push_back(\"" << p.first.c_str() << "\") ;" << endl ;
+  }
+  
+  cout << endl ;
+  cout << endl ;
 
   for (const auto &p : histosTH2F)
   {
