@@ -39,6 +39,8 @@
 
 using namespace std;
 
+vector<int> RP_numbers = {3, 4, 5, 23, 24, 25, 103, 104, 105, 123, 124, 125} ;
+
 struct RP_struct_type
 {
   unsigned int rpDecId ;
@@ -95,7 +97,9 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
   
   virtual void clear_variables() ;
   virtual void addLabels() ;
+  virtual void addHistos() ;
   virtual void addLabels(int, int) ;
+  virtual void TestDetectorPair(map<unsigned int, RP_struct_type>::iterator, map<unsigned int, RP_struct_type>::iterator, unsigned int, unsigned int) ;
 
   int verbosity;
 
@@ -166,6 +170,37 @@ const double vertical_limit_mm = 0.4 ;
 
 const double horizontal_boundary_mm = 20.0 ;
 const double vertical_boundary_mm = 0.5 ;
+
+void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterator it1, map<unsigned int, RP_struct_type>::iterator it2, unsigned int detector_1, unsigned int detector_2)
+{
+  if((it1->first == detector_1) && (it2->first == detector_2))
+  {
+    stringstream ss_1 ;
+    stringstream ss_2 ;
+
+    ss_1 << it1->first ;
+    ss_2 << it2->first ;
+
+    string name_x = "dx_" + ss_1.str() + "_" + ss_2.str() ;
+    string name_y = "dy_" + ss_1.str() + "_" + ss_2.str() ;
+    
+    // cout << name_x << " " << name_y << endl ;
+
+    histosTH2F[name_x]->Fill(it2->second.x, it2->second.x - it1->second.x) ;
+    histosTH2F[name_y]->Fill(it2->second.y, it2->second.y - it1->second.y) ;
+
+    if(fabs(it2->second.x - it1->second.x) < dx_threshold_between_vertical_and_horizontal_mm)
+    {
+      string name_x2 = "xy_" + ss_1.str() + "_if_" + ss_1.str() + "_" + ss_2.str() ;
+      string name_y2 = "xy_" + ss_2.str() + "_if_" + ss_1.str() + "_" + ss_2.str() ;
+
+      // cout << name_x2 << " " << name_y2 << endl ;
+
+      histosTH2F[name_x2]->Fill(it1->second.x, it1->second.y) ;
+      histosTH2F[name_y2]->Fill(it2->second.x, it2->second.y) ;
+    }
+  }
+}
 
 void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
@@ -462,80 +497,20 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       histosTH2F["diff_y_vs_dy_125_105_vs_105"]->Fill(it->second.y, (it2->second.y - it->second.y)) ;
       histosTH2F["diff_y_vs_dy_125_105_vs_125"]->Fill(it2->second.y, (it2->second.y - it->second.y)) ;
     }
+    
+    TestDetectorPair(it, it2, 3, 4) ;
+    TestDetectorPair(it, it2, 3, 5) ;
 
-    if((rpDecId1 == 3) && (rpDecId2 == 4) && (fabs(it2->second.y - it->second.y) < vertical_limit_mm))
-    {
-      histosTH2F["dx_3_4"]->Fill(it2->second.x, it2->second.x - it->second.x) ;
-      histosTH2F["dy_3_4"]->Fill(it2->second.y, it2->second.y - it->second.y) ;
+    TestDetectorPair(it, it2, 23, 24) ;
+    TestDetectorPair(it, it2, 23, 25) ;
 
-      if(fabs(it2->second.x - it->second.x) < dx_threshold_between_vertical_and_horizontal_mm)
-      {
-        histosTH2F["xy_3_if_3_4"]->Fill(it->second.x, it->second.y) ;
-        histosTH2F["xy_4_if_3_4"]->Fill(it2->second.x, it2->second.y) ;
-      }
-    }
+    TestDetectorPair(it, it2, 103, 104) ;
+    TestDetectorPair(it, it2, 103, 105) ;
 
-    if((rpDecId1 == 3) && (rpDecId2 == 5))
-    {
-      histosTH2F["dx_3_5"]->Fill(it2->second.x, it2->second.x - it->second.x) ;
-      histosTH2F["dy_3_5"]->Fill(it2->second.y, it2->second.y - it->second.y) ;
+    TestDetectorPair(it, it2, 123, 124) ;
+    TestDetectorPair(it, it2, 123, 125) ;
 
-      if(fabs(it2->second.x - it->second.x) < dx_threshold_between_vertical_and_horizontal_mm)
-      {
-        histosTH2F["xy_3_if_3_5"]->Fill(it->second.x, it->second.y) ;
-        histosTH2F["xy_5_if_3_5"]->Fill(it2->second.x, it2->second.y) ;
-      }
-    }
-
-    if((rpDecId1 == 23) && (rpDecId2 == 24))
-    {
-      histosTH2F["dx_23_24"]->Fill(it2->second.x, it2->second.x - it->second.x) ;
-      histosTH2F["dy_23_24"]->Fill(it2->second.y, it2->second.y - it->second.y) ;
-    }
-
-    if((rpDecId1 == 23) && (rpDecId2 == 25))
-    {
-      histosTH2F["dx_23_25"]->Fill(it2->second.x, it2->second.x - it->second.x) ;
-      histosTH2F["dy_23_25"]->Fill(it2->second.y, it2->second.y - it->second.y) ;
-    }
-
-    if((rpDecId1 == 103) && (rpDecId2 == 104))
-    {
-      histosTH2F["dx_103_104"]->Fill(it2->second.x, it2->second.x - it->second.x) ;
-      histosTH2F["dy_103_104"]->Fill(it2->second.y, it2->second.y - it->second.y) ;
-
-      if(fabs(it2->second.x - it->second.x) < dx_threshold_between_vertical_and_horizontal_mm)
-      {
-        histosTH2F["xy_103_if_103_104"]->Fill(it->second.x, it->second.y) ;
-        histosTH2F["xy_104_if_103_104"]->Fill(it2->second.x, it2->second.y) ;
-      }
-    }
-
-    if((rpDecId1 == 103) && (rpDecId2 == 105))
-    {
-      histosTH2F["dx_103_105"]->Fill(it2->second.x, it2->second.x - it->second.x) ;
-      histosTH2F["dy_103_105"]->Fill(it2->second.y, it2->second.y - it->second.y) ;
-
-      if(fabs(it2->second.x - it->second.x) < dx_threshold_between_vertical_and_horizontal_mm)
-      {
-        histosTH2F["xy_103_if_103_105"]->Fill(it->second.x, it->second.y) ;
-        histosTH2F["xy_105_if_103_105"]->Fill(it2->second.x, it2->second.y) ;
-      }
-    }
-
-    if((rpDecId1 == 123) && (rpDecId2 == 124))
-    {
-      histosTH2F["dx_123_124"]->Fill(it2->second.x, it2->second.x - it->second.x) ;
-      histosTH2F["dy_123_124"]->Fill(it2->second.y, it2->second.y - it->second.y) ;
-    }
-
-    if((rpDecId1 == 123) && (rpDecId2 == 125))
-    {
-      histosTH2F["dx_123_125"]->Fill(it2->second.x, it2->second.x - it->second.x) ;
-      histosTH2F["dy_123_125"]->Fill(it2->second.y, it2->second.y - it->second.y) ;
-    }
   }
-
 }
 
 void ElasticAnalyzer::addLabels(int first, int second)
@@ -577,10 +552,45 @@ void ElasticAnalyzer::addLabels()
   addLabels(123, 125) ;
 }
 
+void ElasticAnalyzer::addHistos()
+{
+  for(unsigned int i = 0 ; i < RP_numbers.size() ; ++i)
+  {
+    stringstream ss ;
+    ss << RP_numbers[i] ;
+
+    string name = "scatter_plot_xy_" + ss.str() ;
+
+    histosTH2F[name] = new TH2F(name.c_str(), name.c_str(), 100, -40.0, 40.0, 100, -40.0, 40.0);
+  }
+
+  const int gap_between_horizontals_in_array = 3 ;
+
+  for(unsigned int i = 0 ; i < RP_numbers.size() ; i += gap_between_horizontals_in_array)
+  {
+    for(unsigned int j = 0 ; j < 2 ; ++j)
+    {
+      unsigned int RP1 = RP_numbers[i] ;
+      unsigned int RP2 = RP_numbers[i+j+1] ;
+      
+      stringstream ss1, ss2 ;
+
+      ss1 << RP1 ;
+      ss2 << RP2 ;
+
+      string name1 = "xy_" + ss1.str() +"_if_" + ss1.str() + "_" + ss2.str() ;
+      string name2 = "xy_" + ss2.str() +"_if_" + ss1.str() + "_" + ss2.str() ;
+
+      histosTH2F[name1] = new TH2F(name1.c_str(), name1.c_str() , 100, -20.0, 20.0, 100, -20.0, 20.0);
+      histosTH2F[name2] = new TH2F(name2.c_str(), name2.c_str() , 100, -20.0, 20.0, 100, -20.0, 20.0);
+
+
+    }
+  }
+}
+
 void ElasticAnalyzer::beginJob()
 {
-
-  vector<int> RP_numbers = {3, 4, 5, 23, 24, 25, 103, 104, 105, 123, 124, 125} ;
 
   histosTH2F["RP_correlation"] = new TH2F("RP_correlation", "RP_correlation" , (125 - 3) + 1, 3, 125, (125 - 3) + 1, 3, 125);
   histosTH2F["RP_covariance"] = new TH2F("RP_covariance", "RP_covariance" , (125 - 3) + 1, 3, 125, (125 - 3) + 1, 3, 125);
@@ -637,30 +647,7 @@ void ElasticAnalyzer::beginJob()
   histosTH2F["dx_123_125"] = new TH2F("dx_123_125", "dx_123_125" , 100, -20.0, 20.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
   histosTH2F["dy_123_125"] = new TH2F("dy_123_125", "dy_123_125" , 100, -12.0, 12.0, 100, -vertical_boundary_mm, vertical_boundary_mm);
   
-  // Conditional plots
-
-  histosTH2F["xy_3_if_3_4"] = new TH2F("xy_3_if_3_4", "xy_3_if_3_4" , 100, -20.0, 20.0, 100, -20.0, 20.0);
-  histosTH2F["xy_4_if_3_4"] = new TH2F("xy_4_if_3_4", "xy_4_if_3_4" , 100, -20.0, 20.0, 100, -20.0, 20.0);
-
-  histosTH2F["xy_3_if_3_5"] = new TH2F("xy_3_if_3_5", "xy_3_if_3_5" , 100, -20.0, 20.0, 100, -20.0, 20.0);
-  histosTH2F["xy_5_if_3_5"] = new TH2F("xy_5_if_3_5", "xy_5_if_3_5" , 100, -20.0, 20.0, 100, -20.0, 20.0);
-
-  histosTH2F["xy_103_if_103_104"] = new TH2F("xy_103_if_103_104", "xy_103_if_103_104" , 100, -20.0, 20.0, 100, -20.0, 20.0);
-  histosTH2F["xy_104_if_103_104"] = new TH2F("xy_104_if_103_104", "xy_104_if_103_104" , 100, -20.0, 20.0, 100, -20.0, 20.0);
-
-  histosTH2F["xy_103_if_103_105"] = new TH2F("xy_103_if_103_105", "xy_103_if_103_105" , 100, -20.0, 20.0, 100, -20.0, 20.0);
-  histosTH2F["xy_105_if_103_105"] = new TH2F("xy_105_if_103_105", "xy_105_if_103_105" , 100, -20.0, 20.0, 100, -20.0, 20.0);
-
-  for(unsigned int i = 0 ; i < RP_numbers.size() ; ++i)
-  {
-    stringstream ss ;
-    ss << RP_numbers[i] ;
-
-    string name = "scatter_plot_xy_" + ss.str() ;
-
-    histosTH2F[name] = new TH2F(name.c_str(), name.c_str(), 100, -40.0, 40.0, 100, -40.0, 40.0);
-  }
-  
+  addHistos() ;
   addLabels() ;
   
   tree = new TTree("TReducedNtuple", "TReducedNtuple") ;  
@@ -734,6 +721,7 @@ void ElasticAnalyzer::endJob()
   for (const auto &p : histosTH2F)
   {
     p.second->Write(p.first.c_str());
+    cout << "  filenames.push_back(\"" << p.first.c_str() << "\") ;" << endl ;
   }
 
   tree->Write() ;
