@@ -33,7 +33,9 @@
 #include "DataFormats/CTPPSDetId/interface/TotemRPDetId.h"
 #include "DataFormats/CTPPSReco/interface/CTPPSLocalTrackLite.h"
 
+#include "TROOT.h"
 #include "TFile.h"
+#include "TMinuit.h"
 #include "TTree.h"
 #include "TH2F.h"
 
@@ -82,6 +84,23 @@ void RP_struct_type::clear_variables()
   
 }
 
+class THorizontal_and_vertical_xy_pairs_to_match
+{
+  public:
+
+  double hor_x, hor_y ;
+  double ver_x, ver_y ;
+
+  THorizontal_and_vertical_xy_pairs_to_match(double, double, double, double) ;
+}  ;
+
+THorizontal_and_vertical_xy_pairs_to_match::THorizontal_and_vertical_xy_pairs_to_match(double hor_x, double hor_y, double ver_x, double ver_y) : hor_x(hor_x), hor_y(hor_y), ver_x(ver_x), ver_y(ver_y)
+{
+}
+
+map<string, vector<THorizontal_and_vertical_xy_pairs_to_match *>> map_of_THorizontal_and_vertical_xy_pairs_to_match ;
+
+
 class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  {
   public:
   explicit ElasticAnalyzer(const edm::ParameterSet&);
@@ -100,6 +119,8 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
   virtual void addHistos() ;
   virtual void addLabels(int, int) ;
   virtual void TestDetectorPair(map<unsigned int, RP_struct_type>::iterator, map<unsigned int, RP_struct_type>::iterator, unsigned int, unsigned int) ;
+  virtual void Minimize() ;
+  void MinimizeHorizontalVerticalPair(vector<THorizontal_and_vertical_xy_pairs_to_match *> &);
 
   int verbosity;
 
@@ -181,6 +202,10 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
 
     ss_1 << it1->first ;
     ss_2 << it2->first ;
+
+    string key_for_coords = ss_1.str() + " " + ss_2.str() ;
+
+    map_of_THorizontal_and_vertical_xy_pairs_to_match[key_for_coords].push_back(new THorizontal_and_vertical_xy_pairs_to_match(it1->second.x, it1->second.y, it2->second.x, it2->second.y)) ;
 
     string name_x = "dx_" + ss_1.str() + "_" + ss_2.str() ;
     string name_y = "dy_" + ss_1.str() + "_" + ss_2.str() ;
@@ -728,6 +753,84 @@ void ElasticAnalyzer::endJob()
 
   delete f_out;
 
+  Minimize() ;
+}
+
+vector<THorizontal_and_vertical_xy_pairs_to_match *> *points = NULL ;
+
+void fcn(Int_t &npar, double *gin, double &f, double *par, int iflag)
+{
+  double chi2 = 0 ;
+
+  double a = par[0] ;
+  double b = par[1] ;
+  double alpha = par[2] ;
+
+  const double ex = 16e-3 ;
+  const double ey = 16e-3 ;
+
+  for(unsigned int i = 0 ; i < points->size() ; ++i)
+  {
+    double dx = (((*points)[i]->hor_x + a) - (*points)[i]->ver_x) / ex ;
+    double dy = (((*points)[i]->hor_y + b) - (*points)[i]->ver_y) / ey  ;
+
+    chi2 += (dx*dx) + (dy*dy) ;
+  }
+
+  f = chi2 ;
+}
+
+
+TF1 *func = NULL ;
+TF1 *func2 = NULL ;
+
+
+void MinuitFit()
+{
+  TMinuit *gMinuit2 = new TMinuit(10);
+  gMinuit2->SetFCN(fcn);
+
+  Double_t arglist[10];
+  Int_t ierflg = 0 ;
+  arglist[0] = 1 ;
+  gMinuit2->mnexcm("SET ERR", arglist ,1,ierflg);
+
+  gMinuit2->mnparm(0, "a", 0, 0.1, 0, 0, ierflg);
+  gMinuit2->mnparm(1, "b", 0, 0.1, 0, 0, ierflg);
+  // gMinuit2->mnparm(2, "alpha",    0.15, 0.1, 0, 0, ierflg);
+
+  arglist[0] = 0 ;
+  arglist[1] = 3 ;
+  arglist[2] = 1 ;
+
+  gMinuit2->mnexcm("MIGRAD", arglist , 2, ierflg);
+
+  double par[4] ;
+  double pare[4] ;
+
+  {
+	  gMinuit2->GetParameter(0, par[0], pare[0]) ;
+    gMinuit2->GetParameter(1, par[1], pare[1]) ;
+	  gMinuit2->GetParameter(2, par[2], pare[2]) ;
+
+  }
+}
+
+
+void ElasticAnalyzer::MinimizeHorizontalVerticalPair(vector<THorizontal_and_vertical_xy_pairs_to_match *> &vector_of_corrd)
+{
+  points = &vector_of_corrd ;
+
+  MinuitFit() ;
+}
+
+void ElasticAnalyzer::Minimize()
+{
+  for(map<string, vector<THorizontal_and_vertical_xy_pairs_to_match *>>:: iterator it = map_of_THorizontal_and_vertical_xy_pairs_to_match.begin() ; it != map_of_THorizontal_and_vertical_xy_pairs_to_match.end() ; ++it)
+  {
+    cout << it->first << " " << it->second.size() << endl ;
+    MinimizeHorizontalVerticalPair(it->second) ;
+  }
 }
 
 void ElasticAnalyzer::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
