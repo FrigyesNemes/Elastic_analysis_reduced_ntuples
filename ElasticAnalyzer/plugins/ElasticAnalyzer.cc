@@ -187,7 +187,7 @@ void ElasticAnalyzer::clear_variables()
 const double RP_distance_m = 7.0 ;
 const double RP_distance_mm = RP_distance_m * 1e3 ;
 
-const double dx_threshold_between_vertical_and_horizontal_mm = 0.5 ;
+const double dx_threshold_between_vertical_and_horizontal_mm = 0.2 ;
 const double vertical_limit_mm = 0.4 ;
 
 const double horizontal_boundary_mm = 20.0 ;
@@ -205,8 +205,6 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
 
     string key_for_coords = ss_1.str() + " " + ss_2.str() ;
 
-    map_of_THorizontal_and_vertical_xy_pairs_to_match[key_for_coords].push_back(new THorizontal_and_vertical_xy_pairs_to_match(it1->second.x, it1->second.y, it2->second.x, it2->second.y)) ;
-
     string name_x = "dx_" + ss_1.str() + "_" + ss_2.str() ;
     string name_y = "dy_" + ss_1.str() + "_" + ss_2.str() ;
     
@@ -220,6 +218,9 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
 
     if(fabs(it2->second.x - it1->second.x) < dx_threshold_between_vertical_and_horizontal_mm)
     {
+
+      map_of_THorizontal_and_vertical_xy_pairs_to_match[key_for_coords].push_back(new THorizontal_and_vertical_xy_pairs_to_match(it1->second.x, it1->second.y, it2->second.x, it2->second.y)) ;
+
       string name_x2 = "xy_" + ss_1.str() + "_if_" + ss_1.str() + "_" + ss_2.str() ;
       string name_y2 = "xy_" + ss_2.str() + "_if_" + ss_1.str() + "_" + ss_2.str() ;
 
@@ -774,7 +775,8 @@ void fcn(Int_t &npar, double *gin, double &f, double *par, int iflag)
     double dx = (((*points)[i]->hor_x + a) - (*points)[i]->ver_x) / ex ;
     double dy = (((*points)[i]->hor_y + b) - (*points)[i]->ver_y) / ey  ;
 
-    chi2 += (dx*dx) + (dy*dy) ;
+    double chi2_contribution = (dx*dx) + (dy*dy) ;
+    chi2 += chi2_contribution ;
   }
 
   f = chi2 ;
@@ -811,7 +813,7 @@ void MinuitFit()
   {
 	  gMinuit2->GetParameter(0, par[0], pare[0]) ;
     gMinuit2->GetParameter(1, par[1], pare[1]) ;
-	  gMinuit2->GetParameter(2, par[2], pare[2]) ;
+	  // gMinuit2->GetParameter(2, par[2], pare[2]) ;
 
   }
 }
