@@ -491,6 +491,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     if(rpDecId1 > rpDecId2)
     {
       cout << "strange " << iEvent.id() << endl ;
+      exit(1) ;
     }
 
     if((rpDecId1 == 4) && (rpDecId2 == 24))
