@@ -828,8 +828,11 @@ void fcn(Int_t &npar, double *gin, double &f, double *par, int iflag)
 
   for(unsigned int i = 0 ; i < points->size() ; ++i)
   {
-    double dx = (((*points)[i]->hor_x + a) - (*points)[i]->ver_x) / ex ;
-    double dy = (((*points)[i]->hor_y + b) - (*points)[i]->ver_y) / ey  ;
+    double hor_x = (cos(alpha) * (*points)[i]->hor_x) - (sin(alpha) * (*points)[i]->hor_y) + a ;
+    double hor_y = (sin(alpha) * (*points)[i]->hor_x) + (cos(alpha) * (*points)[i]->hor_y) + b ;
+
+    double dx = (hor_x - (*points)[i]->ver_x) / ex ;
+    double dy = (hor_y - (*points)[i]->ver_y) / ey  ;
 
     double chi2_contribution = (dx*dx) + (dy*dy) ;
     chi2 += chi2_contribution ;
@@ -862,7 +865,11 @@ void MinuitFit()
 
   gMinuit2->mnparm(0, "a", 0, 0.1, 0, 0, ierflg);
   gMinuit2->mnparm(1, "b", 0, 0.1, 0, 0, ierflg);
-  // gMinuit2->mnparm(2, "alpha",    0.15, 0.1, 0, 0, ierflg);
+  gMinuit2->mnparm(2, "alpha", 0.0, 0.1, 0, 0, ierflg);
+
+  arglist[0] = 3 ;
+
+  // gMinuit2->mnexcm("FIX", arglist, 1, ierflg);
 
   arglist[0] = 0 ;
   arglist[1] = 3 ;
