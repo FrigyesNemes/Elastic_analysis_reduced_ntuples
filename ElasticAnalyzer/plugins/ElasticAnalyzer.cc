@@ -164,11 +164,16 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
 
       string name_x2 = "xy_" + ss_1.str() + "_if_" + ss_1.str() + "_" + ss_2.str() ;
       string name_y2 = "xy_" + ss_2.str() + "_if_" + ss_1.str() + "_" + ss_2.str() ;
+      string name_x3 = "x_vs_dx_" + ss_1.str() + "_if_" + ss_1.str() + "_" + ss_2.str() ;
+      string name_x4 = "y_vs_dy_" + ss_1.str() + "_if_" + ss_1.str() + "_" + ss_2.str() ;
 
-      // cout << name_x2 << " " << name_y2 << endl ;
+      // cout << name_x3 << " " << name_y3 << endl ;
 
       histosTH2F[name_x2]->Fill(it1->second.x, it1->second.y) ;
       histosTH2F[name_y2]->Fill(it2->second.x, it2->second.y) ;
+
+      histosTH2F[name_x3]->Fill(it1->second.x, it2->second.x - it1->second.x) ;
+      histosTH2F[name_x4]->Fill(it1->second.y, it2->second.y - it1->second.y) ;
     }
   }
 }
@@ -586,9 +591,13 @@ void ElasticAnalyzer::addHistos()
 
       string name1 = "xy_" + ss1.str() +"_if_" + ss1.str() + "_" + ss2.str() ;
       string name2 = "xy_" + ss2.str() +"_if_" + ss1.str() + "_" + ss2.str() ;
+      string name7 = "x_vs_dx_" + ss1.str() + "_if_" + ss1.str() + "_" + ss2.str() ;
+      string name8 = "y_vs_dy_" + ss1.str() + "_if_" + ss1.str() + "_" + ss2.str() ;
 
       histosTH2F[name1] = new TH2F(name1.c_str(), name1.c_str() , 100, -20.0, 20.0, 100, -20.0, 20.0);
       histosTH2F[name2] = new TH2F(name2.c_str(), name2.c_str() , 100, -20.0, 20.0, 100, -20.0, 20.0);
+      histosTH2F[name7] = new TH2F(name7.c_str(), name7.c_str() , 100, -20.0, 20.0, 100, -0.2,  0.2);
+      histosTH2F[name8] = new TH2F(name8.c_str(), name8.c_str() , 100, -20.0, 20.0, 100, -0.2,  0.2);
 
       string name3 = "dx_" + ss1.str() +"_" + ss2.str() ;
       string name4 = "dy_" + ss1.str() +"_" + ss2.str() ;
@@ -747,7 +756,7 @@ void ElasticAnalyzer::MinimizeHorizontalVerticalPair(vector<THorizontal_and_vert
 {
   points = &vector_of_corrd ;
 
-  MinuitFit() ;
+  MinuitFit("") ;
 }
 
 void ElasticAnalyzer::Minimize()

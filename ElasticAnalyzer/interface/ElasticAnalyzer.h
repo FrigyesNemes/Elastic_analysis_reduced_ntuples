@@ -5,6 +5,7 @@
 #include "TRandom3.h"
 #include "TTree.h"
 #include "TH2F.h"
+#include "TMath.h"
 
 using namespace std;
 
@@ -81,8 +82,17 @@ void fcn(Int_t &npar, double *gin, double &f, double *par, int iflag)
   double b = par[1] ;
   double alpha = par[2] ;
 
-  const double ex = 60e-3 ;
-  const double ey = 60e-3 ;
+  bool realistic = true ;
+
+  double ex = 66e-3 ;
+  double ey = 66e-3  ;
+
+  if(realistic)
+  {
+    const double correction_from_expected_value = sqrt(12) ;
+    ex = ex / correction_from_expected_value ;
+    ey = ey / correction_from_expected_value ;
+  }
 
   for(unsigned int i = 0 ; i < points->size() ; ++i)
   {
@@ -106,7 +116,7 @@ void fcn(Int_t &npar, double *gin, double &f, double *par, int iflag)
   f = chi2 ;
 }
 
-void MinuitFit()
+void MinuitFit(string key)
 {
   TMinuit *gMinuit2 = new TMinuit(10);
   gMinuit2->SetFCN(fcn);
@@ -116,29 +126,36 @@ void MinuitFit()
   arglist[0] = 1 ;
   gMinuit2->mnexcm("SET ERR", arglist ,1,ierflg);
 
-  gMinuit2->mnparm(0, "a", 0, 0.1, 0, 0, ierflg);
-  gMinuit2->mnparm(1, "b", 0, 0.1, 0, 0, ierflg);
-  gMinuit2->mnparm(2, "alpha", 0.0, 0.1, 0, 0, ierflg);
+  gMinuit2->mnparm(0, "a", 0, 0.1, -3, 3, ierflg);
+  gMinuit2->mnparm(1, "b", 0, 0.1, -3, 3, ierflg);
+  gMinuit2->mnparm(2, "alpha", 0.0, 0.1, -TMath::Pi()/16.0, TMath::Pi()/16.0, ierflg);
 
   arglist[0] = 3 ;
 
-  // gMinuit2->mnexcm("FIX", arglist, 1, ierflg);
+  gMinuit2->mnexcm("FIX", arglist, 1, ierflg);
 
   arglist[0] = 0 ;
   arglist[1] = 3 ;
   arglist[2] = 1 ;
 
   gMinuit2->mnexcm("MIGRAD", arglist , 2, ierflg);
-  
-  cout << "number_of_points: " << (*points).size() << endl ;
+
+  arglist[0] = 3 ;
+
+  gMinuit2->mnexcm("RELEASE", arglist, 1, ierflg);
+
+  arglist[0] = 0 ;
+  arglist[1] = 3 ;
+  arglist[2] = 1 ;
+
+  gMinuit2->mnexcm("MIGRAD", arglist , 2, ierflg);
 
   double par[4] ;
   double pare[4] ;
 
-  {
-	  gMinuit2->GetParameter(0, par[0], pare[0]) ;
-    gMinuit2->GetParameter(1, par[1], pare[1]) ;
-	  // gMinuit2->GetParameter(2, par[2], pare[2]) ;
+	gMinuit2->GetParameter(0, par[0], pare[0]) ;
+	gMinuit2->GetParameter(1, par[1], pare[1]) ;
+	gMinuit2->GetParameter(2, par[2], pare[2]) ;
 
-  }
+  cout << "Final parameters: x: " << key << "  " << par[0] << " y: " << par[1] << " alpha: " << par[2] << "  number_of_points: " << (*points).size() << endl ;
 }
