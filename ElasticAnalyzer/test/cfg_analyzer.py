@@ -44,6 +44,7 @@ process.analyzer = cms.EDAnalyzer("ElasticAnalyzer",
   verbosity = cms.untracked.int32(0),
   diagonal = cms.string("LBRT"),
   tracks = cms.untracked.InputTag('ctppsLocalTrackLiteProducer'),
+  rpPatternTag = cms.InputTag('totemRPUVPatternFinder'),
   outputFileName = cms.string("output.root")
 )
 

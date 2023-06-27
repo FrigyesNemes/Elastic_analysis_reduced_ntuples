@@ -5,6 +5,9 @@
 #include "TRandom3.h"
 #include "TTree.h"
 #include "TH2F.h"
+#include "TProfile.h"
+#include "TFitResult.h"
+#include "TF1.h"
 #include "TMath.h"
 
 using namespace std;

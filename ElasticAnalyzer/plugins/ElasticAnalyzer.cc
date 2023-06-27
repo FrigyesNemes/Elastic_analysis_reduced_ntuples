@@ -29,6 +29,8 @@
 #include "FWCore/Utilities/interface/InputTag.h"
 #include "DataFormats/TrackReco/interface/Track.h"
 #include "DataFormats/TrackReco/interface/TrackFwd.h"
+
+#include "DataFormats/CTPPSReco/interface/TotemRPUVPattern.h"
  
 #include "DataFormats/CTPPSDetId/interface/TotemRPDetId.h"
 #include "DataFormats/CTPPSReco/interface/CTPPSLocalTrackLite.h"
@@ -62,12 +64,14 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
   int verbosity;
 
   edm::EDGetTokenT<std::vector<CTPPSLocalTrackLite>> tracksToken_;  //used to select what tracks to read from configuration file
+  edm::EDGetTokenT<edm::DetSetVector<TotemRPUVPattern>> rpPatternToken_ ;
 
   std::string diagonal;  
   std::string outputFileName;  
 
   map<string, TH1F*> histosTH1F;
   map<string, TH2F*> histosTH2F;
+  map<string, TProfile*> profiles;
   
   // Declaration of leaf types
   ULong64_t       event_info_timestamp;
@@ -92,6 +96,7 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
 
 ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(iConfig.getUntrackedParameter<int>("verbosity")),
   tracksToken_(consumes<std::vector<CTPPSLocalTrackLite>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks"))),
+  rpPatternToken_(consumes<edm::DetSetVector<TotemRPUVPattern>>(iConfig.getParameter<edm::InputTag>("rpPatternTag"))),
   diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName"))
 {
 }
@@ -174,6 +179,9 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
 
       histosTH2F[name_x3]->Fill(it1->second.x, it2->second.x - it1->second.x) ;
       histosTH2F[name_x4]->Fill(it1->second.y, it2->second.y - it1->second.y) ;
+
+      profiles["profile_" + name_x3]->Fill(it1->second.x, it2->second.x - it1->second.x) ;
+      profiles["profile_" + name_x4]->Fill(it1->second.y, it2->second.y - it1->second.y) ;
     }
   }
 }
@@ -219,7 +227,56 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
   cout << iEvent.time().unixTime() << " " << output << endl ;
 
-  for(const auto& track : iEvent.get(tracksToken_) )
+  for (const auto &pv : iEvent.get(rpPatternToken_))
+  {
+    const CTPPSDetId detId(pv.detId());
+    const unsigned int rpDecId = detId.arm() * 100 + detId.station() * 10 + detId.rp();
+
+    // cout << "Now I am using patterns" << endl ;
+
+    // require exactly 1 U and 1 V pattern, i.e. unique U-V association
+    unsigned int n_U = 0, n_V = 0;
+    unsigned int idx_U = 0, idx_V = 0;
+    for (unsigned int pi = 0; pi < pv.size(); pi++)
+    {
+      const TotemRPUVPattern &pattern = pv[pi];
+
+      switch (pattern.getProjection()) {
+        case TotemRPUVPattern::projU:
+          n_U++;
+          idx_U = pi;
+          break;
+
+        case TotemRPUVPattern::projV:
+          n_V++;
+          idx_V = pi;
+          break;
+
+        default:
+          break;
+      }
+    }
+
+    if (n_U != 1 || n_V != 1)
+      continue;
+
+    // skip if patterns not reasonable
+    if (!pv[idx_U].getFittable() || !pv[idx_V].getFittable())
+      continue;
+
+    for (const auto &pattern : {pv[idx_U], pv[idx_V]}) {
+      for (const auto &hitsDetSet : pattern.getHits())
+    {
+        for (auto &hit : hitsDetSet)
+        {
+          // cout << hit.getPosition() << " " ;
+        }
+      }
+    }
+
+  }
+
+  for(const auto& track : iEvent.get(tracksToken_))
   {
     CTPPSDetId rpId(track.getRPId());
     unsigned int rpDecId = (100*rpId.arm()) + (10*rpId.station()) + (1*rpId.rp());
@@ -599,6 +656,15 @@ void ElasticAnalyzer::addHistos()
       histosTH2F[name7] = new TH2F(name7.c_str(), name7.c_str() , 100, -20.0, 20.0, 100, -0.2,  0.2);
       histosTH2F[name8] = new TH2F(name8.c_str(), name8.c_str() , 100, -20.0, 20.0, 100, -0.2,  0.2);
 
+      histosTH2F[name7]->GetXaxis()->SetTitle("x (mm)") ;
+      histosTH2F[name7]->GetYaxis()->SetTitle("#Deltax (mm)") ;
+
+      histosTH2F[name8]->GetXaxis()->SetTitle("y (mm)") ;
+      histosTH2F[name8]->GetYaxis()->SetTitle("#Deltay (mm)") ;
+
+      profiles["profile_" + name7] = new TProfile(("profile_" + name7).c_str(), ("profile_" + name7).c_str() , 100, -20.0, 20.0);
+      profiles["profile_" + name8] = new TProfile(("profile_" + name8).c_str(), ("profile_" + name8).c_str() , 100, -20.0, 20.0);
+
       string name3 = "dx_" + ss1.str() +"_" + ss2.str() ;
       string name4 = "dy_" + ss1.str() +"_" + ss2.str() ;
 
@@ -733,6 +799,57 @@ void ElasticAnalyzer::endJob()
   {
     p.second->Write(p.first.c_str());
     cout << "  filenames.push_back(\"" << p.first.c_str() << "\") ;" << endl ;
+  }
+
+  for (const auto &p : profiles)
+  {
+    int lowest_bin = 0 ;
+    int highest_bin = p.second->GetXaxis()->GetNbins() ;
+
+    double min_position = p.second->GetBinCenter(0) ;
+    double max_position = p.second->GetBinCenter(highest_bin) ;
+
+    for(int i = 0 ; i < p.second->GetXaxis()->GetNbins() ; ++i)
+    {
+      ++lowest_bin ;
+
+      if(p.second->GetBinError(i) > 0) break ;
+    }
+
+    for(int i = p.second->GetXaxis()->GetNbins() ; i > 0 ;  --i)
+    {
+      --highest_bin ;
+
+      if(p.second->GetBinError(i) > 0) break ;
+    }
+
+    double lowest_bin_position = p.second->GetBinCenter(lowest_bin) ;
+    double highest_bin_position = p.second->GetBinCenter(highest_bin) ;
+
+    cout << "fit_limits " << lowest_bin_position << " " << highest_bin_position << endl ;
+    if(lowest_bin_position > highest_bin_position) cout << "hello" << endl ;
+
+    double length = (highest_bin_position - lowest_bin_position) ;
+    double edge = length / 10.0 ;
+    highest_bin_position -= edge ;
+    lowest_bin_position += edge ;
+
+    TFitResultPtr myfit = p.second->Fit("pol1", "S", "", lowest_bin_position, highest_bin_position) ;
+
+    if(myfit->Prob() < 2e-2)
+    {
+      highest_bin_position -= edge ;
+      lowest_bin_position += edge ;
+
+      TFitResultPtr myfit = p.second->Fit("pol1", "S", "", lowest_bin_position, highest_bin_position) ;
+    }
+
+    cout << "slopes " << p.first << " " << myfit->Parameter(1) << " +/- " << myfit->ParError(1) << endl ;
+
+    p.second->GetFunction("pol1")->SetRange(min_position, max_position) ;
+
+    p.second->GetFunction("pol1")->SetLineStyle(kDashed) ;
+    p.second->Write(p.first.c_str());
   }
 
   tree->Write() ;
