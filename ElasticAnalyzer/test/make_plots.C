@@ -88,6 +88,24 @@ void make_plots()
   filenames.push_back("xy_4_if_3_4") ;
   filenames.push_back("xy_5_if_3_5") ;
 
+  filenames.push_back("x_vs_dx_103_if_103_104") ;
+  filenames.push_back("x_vs_dx_103_if_103_105") ;
+  filenames.push_back("x_vs_dx_123_if_123_124") ;
+  filenames.push_back("x_vs_dx_123_if_123_125") ;
+  filenames.push_back("x_vs_dx_23_if_23_24") ;
+  filenames.push_back("x_vs_dx_23_if_23_25") ;
+  filenames.push_back("x_vs_dx_3_if_3_4") ;
+  filenames.push_back("x_vs_dx_3_if_3_5") ;
+
+  filenames.push_back("y_vs_dy_103_if_103_104") ;
+  filenames.push_back("y_vs_dy_103_if_103_105") ;
+  filenames.push_back("y_vs_dy_123_if_123_124") ;
+  filenames.push_back("y_vs_dy_123_if_123_125") ;
+  filenames.push_back("y_vs_dy_23_if_23_24") ;
+  filenames.push_back("y_vs_dy_23_if_23_25") ;
+  filenames.push_back("y_vs_dy_3_if_3_4") ;
+  filenames.push_back("y_vs_dy_3_if_3_5") ;
+
 	TFile *myfile = new TFile("output.root", "READ") ;
 
 	TCanvas sum ;

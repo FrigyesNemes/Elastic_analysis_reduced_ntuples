@@ -831,8 +831,8 @@ void ElasticAnalyzer::endJob()
 
     double length = (highest_bin_position - lowest_bin_position) ;
     double edge = length / 10.0 ;
-    highest_bin_position -= edge ;
-    lowest_bin_position += edge ;
+    highest_bin_position -= 2.0 * edge ;
+    lowest_bin_position += 2.0 * edge ;
 
     TFitResultPtr myfit = p.second->Fit("pol1", "S", "", lowest_bin_position, highest_bin_position) ;
 
