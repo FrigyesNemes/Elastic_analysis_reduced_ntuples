@@ -124,6 +124,8 @@ void make_plots()
 
   sum.SaveAs("plots/sum.pdf") ;
   sum.SaveAs("plots/sum.root") ;
+  
+	gStyle->SetOptStat("nemrou");  
 
 	TCanvas c ;
   c.SetLogz() ;

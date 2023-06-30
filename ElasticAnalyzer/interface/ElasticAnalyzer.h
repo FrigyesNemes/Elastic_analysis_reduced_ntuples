@@ -7,6 +7,7 @@
 #include "TH2F.h"
 #include "TProfile.h"
 #include "TFitResult.h"
+#include "TPaveStats.h"
 #include "TF1.h"
 #include "TMath.h"
 

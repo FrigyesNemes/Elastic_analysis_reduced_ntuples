@@ -57,7 +57,7 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
   virtual void addLabels() ;
   virtual void addHistos() ;
   virtual void addLabels(int, int) ;
-  virtual void TestDetectorPair(map<unsigned int, RP_struct_type>::iterator, map<unsigned int, RP_struct_type>::iterator, unsigned int, unsigned int) ;
+  virtual void TestDetectorPair(map<unsigned int, RP_struct_type>::iterator, map<unsigned int, RP_struct_type>::iterator, unsigned int, unsigned int, double=0, double=0, double sigma=0) ;
   virtual void Minimize() ;
   void MinimizeHorizontalVerticalPair(vector<THorizontal_and_vertical_xy_pairs_to_match *> &);
 
@@ -137,7 +137,7 @@ const double vertical_boundary_mm = 0.5 ;
 
 TRandom3 myrand ;
 
-void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterator it1, map<unsigned int, RP_struct_type>::iterator it2, unsigned int detector_1, unsigned int detector_2)
+void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterator it1, map<unsigned int, RP_struct_type>::iterator it2, unsigned int detector_1, unsigned int detector_2, double p0, double p1, double sigma)
 {
   if((it1->first == detector_1) && (it2->first == detector_2))
   {
@@ -177,11 +177,27 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
       histosTH2F[name_x2]->Fill(it1->second.x, it1->second.y) ;
       histosTH2F[name_y2]->Fill(it2->second.x, it2->second.y) ;
 
-      histosTH2F[name_x3]->Fill(it1->second.x, it2->second.x - it1->second.x) ;
-      histosTH2F[name_x4]->Fill(it1->second.y, it2->second.y - it1->second.y) ;
+      double delta_x = (it2->second.x - it1->second.x) ;
+      double y_extrapolated = (p1 * it1->second.x) + p0 ;
 
-      profiles["profile_" + name_x3]->Fill(it1->second.x, it2->second.x - it1->second.x) ;
-      profiles["profile_" + name_x4]->Fill(it1->second.y, it2->second.y - it1->second.y) ;
+      double delta_from_cut = (y_extrapolated - delta_x) ;
+
+      if(((p0 == 0) && (p1 == 0)) || (fabs(delta_from_cut / sigma) < 3.0))
+      {
+        histosTH2F[name_x3]->Fill(it1->second.x, it2->second.x - it1->second.x) ;
+        profiles["profile_" + name_x3]->Fill(it1->second.x, it2->second.x - it1->second.x) ;
+      }
+
+      double sigma_2 = 0.025 ;
+      double delta_x_2 = (it2->second.y - it1->second.y) ;
+      double y_extrapolated_2 = (0.00358 * it1->second.y) + 0.0 ;
+      double delta_from_cut_2 = (y_extrapolated_2 - delta_x_2) ;
+
+      if(fabs(delta_from_cut_2 / sigma_2) < 3.0)
+      {
+        histosTH2F[name_x4]->Fill(it1->second.y, it2->second.y - it1->second.y) ;
+        profiles["profile_" + name_x4]->Fill(it1->second.y, it2->second.y - it1->second.y) ;
+      }
     }
   }
 }
@@ -566,17 +582,17 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     }
     else
     {
-      TestDetectorPair(it, it2, 3, 4) ;
-      TestDetectorPair(it, it2, 3, 5) ;
+      TestDetectorPair(it, it2, 3, 4, -0.0120793 ,-0.0087, 0.013) ;
+      TestDetectorPair(it, it2, 3, 5,  0.0368000 ,-0.0130, 0.022) ;
 
-      TestDetectorPair(it, it2, 23, 24) ;
-      TestDetectorPair(it, it2, 23, 25) ;
+      TestDetectorPair(it, it2, 23, 24,  0.037, -0.014, 0.022) ;
+      TestDetectorPair(it, it2, 23, 25, -0.006, -0.01,  0.022) ;
 
-      TestDetectorPair(it, it2, 103, 104) ;
-      TestDetectorPair(it, it2, 103, 105) ;
+      TestDetectorPair(it, it2, 103, 104, 0.05 ,-0.0079, 0.022) ;
+      TestDetectorPair(it, it2, 103, 105, 0.05 ,-0.0079, 0.022) ;
 
-      TestDetectorPair(it, it2, 123, 124) ;
-      TestDetectorPair(it, it2, 123, 125) ;
+      TestDetectorPair(it, it2, 123, 124, 0.05 ,-0.0079, 0.022) ;
+      TestDetectorPair(it, it2, 123, 125, 0.05 ,-0.0079, 0.022) ;
     }
   }
 }
@@ -844,11 +860,36 @@ void ElasticAnalyzer::endJob()
       TFitResultPtr myfit = p.second->Fit("pol1", "S", "", lowest_bin_position, highest_bin_position) ;
     }
 
+    p.second->SetMarkerStyle(20) ;
+    p.second->GetFunction("pol1")->SetLineStyle(kDashed) ;
+    
+    map<string, Color_t> color_map ;
+    
+    color_map["profile_x_vs_dx_3_if_3_4"] = kRed ;
+    color_map["profile_y_vs_dy_3_if_3_4"] = kRed ;
+    color_map["profile_x_vs_dx_3_if_3_5"] = kBlue;
+    color_map["profile_y_vs_dy_3_if_3_5"] = kBlue;
+    color_map["profile_x_vs_dx_23_if_23_24"] = kGreen ;
+    color_map["profile_y_vs_dy_23_if_23_24"] = kGreen ;
+    color_map["profile_x_vs_dx_23_if_23_25"] = kMagenta ;
+    color_map["profile_y_vs_dy_23_if_23_25"] = kMagenta ;
+
+    color_map["profile_x_vs_dx_103_if_103_104"] = kRed ;
+    color_map["profile_y_vs_dy_103_if_103_104"] = kRed ;
+    color_map["profile_x_vs_dx_103_if_103_105"] = kBlue;
+    color_map["profile_y_vs_dy_103_if_103_105"] = kBlue;
+    color_map["profile_x_vs_dx_123_if_123_124"] = kGreen ;
+    color_map["profile_y_vs_dy_123_if_123_124"] = kGreen ;
+    color_map["profile_x_vs_dx_123_if_123_125"] = kMagenta ;
+    color_map["profile_y_vs_dy_123_if_123_125"] = kMagenta ;
+    
+    p.second->SetMarkerColor(color_map[p.first]) ;
+    p.second->GetFunction("pol1")->SetLineColor(color_map[p.first]) ;
+
     cout << "slopes " << p.first << " " << myfit->Parameter(1) << " +/- " << myfit->ParError(1) << endl ;
 
-    p.second->GetFunction("pol1")->SetRange(min_position, max_position) ;
+    // p.second->GetFunction("pol1")->SetRange(min_position, max_position) ;
 
-    p.second->GetFunction("pol1")->SetLineStyle(kDashed) ;
     p.second->Write(p.first.c_str());
   }
 
