@@ -45,7 +45,20 @@ process.analyzer = cms.EDAnalyzer("ElasticAnalyzer",
   diagonal = cms.string("LBRT"),
   tracks = cms.untracked.InputTag('ctppsLocalTrackLiteProducer'),
   rpPatternTag = cms.InputTag('totemRPUVPatternFinder'),
-  outputFileName = cms.string("output.root")
+  outputFileName = cms.string("output.root"),
+
+   position_distribution = cms.PSet(
+      type = cms.string("box"),
+      x_mean = cms.double(5.0),       #in mm
+      x_width = cms.double(10.0),
+      x_min = cms.double(0.0),
+      x_max = cms.double(0.0),
+
+      y_mean = cms.double(0.0),
+      y_width = cms.double(20.0),
+      y_min = cms.double(0.0),
+      y_max = cms.double(0.0)
+    ),
 )
 
 process.p = cms.Path(process.analyzer)

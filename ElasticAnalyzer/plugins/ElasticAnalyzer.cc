@@ -91,14 +91,49 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
   RP_struct_type right_near_horizontal ;
   RP_struct_type right_far_horizontal ;
 
+  struct Distribution {
+    enum Type { dtBox, dtGauss, dtGaussLimit } type_;
+    double x_mean_, x_width_, x_min_, x_max_;
+    double y_mean_, y_width_, y_min_, y_max_;
+
+    Distribution(const edm::ParameterSet &);
+  };
+  
+  Distribution *position_dist_;
+
   TTree *tree ;
 };
+
+ElasticAnalyzer::Distribution::Distribution(const edm::ParameterSet &ps) {
+  // get type
+  string typeName = ps.getParameter<string>("type");
+  if (!typeName.compare("box"))
+    type_ = dtBox;
+  else if (!typeName.compare("gauss"))
+    type_ = dtGauss;
+  else if (!typeName.compare("gauss-limit"))
+    type_ = dtGaussLimit;
+  else
+    throw cms::Exception("PPS") << "Unknown distribution type `" << typeName << "'.";
+
+  x_mean_ = ps.getParameter<double>("x_mean");
+  x_width_ = ps.getParameter<double>("x_width");
+  x_min_ = ps.getParameter<double>("x_min");
+  x_max_ = ps.getParameter<double>("x_max");
+
+  y_mean_ = ps.getParameter<double>("y_mean");
+  y_width_ = ps.getParameter<double>("y_width");
+  y_min_ = ps.getParameter<double>("y_min");
+  y_max_ = ps.getParameter<double>("y_max");
+}
+
 
 ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(iConfig.getUntrackedParameter<int>("verbosity")),
   tracksToken_(consumes<std::vector<CTPPSLocalTrackLite>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks"))),
   rpPatternToken_(consumes<edm::DetSetVector<TotemRPUVPattern>>(iConfig.getParameter<edm::InputTag>("rpPatternTag"))),
-  diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName"))
+  diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName")) 
 {
+  position_dist_ = new Distribution(iConfig.getParameterSet("position_distribution")) ;
 }
 
 ElasticAnalyzer::~ElasticAnalyzer()

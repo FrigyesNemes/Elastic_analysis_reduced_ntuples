@@ -86,7 +86,7 @@ void fcn(Int_t &npar, double *gin, double &f, double *par, int iflag)
   double b = par[1] ;
   double alpha = par[2] ;
 
-  bool realistic = true ;
+  bool realistic = false ;
 
   double ex = 66e-3 ;
   double ey = 66e-3  ;
@@ -97,6 +97,8 @@ void fcn(Int_t &npar, double *gin, double &f, double *par, int iflag)
     ex = ex / correction_from_expected_value ;
     ey = ey / correction_from_expected_value ;
   }
+
+	map_of_hists[actual_detector_combination]->Reset() ;
 
   for(unsigned int i = 0 ; i < points->size() ; ++i)
   {
