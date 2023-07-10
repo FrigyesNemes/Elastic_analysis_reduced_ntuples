@@ -86,7 +86,7 @@ void fcn(Int_t &npar, double *gin, double &f, double *par, int iflag)
   double b = par[1] ;
   double alpha = par[2] ;
 
-  bool realistic = false ;
+  bool realistic = true ;
 
   double ex = 66e-3 ;
   double ey = 66e-3  ;
@@ -105,8 +105,8 @@ void fcn(Int_t &npar, double *gin, double &f, double *par, int iflag)
     double hor_x = (cos(alpha) * (*points)[i]->hor_x) - (sin(alpha) * (*points)[i]->hor_y) + a ;
     double hor_y = (sin(alpha) * (*points)[i]->hor_x) + (cos(alpha) * (*points)[i]->hor_y) + b ;
 
-    double dx = (hor_x - (*points)[i]->ver_x) / ex ;
-    double dy = (hor_y - (*points)[i]->ver_y) / ey  ;
+    double dx = (hor_x - (*points)[i]->ver_x) / (2.0 * ex) ;
+    double dy = (hor_y - (*points)[i]->ver_y) / (2.0 * ey) ;
 
     double chi2_contribution = (dx*dx) + (dy*dy) ;
     chi2 += chi2_contribution ;

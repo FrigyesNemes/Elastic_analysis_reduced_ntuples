@@ -58,6 +58,7 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
   virtual void addHistos() ;
   virtual void addLabels(int, int) ;
   virtual void TestDetectorPair(map<unsigned int, RP_struct_type>::iterator, map<unsigned int, RP_struct_type>::iterator, unsigned int, unsigned int, double=0, double=0, double sigma=0) ;
+  virtual void TestDetectorPair2(map<unsigned int, RP_struct_type>::iterator, map<unsigned int, RP_struct_type>::iterator, unsigned int, unsigned int, double=0, double=0, double sigma=0) ;
   virtual void Minimize() ;
   void MinimizeHorizontalVerticalPair(vector<THorizontal_and_vertical_xy_pairs_to_match *> &);
 
@@ -237,6 +238,14 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
   }
 }
 
+void ElasticAnalyzer::TestDetectorPair2(map<unsigned int, RP_struct_type>::iterator it1, map<unsigned int, RP_struct_type>::iterator it2, unsigned int detector_1, unsigned int detector_2, double p0, double p1, double sigma)
+{
+  if((it1->first == detector_1) && (it2->first == detector_2))
+  {
+    // cout << "Found " << detector_1 << " " << detector_2 << endl ;
+  }
+}
+
 void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
   using namespace edm;
@@ -315,14 +324,27 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     if (!pv[idx_U].getFittable() || !pv[idx_V].getFittable())
       continue;
 
-    for (const auto &pattern : {pv[idx_U], pv[idx_V]}) {
-      for (const auto &hitsDetSet : pattern.getHits())
+    int counter_u_v = 0 ;
+    int counter = 0 ;
+    // cout << endl ;
+    
+    string strip_orientation = "U-strip JUU" ;
+
+    for (const auto &pattern : {pv[idx_U], pv[idx_V]})
     {
+
+      // cout << endl ;
+
+      for (const auto &hitsDetSet : pattern.getHits())
+      {
         for (auto &hit : hitsDetSet)
         {
-          // cout << hit.getPosition() << " " ;
+
+          // cout << strip_orientation << " position" << counter << " " << hit.getPosition() << endl ;
+          counter++ ;
         }
       }
+      strip_orientation = "V-strip VII" ;
     }
 
   }
@@ -628,6 +650,10 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
       TestDetectorPair(it, it2, 123, 124, 0.05 ,-0.0079, 0.022) ;
       TestDetectorPair(it, it2, 123, 125, 0.05 ,-0.0079, 0.022) ;
+
+      TestDetectorPair2(it, it2, 3, 23, 0.0 ,0.0, 0.0) ;
+      TestDetectorPair2(it, it2, 4, 24, 0.0 ,0.0, 0.0) ;
+      TestDetectorPair2(it, it2, 5, 25, 0.0 ,0.0, 0.0) ;
     }
   }
 }
@@ -960,7 +986,7 @@ void ElasticAnalyzer::Minimize()
 
     actual_detector_combination = it->first ;
     string name_of_hist = "chi2_contribution_" + actual_detector_combination ;
-    map_of_hists[actual_detector_combination] = new TH1F(name_of_hist.c_str(), name_of_hist.c_str(), 1000, 0, 100) ;
+    map_of_hists[actual_detector_combination] = new TH1F(name_of_hist.c_str(), name_of_hist.c_str(), 10000, 0, 100) ;
 
     MinimizeHorizontalVerticalPair(it->second) ;
     
