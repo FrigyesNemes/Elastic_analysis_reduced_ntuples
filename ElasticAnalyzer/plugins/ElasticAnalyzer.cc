@@ -147,12 +147,20 @@ ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(
   }
 
   string key ;
-  double offset_x, offset_y ;
+  double offset_x, offset_y, slope_x, slope_y ;
 
-  while(offsets >> key >> offset_x >> offset_y)
+  // cout << "feedback1" << endl ;
+
+  while(offsets >> key >> offset_x >> offset_y >> slope_x >> slope_y)
   {
+    // cout << "feedback2" << endl ;
+
     map_from_detector_pair_to_offsets[key + "x"] = offset_x ;
     map_from_detector_pair_to_offsets[key + "y"] = offset_y ;
+    map_from_detector_pair_to_offsets[key + "xslope"] = slope_x ;
+    map_from_detector_pair_to_offsets[key + "yslope"] = slope_y ;
+
+    // cout << "feedback " <<  key << " " <<  offset_x << " " <<  offset_y << " " <<  slope_x << " " <<  slope_y << endl ;
   }
 
   offsets.close() ;
@@ -214,6 +222,10 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
 
     double x_offset_for_dx_cut = map_from_detector_pair_to_offsets[key_for_coords + "x"] ;
     double y_offset_for_dy_cut = map_from_detector_pair_to_offsets[key_for_coords + "y"] ;
+
+    double slope_x = map_from_detector_pair_to_offsets[key_for_coords + "xslope"] ;
+    double slope_y = map_from_detector_pair_to_offsets[key_for_coords + "yslope"] ;
+
     cout << "xoffset " << key_for_coords << "x " << x_offset_for_dx_cut << endl ;
     cout << "yoffset " << key_for_coords << "y " << y_offset_for_dy_cut << endl ;
 
@@ -226,7 +238,7 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
     if((fabs((it2->second.x - it1->second.x) - x_offset_for_dx_cut) < dx_threshold_between_vertical_and_horizontal_mm) && (fabs((it2->second.y - it1->second.y) - y_offset_for_dy_cut) < dx_threshold_between_vertical_and_horizontal_mm))
     {
 
-      map_of_THorizontal_and_vertical_xy_pairs_to_match[key_for_coords].push_back(new THorizontal_and_vertical_xy_pairs_to_match(it1->second.x, it1->second.y, it2->second.x, it2->second.y)) ;
+      map_of_THorizontal_and_vertical_xy_pairs_to_match[key_for_coords].push_back(new THorizontal_and_vertical_xy_pairs_to_match(it1->second.x, it1->second.y, it2->second.x - (slope_x * it2->second.x), it2->second.y - (slope_y * it2->second.y))) ;
       
       cout << "to_be_saved " << key_for_coords << " " <<  it1->second.x << " " <<  it1->second.y << " " <<  it2->second.x << " " <<  it2->second.y << " " <<  endl ;
 

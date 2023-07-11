@@ -49,6 +49,7 @@ process.analyzer = cms.EDAnalyzer("ElasticAnalyzer",
   tracks = cms.untracked.InputTag('ctppsLocalTrackLiteProducer'),
   rpPatternTag = cms.InputTag('totemRPUVPatternFinder'),
   outputFileName = cms.string("output_test.root"),
+  #offsetFileName = cms.string("data/offsets_no_slopes.txt"),
   offsetFileName = cms.string("data/offsets.txt"),
 
    position_distribution = cms.PSet(
