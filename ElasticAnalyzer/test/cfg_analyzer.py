@@ -48,7 +48,8 @@ process.analyzer = cms.EDAnalyzer("ElasticAnalyzer",
   diagonal = cms.string("LBRT"),
   tracks = cms.untracked.InputTag('ctppsLocalTrackLiteProducer'),
   rpPatternTag = cms.InputTag('totemRPUVPatternFinder'),
-  outputFileName = cms.string("output.root"),
+  outputFileName = cms.string("output_test.root"),
+  offsetFileName = cms.string("data/offsets.txt"),
 
    position_distribution = cms.PSet(
       type = cms.string("box"),

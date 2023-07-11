@@ -40,7 +40,8 @@ using namespace std;
 
 vector<int> RP_numbers = {3, 4, 5, 23, 24, 25, 103, 104, 105, 123, 124, 125} ;
 
-class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  {
+class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>
+{
   public:
   explicit ElasticAnalyzer(const edm::ParameterSet&);
   ~ElasticAnalyzer();
@@ -69,10 +70,12 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  
 
   std::string diagonal;  
   std::string outputFileName;  
+  std::string offsetFileName;  
 
   map<string, TH1F*> histosTH1F;
   map<string, TH2F*> histosTH2F;
   map<string, TProfile*> profiles;
+  map<string, double> map_from_detector_pair_to_offsets ;
   
   // Declaration of leaf types
   ULong64_t       event_info_timestamp;
@@ -132,9 +135,27 @@ ElasticAnalyzer::Distribution::Distribution(const edm::ParameterSet &ps) {
 ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(iConfig.getUntrackedParameter<int>("verbosity")),
   tracksToken_(consumes<std::vector<CTPPSLocalTrackLite>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks"))),
   rpPatternToken_(consumes<edm::DetSetVector<TotemRPUVPattern>>(iConfig.getParameter<edm::InputTag>("rpPatternTag"))),
-  diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName")) 
+  diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName")), offsetFileName(iConfig.getParameter<std::string>("offsetFileName")) 
 {
   position_dist_ = new Distribution(iConfig.getParameterSet("position_distribution")) ;
+
+  ifstream offsets(offsetFileName) ;
+
+  if(!offsets.is_open())
+  {
+    throw cms::Exception("CorruptData") << " offset file cannot be opened" << endl;
+  }
+
+  string key ;
+  double offset_x, offset_y ;
+
+  while(offsets >> key >> offset_x >> offset_y)
+  {
+    map_from_detector_pair_to_offsets[key + "x"] = offset_x ;
+    map_from_detector_pair_to_offsets[key + "y"] = offset_y ;
+  }
+
+  offsets.close() ;
 }
 
 ElasticAnalyzer::~ElasticAnalyzer()
@@ -167,6 +188,7 @@ const double RP_distance_mm = RP_distance_m * 1e3 ;
 
 const double dx_threshold_between_vertical_and_horizontal_mm = 0.2 ;
 const double vertical_limit_mm = 0.4 ;
+const int minimum_number_of_track_to_make_a_fit = 100 ;
 
 const double horizontal_boundary_mm = 20.0 ;
 const double vertical_boundary_mm = 0.5 ;
@@ -190,13 +212,18 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
     
     // cout << name_x << " " << name_y << endl ;
 
+    double x_offset_for_dx_cut = map_from_detector_pair_to_offsets[key_for_coords + "x"] ;
+    double y_offset_for_dy_cut = map_from_detector_pair_to_offsets[key_for_coords + "y"] ;
+    cout << "xoffset " << key_for_coords << "x " << x_offset_for_dx_cut << endl ;
+    cout << "yoffset " << key_for_coords << "y " << y_offset_for_dy_cut << endl ;
+
     histosTH2F[name_x]->Fill(it2->second.x, it2->second.x - it1->second.x) ;
     histosTH2F[name_y]->Fill(it2->second.y, it2->second.y - it1->second.y) ;
 
-    histosTH1F[("h" + name_x).c_str()]->Fill(it2->second.x - it1->second.x) ;
-    histosTH1F[("h" + name_y).c_str()]->Fill(it2->second.y - it1->second.y) ;
+    histosTH1F[("h" + name_x).c_str()]->Fill((it2->second.x - it1->second.x) - x_offset_for_dx_cut) ;
+    histosTH1F[("h" + name_y).c_str()]->Fill((it2->second.y - it1->second.y) - y_offset_for_dy_cut) ;
 
-    if((fabs(it2->second.x - it1->second.x) < dx_threshold_between_vertical_and_horizontal_mm) && (fabs(it2->second.y - it1->second.y) < dx_threshold_between_vertical_and_horizontal_mm))
+    if((fabs((it2->second.x - it1->second.x) - x_offset_for_dx_cut) < dx_threshold_between_vertical_and_horizontal_mm) && (fabs((it2->second.y - it1->second.y) - y_offset_for_dy_cut) < dx_threshold_between_vertical_and_horizontal_mm))
     {
 
       map_of_THorizontal_and_vertical_xy_pairs_to_match[key_for_coords].push_back(new THorizontal_and_vertical_xy_pairs_to_match(it1->second.x, it1->second.y, it2->second.x, it2->second.y)) ;
@@ -911,18 +938,28 @@ void ElasticAnalyzer::endJob()
     highest_bin_position -= 2.0 * edge ;
     lowest_bin_position += 2.0 * edge ;
 
-    TFitResultPtr myfit = p.second->Fit("pol1", "S", "", lowest_bin_position, highest_bin_position) ;
-
-    if(myfit->Prob() < 2e-2)
+    if(p.second->GetEntries() > minimum_number_of_track_to_make_a_fit)
     {
-      highest_bin_position -= edge ;
-      lowest_bin_position += edge ;
-
       TFitResultPtr myfit = p.second->Fit("pol1", "S", "", lowest_bin_position, highest_bin_position) ;
+
+      if(myfit->Prob() < 2e-2)
+      {
+        highest_bin_position -= edge ;
+        lowest_bin_position += edge ;
+
+        myfit = p.second->Fit("pol1", "S", "", lowest_bin_position, highest_bin_position) ;
+      }
+
+       cout << "slopes " << p.first << " " << myfit->Parameter(1) << " +/- " << myfit->ParError(1) << endl ;
+
+        // p.second->GetFunction("pol1")->SetRange(min_position, max_position) ;
+
+      p.second->SetMarkerStyle(20) ;
+      p.second->GetFunction("pol1")->SetLineStyle(kDashed) ;
+      p.second->SetMarkerStyle(20) ;
+      p.second->GetFunction("pol1")->SetLineStyle(kDashed) ;
     }
 
-    p.second->SetMarkerStyle(20) ;
-    p.second->GetFunction("pol1")->SetLineStyle(kDashed) ;
     
     map<string, Color_t> color_map ;
     
@@ -945,11 +982,6 @@ void ElasticAnalyzer::endJob()
     color_map["profile_y_vs_dy_123_if_123_125"] = kMagenta ;
     
     p.second->SetMarkerColor(color_map[p.first]) ;
-    p.second->GetFunction("pol1")->SetLineColor(color_map[p.first]) ;
-
-    cout << "slopes " << p.first << " " << myfit->Parameter(1) << " +/- " << myfit->ParError(1) << endl ;
-
-    // p.second->GetFunction("pol1")->SetRange(min_position, max_position) ;
 
     p.second->Write(p.first.c_str());
   }
