@@ -1,0 +1,6 @@
+In offsets....txt 
+1. value key
+2. value offset for dx cut (useful to handle aligned and not aligned files)
+3. value offset for dy cut 
+4. x slope to compare detectors in key
+5. y slope to compare detectors in key 
