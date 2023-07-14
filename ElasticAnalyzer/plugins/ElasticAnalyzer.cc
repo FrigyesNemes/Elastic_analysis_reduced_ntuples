@@ -34,7 +34,7 @@
  
 #include "DataFormats/CTPPSDetId/interface/TotemRPDetId.h"
 #include "DataFormats/CTPPSReco/interface/CTPPSLocalTrackLite.h"
-#include "DataFormats/CTPPSReco/interface/CTPPSPixelRecHit.h"
+#include "DataFormats/CTPPSReco/interface/CTPPSLocalTrackLite.h"
 #include "ElasticAnalysis/ElasticAnalyzer/interface/ElasticAnalyzer.h"
 
 using namespace std;
@@ -433,6 +433,14 @@ void ElasticAnalyzer::TestDetectorPair2(map<unsigned int, RP_struct_type>::itera
   }
 }
 
+class TAnalyser_class
+{
+  public:
+
+  map<int, double> map_from_strip_number_to_hit_positions_u ;
+  map<int, double> map_from_strip_number_to_hit_positions_v ;
+} ;
+
 void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
   using namespace edm;
@@ -473,6 +481,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   std::string output = ss.str();
 
   cout << iEvent.time().unixTime() << " " << output << endl ;
+
+  map<unsigned int, TAnalyser_class> vector_analyser_class ;
 
   for (const auto &pv : iEvent.get(rpPatternToken_))
   {
@@ -539,6 +549,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
             histosTH1F["strips_u"]->Fill(hit.getPosition()) ;
             histosTH2F["strips_u_per_plane"]->Fill(hit.getPosition(), u_counter) ;
             
+            vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_u[u_counter] = hit.getPosition() ;
+            
             ++u_counter ;
           }
 
@@ -546,6 +558,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
           {
             histosTH1F["strips_v"]->Fill(hit.getPosition()) ;
             histosTH2F["strips_v_per_plane"]->Fill(hit.getPosition(), v_counter) ;
+
+            vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_v[v_counter] = hit.getPosition() ;
 
             ++v_counter ;
           }
@@ -726,10 +740,24 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   map <int, int> map_RPids_occurance_in_event ;
   map<unsigned int, RP_struct_type> map_RPs ;
 
-  for(const auto& track : iEvent.get(tracksToken_) )
+  for(const auto& track : iEvent.get(tracksToken_))
   {
     CTPPSDetId rpId(track.getRPId());
     unsigned int rpDecId = (100*rpId.arm()) + (10*rpId.station()) + (1*rpId.rp());
+    
+    for(unsigned int i = 0 ; i < vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_u.size() ; ++i)
+    {
+      double dxu = vector_analyser_class[rpId].map_from_strip_number_to_hit_positions_u[i] - track.getX() ;
+      
+      histosTH1F["residual_u"]->Fill(dxu) ;
+    }
+
+    for(unsigned int i = 0 ; i < vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_v.size() ; ++i)
+    {
+      double dxv = vector_analyser_class[rpId].map_from_strip_number_to_hit_positions_v[i] - track.getX() ;
+      
+      histosTH1F["residual_v"]->Fill(dxv) ;
+    }
 
     map_RPids_occurance_in_event[rpDecId]++;
 
@@ -1035,6 +1063,9 @@ void ElasticAnalyzer::beginJob()
   histosTH1F["strips"] = new TH1F("strips", "strips", 100, -20.0, 20.0);
   histosTH1F["strips_u"] = new TH1F("strips_u", "strips_u", 100, -20.0, 20.0);
   histosTH1F["strips_v"] = new TH1F("strips_v", "strips_v", 100, -20.0, 20.0);
+
+  histosTH1F["residual_u"] = new TH1F("residual_u", "residual_u", 100, -20.0, 20.0);
+  histosTH1F["residual_v"] = new TH1F("residual_v", "residual_v", 100, -20.0, 20.0);
 
   histosTH2F["strips_u_per_plane"] = new TH2F("strips_u_per_plane", "strips_u_per_plane", 100, -20.0, 20.0, 10, 0, 10);
   histosTH2F["strips_v_per_plane"] = new TH2F("strips_v_per_plane", "strips_v_per_plane", 100, -20.0, 20.0, 10, 0, 10);
