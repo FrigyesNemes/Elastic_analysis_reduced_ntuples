@@ -34,6 +34,7 @@
  
 #include "DataFormats/CTPPSDetId/interface/TotemRPDetId.h"
 #include "DataFormats/CTPPSReco/interface/CTPPSLocalTrackLite.h"
+#include "DataFormats/CTPPSReco/interface/CTPPSPixelRecHit.h"
 #include "ElasticAnalysis/ElasticAnalyzer/interface/ElasticAnalyzer.h"
 
 using namespace std;
@@ -200,6 +201,7 @@ const int minimum_number_of_track_to_make_a_fit = 100 ;
 
 const double horizontal_boundary_mm = 20.0 ;
 const double vertical_boundary_mm = 0.5 ;
+const double vertical_boundary_mm2 = 5.0 ;
 
 TRandom3 myrand ;
 
@@ -277,11 +279,157 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
   }
 }
 
+class vector2d
+{
+  double x,y ;
+
+  public :
+  vector2d() {} ;
+  vector2d(double, double) ;
+  double length() { return sqrt((x*x) + (y*y)) ; } 
+  vector2d normalize() ; ;
+  vector2d subtract(vector2d &) ; ;
+  double scalar(vector2d &) ; ;
+  vector2d normal() ; ;
+} ;
+
+vector2d::vector2d(double x, double y) : x(x), y(y)
+{
+}
+
+vector2d vector2d::normalize()
+{
+//  cout << "length " << length() << endl ;
+
+  double alength = length() ;
+
+  x = x / alength ;  
+  y = y / alength ;  
+  
+//  cout << "length " << length() << endl ;
+
+  return (*this) ;
+}
+
+vector2d vector2d::normal()
+{
+  vector2d result(y, -x) ;
+  return result ;
+}
+
+vector2d vector2d::subtract(vector2d &myvec)
+{
+  vector2d result(x - myvec.x, y - myvec.y) ;  
+
+  return result ;
+}
+
+double vector2d::scalar(vector2d &myvec)
+{
+  double result = (x * myvec.x) + (y * myvec.y) ;  
+
+  return result ;
+}
+
 void ElasticAnalyzer::TestDetectorPair2(map<unsigned int, RP_struct_type>::iterator it1, map<unsigned int, RP_struct_type>::iterator it2, unsigned int detector_1, unsigned int detector_2, double p0, double p1, double sigma)
 {
+  vector2d vector_dx_3_23(   5.55077, -1.15147) ;
+  vector2d vector_dy_3_23(  -0.04302,  0.120302) ;     
+  vector2d vector_dx_4_24(  -2.28055,  0.922319) ;
+  vector2d vector_dy_4_24(  13.1813 ,  0.429652) ;
+  vector2d vector_dx_5_25(  -2.16581,  0.899404)  ;
+  vector2d vector_dy_5_25( -12.8657 ,  0.234876) ;
+
+  vector2d vector_dxb_3_23( 7.55881,    -1.54102) ;
+  vector2d vector_dyb_3_23( 2.25186,    0.429652) ;     
+  vector2d vector_dxb_4_24( 4.20252,   -2.7555) ;
+  vector2d vector_dyb_4_24( 4.28858,    0.326535) ;
+  vector2d vector_dxb_5_25( 2.56741,    -1.8962) ;
+  vector2d vector_dyb_5_25( -3.85829,   0.246334) ;
+  
+  map<string, vector2d> mymap ;
+
+  mymap["x_3_23"] = vector_dx_3_23;
+  mymap["y_3_23"] = vector_dy_3_23;
+  mymap["x_4_24"] = vector_dx_4_24;
+  mymap["y_4_24"] = vector_dy_4_24;
+  mymap["x_5_25"] = vector_dx_5_25;
+  mymap["y_5_25"] = vector_dy_5_25;
+
+  mymap["dx_3_23"] = vector_dxb_3_23.subtract(vector_dx_3_23);
+  mymap["dy_3_23"] = vector_dyb_3_23.subtract(vector_dy_3_23);
+  mymap["dx_4_24"] = vector_dxb_4_24.subtract(vector_dx_4_24);
+  mymap["dy_4_24"] = vector_dyb_4_24.subtract(vector_dy_4_24);
+  mymap["dx_5_25"] = vector_dxb_5_25.subtract(vector_dx_5_25);
+  mymap["dy_5_25"] = vector_dyb_5_25.subtract(vector_dy_5_25);
+
+  mymap["dx_3_23n"] = mymap["dx_3_23"].normalize() ;
+  mymap["dy_3_23n"] = mymap["dy_3_23"].normalize() ;
+  mymap["dx_4_24n"] = mymap["dx_4_24"].normalize() ;
+  mymap["dy_4_24n"] = mymap["dy_4_24"].normalize() ;
+  mymap["dx_5_25n"] = mymap["dx_5_25"].normalize() ;
+  mymap["dy_5_25n"] = mymap["dy_5_25"].normalize() ;
+  
+  // cout << "lengthtest " << mymap["dx_3_23n"].length() << endl ;
+  // cout << "lengthtest " << mymap["dy_3_23n"].length() << endl ;
+
+  mymap["nx_3_23"] = mymap["dx_3_23n"].normal() ;
+  mymap["ny_3_23"] = mymap["dy_3_23n"].normal() ;
+  mymap["nx_4_24"] = mymap["dx_4_24n"].normal() ;
+  mymap["ny_4_24"] = mymap["dy_4_24n"].normal() ;
+  mymap["nx_5_25"] = mymap["dx_5_25n"].normal() ;
+  mymap["ny_5_25"] = mymap["dy_5_25n"].normal() ;
+
   if((it1->first == detector_1) && (it2->first == detector_2))
   {
     // cout << "Found " << detector_1 << " " << detector_2 << endl ;
+    
+    stringstream ss_1 ;
+    stringstream ss_2 ;
+
+    ss_1 << it1->first ;
+    ss_2 << it2->first ;
+
+    string key_for_coords = ss_1.str() + "_" + ss_2.str() ;
+
+    string name_x = "dx_" + ss_1.str() + "_" + ss_2.str() ;
+    string name_y = "dy_" + ss_1.str() + "_" + ss_2.str() ;
+    
+    vector2d vector_x(it2->second.x, it2->second.x - it1->second.x) ;
+    vector2d vector_y(it2->second.y, it2->second.y - it1->second.y) ;
+
+    vector2d vector_x_step1 = vector_x.subtract(mymap["x_" + key_for_coords]) ;
+    vector2d vector_y_step1 = vector_y.subtract(mymap["y_" + key_for_coords]) ;
+
+    double vector_x_step2 = vector_x_step1.scalar(mymap["nx_" + key_for_coords]) ;
+    double vector_y_step2 = vector_y_step1.scalar(mymap["ny_" + key_for_coords]) ;
+
+    histosTH2F[name_x]->Fill(it2->second.x, it2->second.x - it1->second.x) ;
+    histosTH2F[name_y]->Fill(it2->second.y, it2->second.y - it1->second.y) ;
+
+    if((fabs(vector_x_step2) < 0.1) && (fabs(vector_y_step2) < 0.1))
+    {
+
+      double slope_x = map_from_detector_pair_to_offsets[key_for_coords + "xslope"] ;
+      double slope_y = map_from_detector_pair_to_offsets[key_for_coords + "yslope"] ;
+
+      map_of_THorizontal_and_vertical_xy_pairs_to_match[key_for_coords].push_back(new THorizontal_and_vertical_xy_pairs_to_match(it1->second.x, it1->second.y, it2->second.x - (slope_x * it2->second.x), it2->second.y - (slope_y * it2->second.y))) ;
+
+      string name_x2 = "xy_" + ss_1.str() + "_if_" + ss_1.str() + "_" + ss_2.str() ;
+      string name_y2 = "xy_" + ss_2.str() + "_if_" + ss_1.str() + "_" + ss_2.str() ;
+      string name_x3 = "x_vs_dx_" + ss_1.str() + "_if_" + ss_1.str() + "_" + ss_2.str() ;
+      string name_x4 = "y_vs_dy_" + ss_1.str() + "_if_" + ss_1.str() + "_" + ss_2.str() ;
+      string name_x5 = "sx_vs_dx_" + ss_1.str() + "_if_" + ss_1.str() + "_" + ss_2.str() ;
+      string name_x6 = "sy_vs_dy_" + ss_1.str() + "_if_" + ss_1.str() + "_" + ss_2.str() ;
+
+      histosTH2F[name_x2]->Fill(it1->second.x, it1->second.y) ;
+      histosTH2F[name_y2]->Fill(it2->second.x, it2->second.y) ;
+      histosTH2F[name_x3]->Fill(it1->second.x, it2->second.x - it1->second.x) ;
+      histosTH2F[name_x4]->Fill(it1->second.y, it2->second.y - it1->second.y) ;
+
+      histosTH2F[name_x5]->Fill(it1->second.x, (it2->second.x - (slope_x * it2->second.x)) - it1->second.x) ;
+      histosTH2F[name_x6]->Fill(it1->second.y, (it2->second.y - (slope_y * it2->second.y)) - it1->second.y) ;
+    }
   }
 }
 
@@ -374,12 +522,35 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
       // cout << endl ;
 
+      int u_counter = 0 ;
+      int v_counter = 0 ;
+
       for (const auto &hitsDetSet : pattern.getHits())
       {
         for (auto &hit : hitsDetSet)
         {
 
           // cout << strip_orientation << " position" << counter << " " << hit.getPosition() << endl ;
+          
+          histosTH1F["strips"]->Fill(hit.getPosition()) ;
+
+          if(strip_orientation.compare("U-strip JUU") == 0)
+          {
+            histosTH1F["strips_u"]->Fill(hit.getPosition()) ;
+            histosTH2F["strips_u_per_plane"]->Fill(hit.getPosition(), u_counter) ;
+            
+            ++u_counter ;
+          }
+
+          if(strip_orientation.compare("V-strip VII") == 0)
+          {
+            histosTH1F["strips_v"]->Fill(hit.getPosition()) ;
+            histosTH2F["strips_v_per_plane"]->Fill(hit.getPosition(), v_counter) ;
+
+            ++v_counter ;
+          }
+          
+
           counter++ ;
         }
       }
@@ -582,6 +753,32 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     
   }
 
+  int RPsfound_3 = 0 ;
+  int RPsfound_4 = 0 ;
+  int RPsfound_23 = 0 ;
+  int RPsfound_24 = 0 ;
+
+  for(map<unsigned int, RP_struct_type>::iterator it = map_RPs.begin() ; it != map_RPs.end() ; ++it)
+  {
+    if(it->first == 3) ++RPsfound_3 ;
+    if(it->first == 4) ++RPsfound_4 ;
+    if(it->first == 23) ++RPsfound_23 ;
+    if(it->first == 24) ++RPsfound_24 ;
+  }
+  
+  if((RPsfound_3 == 1) && (RPsfound_4 == 1)&&(RPsfound_23 == 1) && (RPsfound_24 == 1))
+  {
+    for(map<unsigned int, RP_struct_type>::iterator it = map_RPs.begin() ; it != map_RPs.end() ; ++it)
+    {
+      if((it->first == 3) || (it->first == 4) || (it->first == 23) || (it->first == 24))
+      {
+        histosTH2F["test"]->Fill(it->second.x, it->second.y) ;
+        
+        if(fabs(map_RPs[3].x - map_RPs[4].x) < 0.2) histosTH2F["test2"]->Fill(it->second.x, it->second.y) ;
+      }
+    }
+  }
+  
   for(map <int, int>::iterator it = map_RPids_occurance_in_event.begin() ; it != map_RPids_occurance_in_event.end() ; ++it)
   for(map <int, int>::iterator it2 = map_RPids_occurance_in_event.begin() ; it2 != map_RPids_occurance_in_event.end() ; ++it2)
   {
@@ -795,10 +992,52 @@ void ElasticAnalyzer::addHistos()
 
     }
   }
+  
+  histosTH2F["xy_3_if_3_23"] = new TH2F("xy_3_23", "xy_3_23", 100, -20.0, 20.0, 100, -20.0, 20.0);
+  histosTH2F["xy_4_if_4_24"] = new TH2F("xy_4_24", "xy_4_24", 100, -20.0, 20.0, 100, -20.0, 20.0);
+  histosTH2F["xy_5_if_5_25"] = new TH2F("xy_5_25", "xy_5_25", 100, -20.0, 20.0, 100, -20.0, 20.0);
+
+  histosTH2F["xy_23_if_3_23"] = new TH2F("xy_23_if_3_23", "xy_23_if_3_23", 100, -20.0, 20.0, 100, -20.0, 20.0);
+  histosTH2F["xy_24_if_4_24"] = new TH2F("xy_24_if_4_24", "xy_24_if_4_24", 100, -20.0, 20.0, 100, -20.0, 20.0);
+  histosTH2F["xy_25_if_5_25"] = new TH2F("xy_25_if_5_25", "xy_25_if_5_25", 100, -20.0, 20.0, 100, -20.0, 20.0);
+
+  histosTH2F["dx_3_23"] = new TH2F("dx_3_23", "dx_3_23", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["dx_4_24"] = new TH2F("dx_4_24", "dx_4_24", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["dx_5_25"] = new TH2F("dx_5_25", "dx_5_25", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+
+  histosTH2F["dy_3_23"] = new TH2F("dy_3_23", "dy_3_23", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["dy_4_24"] = new TH2F("dy_4_24", "dy_4_24", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["dy_5_25"] = new TH2F("dy_5_25", "dy_5_25", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+
+  histosTH2F["x_vs_dx_3_if_3_23"] = new TH2F("x_vs_dx_3_if_3_23", "x_vs_dx_3_if_3_23", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["x_vs_dx_4_if_4_24"] = new TH2F("x_vs_dx_4_if_4_24", "x_vs_dx_4_if_4_24", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["x_vs_dx_5_if_5_25"] = new TH2F("x_vs_dx_5_if_5_25", "x_vs_dx_5_if_5_25", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+
+  histosTH2F["y_vs_dy_3_if_3_23"] = new TH2F("y_vs_dy_3_if_3_23", "y_vs_dy_3_if_3_23", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["y_vs_dy_4_if_4_24"] = new TH2F("y_vs_dy_4_if_4_24", "y_vs_dy_4_if_4_24", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["y_vs_dy_5_if_5_25"] = new TH2F("y_vs_dy_5_if_5_25", "y_vs_dy_5_if_5_25", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+
+  histosTH2F["sx_vs_dx_3_if_3_23"] = new TH2F("x_vs_dx_3_if_3_23", "x_vs_dx_3_if_3_23", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["sx_vs_dx_4_if_4_24"] = new TH2F("x_vs_dx_4_if_4_24", "x_vs_dx_4_if_4_24", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["sx_vs_dx_5_if_5_25"] = new TH2F("x_vs_dx_5_if_5_25", "x_vs_dx_5_if_5_25", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+
+  histosTH2F["sy_vs_dy_3_if_3_23"] = new TH2F("y_vs_dy_3_if_3_23", "y_vs_dy_3_if_3_23", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["sy_vs_dy_4_if_4_24"] = new TH2F("y_vs_dy_4_if_4_24", "y_vs_dy_4_if_4_24", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["sy_vs_dy_5_if_5_25"] = new TH2F("y_vs_dy_5_if_5_25", "y_vs_dy_5_if_5_25", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+
 }
 
 void ElasticAnalyzer::beginJob()
 {
+  histosTH2F["test"] = new TH2F("test", "test", 100, -20.0, 20.0, 100, -20.0, 20.0);
+  histosTH2F["test2"] = new TH2F("test2", "test2", 100, -20.0, 20.0, 100, -20.0, 20.0);
+
+  histosTH1F["strips"] = new TH1F("strips", "strips", 100, -20.0, 20.0);
+  histosTH1F["strips_u"] = new TH1F("strips_u", "strips_u", 100, -20.0, 20.0);
+  histosTH1F["strips_v"] = new TH1F("strips_v", "strips_v", 100, -20.0, 20.0);
+
+  histosTH2F["strips_u_per_plane"] = new TH2F("strips_u_per_plane", "strips_u_per_plane", 100, -20.0, 20.0, 10, 0, 10);
+  histosTH2F["strips_v_per_plane"] = new TH2F("strips_v_per_plane", "strips_v_per_plane", 100, -20.0, 20.0, 10, 0, 10);
 
   histosTH2F["RP_correlation"] = new TH2F("RP_correlation", "RP_correlation" , (125 - 3) + 1, 3, 125, (125 - 3) + 1, 3, 125);
   histosTH2F["RP_covariance"] = new TH2F("RP_covariance", "RP_covariance" , (125 - 3) + 1, 3, 125, (125 - 3) + 1, 3, 125);

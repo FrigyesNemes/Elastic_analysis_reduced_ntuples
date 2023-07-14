@@ -165,5 +165,5 @@ void MinuitFit(string key)
 	gMinuit2->GetParameter(1, par[1], pare[1]) ;
 	gMinuit2->GetParameter(2, par[2], pare[2]) ;
 
-  cout << "Final parameters: x: " << key << "  " << par[0] << " y: " << par[1] << " alpha: " << par[2] << "  number_of_points: " << (*points).size() << endl ;
+  cout << "Final parameters: x: " << key << "  " << par[0] << " y: " << par[1] << " alpha: " << par[2] << "  number_of_points: " << (*points).size() << " ndf=2*number_of_points=" << (2.0*(*points).size()) << endl ;
 }
