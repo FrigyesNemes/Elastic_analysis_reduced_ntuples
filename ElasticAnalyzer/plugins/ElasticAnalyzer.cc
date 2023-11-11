@@ -31,6 +31,7 @@
 #include "DataFormats/TrackReco/interface/TrackFwd.h"
 
 #include "DataFormats/CTPPSReco/interface/TotemRPUVPattern.h"
+#include "DataFormats/CTPPSReco/interface/CTPPSDiamondRecHit.h"
  
 #include "DataFormats/CTPPSDetId/interface/TotemRPDetId.h"
 #include "DataFormats/CTPPSReco/interface/CTPPSLocalTrackLite.h"
@@ -64,10 +65,13 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>
   virtual void Minimize() ;
   void MinimizeHorizontalVerticalPair(vector<THorizontal_and_vertical_xy_pairs_to_match *> &);
 
+  vector<edm::EventNumber_t> vector_events_to_check ;
+
   int verbosity;
 
   edm::EDGetTokenT<std::vector<CTPPSLocalTrackLite>> tracksToken_;  //used to select what tracks to read from configuration file
   edm::EDGetTokenT<edm::DetSetVector<TotemRPUVPattern>> rpPatternToken_ ;
+//  edm::EDGetTokenT<edm::DetSetVector<CTPPSDiamondRecHit>> tokenDiamondHits_ ;
 
   std::string diagonal;  
   std::string outputFileName;  
@@ -136,6 +140,7 @@ ElasticAnalyzer::Distribution::Distribution(const edm::ParameterSet &ps) {
 ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(iConfig.getUntrackedParameter<int>("verbosity")),
   tracksToken_(consumes<std::vector<CTPPSLocalTrackLite>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks"))),
   rpPatternToken_(consumes<edm::DetSetVector<TotemRPUVPattern>>(iConfig.getParameter<edm::InputTag>("rpPatternTag"))),
+  // tokenDiamondHits_(consumes<edm::DetSetVector<CTPPSDiamondRecHit>>(iConfig.getUntrackedParameter<edm::InputTag>("ctppsDiamondRecHits"))),
   diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName")), offsetFileName(iConfig.getParameter<std::string>("offsetFileName")) 
 {
   position_dist_ = new Distribution(iConfig.getParameterSet("position_distribution")) ;
@@ -261,7 +266,7 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
 
       if(((p0 == 0) && (p1 == 0)) || (fabs(delta_from_cut / sigma) < 3.0))
       {
-        histosTH2F[name_x3]->Fill(it1->second.x, it2->second.x - it1->second.x) ;
+        histosTH2F[name_x3]->Fill(it1->second.x, delta_from_cut) ;
         profiles["profile_" + name_x3]->Fill(it1->second.x, it2->second.x - it1->second.x) ;
       }
 
@@ -272,7 +277,7 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
 
       if(fabs(delta_from_cut_2 / sigma_2) < 3.0)
       {
-        histosTH2F[name_x4]->Fill(it1->second.y, it2->second.y - it1->second.y) ;
+        histosTH2F[name_x4]->Fill(it1->second.y, delta_from_cut_2) ;
         profiles["profile_" + name_x4]->Fill(it1->second.y, it2->second.y - it1->second.y) ;
       }
     }
@@ -402,12 +407,12 @@ void ElasticAnalyzer::TestDetectorPair2(map<unsigned int, RP_struct_type>::itera
     vector2d vector_y_step1 = vector_y.subtract(mymap["y_" + key_for_coords]) ;
 
     double vector_x_step2 = vector_x_step1.scalar(mymap["nx_" + key_for_coords]) ;
-    double vector_y_step2 = vector_y_step1.scalar(mymap["ny_" + key_for_coords]) ;
+    double vector_y_step2  = vector_y_step1.scalar(mymap["ny_" + key_for_coords]) ;
 
     histosTH2F[name_x]->Fill(it2->second.x, it2->second.x - it1->second.x) ;
     histosTH2F[name_y]->Fill(it2->second.y, it2->second.y - it1->second.y) ;
 
-    if((fabs(vector_x_step2) < 0.1) && (fabs(vector_y_step2) < 0.1))
+    // if((fabs(vector_x_step2) < 0.1) && (fabs(vector_y_step2) < 0.1))
     {
 
       double slope_x = map_from_detector_pair_to_offsets[key_for_coords + "xslope"] ;
@@ -424,8 +429,10 @@ void ElasticAnalyzer::TestDetectorPair2(map<unsigned int, RP_struct_type>::itera
 
       histosTH2F[name_x2]->Fill(it1->second.x, it1->second.y) ;
       histosTH2F[name_y2]->Fill(it2->second.x, it2->second.y) ;
-      histosTH2F[name_x3]->Fill(it1->second.x, it2->second.x - it1->second.x) ;
-      histosTH2F[name_x4]->Fill(it1->second.y, it2->second.y - it1->second.y) ;
+//      histosTH2F[name_x3]->Fill(it1->second.x, it2->second.x - it1->second.x) ;
+//      histosTH2F[name_x4]->Fill(it1->second.y, it2->second.y - it1->second.y) ;
+      histosTH2F[name_x3]->Fill(it1->second.x, vector_x_step2) ;
+      histosTH2F[name_x4]->Fill(it1->second.y, vector_y_step2) ;
 
       histosTH2F[name_x5]->Fill(it1->second.x, (it2->second.x - (slope_x * it2->second.x)) - it1->second.x) ;
       histosTH2F[name_x6]->Fill(it1->second.y, (it2->second.y - (slope_y * it2->second.y)) - it1->second.y) ;
@@ -453,6 +460,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   {
     cout << "Eventinfo " << run_number << " " << event_number << " (" <<  iEvent.id() << ")" << endl ;
   }
+
+  // cout << "Eventinfo " << run_number << " " << event_number << " (" <<  iEvent.id() << ")" << endl ;
   
   clear_variables() ;
 
@@ -572,11 +581,48 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     }
 
   }
+  
+  vector<edm::EventNumber_t>::iterator an_iterator = find(vector_events_to_check.begin(), vector_events_to_check.end(), event_number) ;
 
+  bool to_be_tested = false ;
+  if(an_iterator != vector_events_to_check.end()) { cout << "Success " << event_number << " " << (*an_iterator) << endl ; to_be_tested = true ; }
+  
+  int track_index = 0 ;
+
+  map<int, int>  occurances ;
+  
+  for(unsigned int i = 0 ; i < RP_numbers.size() ; ++i)
+  {
+    occurances[RP_numbers[i]] = 0 ;
+  }
+  
   for(const auto& track : iEvent.get(tracksToken_))
   {
     CTPPSDetId rpId(track.getRPId());
     unsigned int rpDecId = (100*rpId.arm()) + (10*rpId.station()) + (1*rpId.rp());
+
+    occurances[rpDecId]++ ;
+  }
+  
+  bool ok_for_test = true ;
+
+  for(unsigned int i = 0 ; i < RP_numbers.size() ; ++i)
+  {
+    if(occurances[RP_numbers[i]] > 1) ok_for_test = false ;
+  }
+
+  for(const auto& track : iEvent.get(tracksToken_))
+  {
+  
+    CTPPSDetId rpId(track.getRPId());
+    unsigned int rpDecId = (100*rpId.arm()) + (10*rpId.station()) + (1*rpId.rp());
+
+    cout << "hihi event_number " << (*an_iterator) << " track_index " << track_index <<  " rpDecId " << rpDecId << " X : " << track.getX() << " Y : " << track.getY() << endl ;
+
+   if(ok_for_test && to_be_tested) cout << "hihi event_number " << (*an_iterator) << " track_index " << track_index <<  " rpDecId " << rpDecId << " X : " << track.getX() << " Y : " << track.getY() << endl ;
+   ++track_index ;
+    
+   // if(event_number == 22902132) cout << "hihi rpDecId " << rpDecId << " X : " << track.getX() << " Y :  " << track.getY() << endl ;    
     
     // if(2,3,22,23)
     
@@ -781,6 +827,13 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     
   }
 
+  // const DetSetVector<CTPPSDiamondRecHit> hitsDiamond ;
+  
+//  for(const auto&pv : iEvent.get(tokenDiamondHits_))
+//  {
+//    cout << "diamond" << endl ;
+//  }
+
   int RPsfound_3 = 0 ;
   int RPsfound_4 = 0 ;
   int RPsfound_23 = 0 ;
@@ -903,7 +956,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     }
     else
     {
-      TestDetectorPair(it, it2, 3, 4, -0.0120793 ,-0.0087, 0.013) ;
+      TestDetectorPair(it, it2, 3, 4, 0.107729, -0.0202505, 0.020) ;
       TestDetectorPair(it, it2, 3, 5,  0.0368000 ,-0.0130, 0.022) ;
 
       TestDetectorPair(it, it2, 23, 24,  0.037, -0.014, 0.022) ;
@@ -915,9 +968,9 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       TestDetectorPair(it, it2, 123, 124, 0.05 ,-0.0079, 0.022) ;
       TestDetectorPair(it, it2, 123, 125, 0.05 ,-0.0079, 0.022) ;
 
-      TestDetectorPair2(it, it2, 3, 23, 0.0 ,0.0, 0.0) ;
-      TestDetectorPair2(it, it2, 4, 24, 0.0 ,0.0, 0.0) ;
-      TestDetectorPair2(it, it2, 5, 25, 0.0 ,0.0, 0.0) ;
+      // TestDetectorPair2(it, it2, 3, 23, 0.0 ,0.0, 0.0) ;
+      // TestDetectorPair2(it, it2, 4, 24, 0.0 ,0.0, 0.0) ;
+      // TestDetectorPair2(it, it2, 5, 25, 0.0 ,0.0, 0.0) ;
     }
   }
 }
@@ -1165,6 +1218,17 @@ void ElasticAnalyzer::beginJob()
   tree->Branch("track_right_far_horizontal_y",            &right_far_horizontal.y,                "track_right_far_horizontal_y/D") ;
   tree->Branch("track_right_far_horizontal_thx",          &right_far_horizontal.thx,              "track_right_far_horizontal_thx/D") ;
   tree->Branch("track_right_far_horizontal_thy",          &right_far_horizontal.thy,              "track_right_far_horizontal_thy/D") ;
+  
+  ifstream events_to_check("events_to_test.txt") ;
+
+  string word ;
+  edm::EventNumber_t test_event_number ;
+  
+  while(events_to_check >> test_event_number)
+  {
+    vector_events_to_check.push_back(test_event_number) ;
+    // cout << test_event_number << endl ;
+  }
 
 }
 
