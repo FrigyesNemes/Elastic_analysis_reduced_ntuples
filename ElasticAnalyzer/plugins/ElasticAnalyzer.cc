@@ -148,31 +148,34 @@ ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(
   add_tests = false ;
   position_dist_ = new Distribution(iConfig.getParameterSet("position_distribution")) ;
 
-  ifstream offsets(offsetFileName) ;
-
-  if(!offsets.is_open())
+  if(add_tests)
   {
-    throw cms::Exception("CorruptData") << " offset file cannot be opened" << endl;
+    ifstream offsets(offsetFileName) ;
+
+    if(!offsets.is_open())
+    {
+      throw cms::Exception("CorruptData") << " offset file cannot be opened" << endl;
+    }
+
+    string key ;
+    double offset_x, offset_y, slope_x, slope_y ;
+
+    // cout << "feedback1" << endl ;
+
+    while(offsets >> key >> offset_x >> offset_y >> slope_x >> slope_y)
+    {
+      // cout << "feedback2" << endl ;
+
+      map_from_detector_pair_to_offsets[key + "x"] = offset_x ;
+      map_from_detector_pair_to_offsets[key + "y"] = offset_y ;
+      map_from_detector_pair_to_offsets[key + "xslope"] = slope_x ;
+      map_from_detector_pair_to_offsets[key + "yslope"] = slope_y ;
+
+      // cout << "feedback " <<  key << " " <<  offset_x << " " <<  offset_y << " " <<  slope_x << " " <<  slope_y << endl ;
+    }
+
+    offsets.close() ;
   }
-
-  string key ;
-  double offset_x, offset_y, slope_x, slope_y ;
-
-  // cout << "feedback1" << endl ;
-
-  while(offsets >> key >> offset_x >> offset_y >> slope_x >> slope_y)
-  {
-    // cout << "feedback2" << endl ;
-
-    map_from_detector_pair_to_offsets[key + "x"] = offset_x ;
-    map_from_detector_pair_to_offsets[key + "y"] = offset_y ;
-    map_from_detector_pair_to_offsets[key + "xslope"] = slope_x ;
-    map_from_detector_pair_to_offsets[key + "yslope"] = slope_y ;
-
-    // cout << "feedback " <<  key << " " <<  offset_x << " " <<  offset_y << " " <<  slope_x << " " <<  slope_y << endl ;
-  }
-
-  offsets.close() ;
 }
 
 ElasticAnalyzer::~ElasticAnalyzer()
@@ -236,8 +239,8 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
     double slope_x = map_from_detector_pair_to_offsets[key_for_coords + "xslope"] ;
     double slope_y = map_from_detector_pair_to_offsets[key_for_coords + "yslope"] ;
 
-    cout << "xoffset " << key_for_coords << "x " << x_offset_for_dx_cut << endl ;
-    cout << "yoffset " << key_for_coords << "y " << y_offset_for_dy_cut << endl ;
+    // cout << "xoffset " << key_for_coords << "x " << x_offset_for_dx_cut << endl ;
+    // cout << "yoffset " << key_for_coords << "y " << y_offset_for_dy_cut << endl ;
 
     histosTH2F[name_x]->Fill(it2->second.x, it2->second.x - it1->second.x) ;
     histosTH2F[name_y]->Fill(it2->second.y, it2->second.y - it1->second.y) ;
@@ -250,7 +253,7 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
 
       map_of_THorizontal_and_vertical_xy_pairs_to_match[key_for_coords].push_back(new THorizontal_and_vertical_xy_pairs_to_match(it1->second.x, it1->second.y, it2->second.x - (slope_x * it2->second.x), it2->second.y - (slope_y * it2->second.y))) ;
       
-      cout << "to_be_saved " << key_for_coords << " " <<  it1->second.x << " " <<  it1->second.y << " " <<  it2->second.x << " " <<  it2->second.y << " " <<  endl ;
+      // cout << "to_be_saved " << key_for_coords << " " <<  it1->second.x << " " <<  it1->second.y << " " <<  it2->second.x << " " <<  it2->second.y << " " <<  endl ;
 
       string name_x2 = "xy_" + ss_1.str() + "_if_" + ss_1.str() + "_" + ss_2.str() ;
       string name_y2 = "xy_" + ss_2.str() + "_if_" + ss_1.str() + "_" + ss_2.str() ;
@@ -492,7 +495,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   ss << std::put_time(t, "%Y-%m-%d %I:%M:%S %p");
   std::string output = ss.str();
 
-  cout << iEvent.time().unixTime() << " " << output << endl ;
+  if(verbosity > 0) cout << iEvent.time().unixTime() << " " << output << endl ;
   
   for(const auto& track : iEvent.get(tracksToken_))
   {
