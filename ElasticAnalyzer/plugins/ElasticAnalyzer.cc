@@ -1099,52 +1099,67 @@ void ElasticAnalyzer::addHistos()
 
 void ElasticAnalyzer::beginJob()
 {
-  histosTH2F["test"] = new TH2F("test", "test", 100, -20.0, 20.0, 100, -20.0, 20.0);
-  histosTH2F["test2"] = new TH2F("test2", "test2", 100, -20.0, 20.0, 100, -20.0, 20.0);
+  if(add_tests)
+  {
+    histosTH2F["test"] = new TH2F("test", "test", 100, -20.0, 20.0, 100, -20.0, 20.0);
+    histosTH2F["test2"] = new TH2F("test2", "test2", 100, -20.0, 20.0, 100, -20.0, 20.0);
 
-  histosTH1F["strips"] = new TH1F("strips", "strips", 100, -20.0, 20.0);
-  histosTH1F["strips_u"] = new TH1F("strips_u", "strips_u", 100, -20.0, 20.0);
-  histosTH1F["strips_v"] = new TH1F("strips_v", "strips_v", 100, -20.0, 20.0);
+    histosTH1F["strips"] = new TH1F("strips", "strips", 100, -20.0, 20.0);
+    histosTH1F["strips_u"] = new TH1F("strips_u", "strips_u", 100, -20.0, 20.0);
+    histosTH1F["strips_v"] = new TH1F("strips_v", "strips_v", 100, -20.0, 20.0);
 
-  histosTH1F["residual_u"] = new TH1F("residual_u", "residual_u", 100, -20.0, 20.0);
-  histosTH1F["residual_v"] = new TH1F("residual_v", "residual_v", 100, -20.0, 20.0);
+    histosTH1F["residual_u"] = new TH1F("residual_u", "residual_u", 100, -20.0, 20.0);
+    histosTH1F["residual_v"] = new TH1F("residual_v", "residual_v", 100, -20.0, 20.0);
 
-  histosTH2F["strips_u_per_plane"] = new TH2F("strips_u_per_plane", "strips_u_per_plane", 100, -20.0, 20.0, 10, 0, 10);
-  histosTH2F["strips_v_per_plane"] = new TH2F("strips_v_per_plane", "strips_v_per_plane", 100, -20.0, 20.0, 10, 0, 10);
+    histosTH2F["strips_u_per_plane"] = new TH2F("strips_u_per_plane", "strips_u_per_plane", 100, -20.0, 20.0, 10, 0, 10);
+    histosTH2F["strips_v_per_plane"] = new TH2F("strips_v_per_plane", "strips_v_per_plane", 100, -20.0, 20.0, 10, 0, 10);
 
-  histosTH2F["RP_correlation"] = new TH2F("RP_correlation", "RP_correlation" , (125 - 3) + 1, 3, 125, (125 - 3) + 1, 3, 125);
-  histosTH2F["RP_covariance"] = new TH2F("RP_covariance", "RP_covariance" , (125 - 3) + 1, 3, 125, (125 - 3) + 1, 3, 125);
-  histosTH2F["scatter_plot_xy"] = new TH2F("scatter_plot_xy", "scatter_plot_xy" , 100, -40.0, 40.0, 100, -40.0, 40.0);
+    histosTH2F["RP_correlation"] = new TH2F("RP_correlation", "RP_correlation" , (125 - 3) + 1, 3, 125, (125 - 3) + 1, 3, 125);
+    histosTH2F["RP_covariance"] = new TH2F("RP_covariance", "RP_covariance" , (125 - 3) + 1, 3, 125, (125 - 3) + 1, 3, 125);
+    histosTH2F["scatter_plot_xy"] = new TH2F("scatter_plot_xy", "scatter_plot_xy" , 100, -40.0, 40.0, 100, -40.0, 40.0);
 
-  histosTH2F["diff_x_vs_dx_24_4_vs_4"] = new TH2F("diff_x_vs_dx_24_4_vs_4", "diff_x_vs_dx_24_4_vs_4" , 100, -20.0, 20.0, 100, -20.0, 20.0);
-  histosTH2F["diff_x_vs_dx_24_4_vs_24"] = new TH2F("diff_x_vs_dx_24_4_vs_24", "diff_x_vs_dx_24_4_vs_24" , 100, -20.0, 20.0, 100, -20.0, 20.0);
+    histosTH2F["diff_x_vs_dx_24_4_vs_4"] = new TH2F("diff_x_vs_dx_24_4_vs_4", "diff_x_vs_dx_24_4_vs_4" , 100, -20.0, 20.0, 100, -20.0, 20.0);
+    histosTH2F["diff_x_vs_dx_24_4_vs_24"] = new TH2F("diff_x_vs_dx_24_4_vs_24", "diff_x_vs_dx_24_4_vs_24" , 100, -20.0, 20.0, 100, -20.0, 20.0);
 
-  histosTH2F["diff_x_vs_dx_25_5_vs_5"] = new TH2F("diff_x_vs_dx_25_5_vs_5", "diff_x_vs_dx_25_5_vs_5" , 100, -20.0, 20.0, 100, -20.0, 20.0);
-  histosTH2F["diff_x_vs_dx_25_5_vs_25"] = new TH2F("diff_x_vs_dx_25_5_vs_25", "diff_x_vs_dx_25_5_vs_25" , 100, -20.0, 20.0, 100, -20.0, 20.0);
+    histosTH2F["diff_x_vs_dx_25_5_vs_5"] = new TH2F("diff_x_vs_dx_25_5_vs_5", "diff_x_vs_dx_25_5_vs_5" , 100, -20.0, 20.0, 100, -20.0, 20.0);
+    histosTH2F["diff_x_vs_dx_25_5_vs_25"] = new TH2F("diff_x_vs_dx_25_5_vs_25", "diff_x_vs_dx_25_5_vs_25" , 100, -20.0, 20.0, 100, -20.0, 20.0);
 
-  histosTH2F["diff_x_vs_dx_124_104_vs_104"] = new TH2F("diff_x_vs_dx_124_104_vs_104", "diff_x_vs_dx_124_104_vs_104" , 100, -20.0, 20.0, 100, -20.0, 20.0);
-  histosTH2F["diff_x_vs_dx_124_104_vs_124"] = new TH2F("diff_x_vs_dx_124_104_vs_124", "diff_x_vs_dx_124_104_vs_124" , 100, -20.0, 20.0, 100, -20.0, 20.0);
+    histosTH2F["diff_x_vs_dx_124_104_vs_104"] = new TH2F("diff_x_vs_dx_124_104_vs_104", "diff_x_vs_dx_124_104_vs_104" , 100, -20.0, 20.0, 100, -20.0, 20.0);
+    histosTH2F["diff_x_vs_dx_124_104_vs_124"] = new TH2F("diff_x_vs_dx_124_104_vs_124", "diff_x_vs_dx_124_104_vs_124" , 100, -20.0, 20.0, 100, -20.0, 20.0);
 
-  histosTH2F["diff_x_vs_dx_125_105_vs_105"] = new TH2F("diff_x_vs_dx_125_105_vs_105", "diff_x_vs_dx_125_105_vs_105" , 100, -20.0, 20.0, 100, -20.0, 20.0);
-  histosTH2F["diff_x_vs_dx_125_105_vs_125"] = new TH2F("diff_x_vs_dx_125_105_vs_125", "diff_x_vs_dx_125_105_vs_125" , 100, -20.0, 20.0, 100, -20.0, 20.0);
+    histosTH2F["diff_x_vs_dx_125_105_vs_105"] = new TH2F("diff_x_vs_dx_125_105_vs_105", "diff_x_vs_dx_125_105_vs_105" , 100, -20.0, 20.0, 100, -20.0, 20.0);
+    histosTH2F["diff_x_vs_dx_125_105_vs_125"] = new TH2F("diff_x_vs_dx_125_105_vs_125", "diff_x_vs_dx_125_105_vs_125" , 100, -20.0, 20.0, 100, -20.0, 20.0);
 
-  histosTH2F["diff_y_vs_dy_24_4_vs_4"] = new TH2F("diff_y_vs_dy_24_4_vs_4", "diff_y_vs_dy_24_4_vs_4" , 100, -20.0, 20.0, 100, -2.0, 2.0);
-  histosTH2F["diff_y_vs_dy_24_4_vs_24"] = new TH2F("diff_y_vs_dy_24_4_vs_24", "diff_y_vs_dy_24_4_vs_24" , 100, -20.0, 20.0, 100, -2.0, 2.0);
+    histosTH2F["diff_y_vs_dy_24_4_vs_4"] = new TH2F("diff_y_vs_dy_24_4_vs_4", "diff_y_vs_dy_24_4_vs_4" , 100, -20.0, 20.0, 100, -2.0, 2.0);
+    histosTH2F["diff_y_vs_dy_24_4_vs_24"] = new TH2F("diff_y_vs_dy_24_4_vs_24", "diff_y_vs_dy_24_4_vs_24" , 100, -20.0, 20.0, 100, -2.0, 2.0);
 
-  histosTH2F["diff_y_vs_dy_25_5_vs_5"] = new TH2F("diff_y_vs_dy_25_5_vs_5", "diff_y_vs_dy_25_5_vs_5" , 100, -20.0, 20.0, 100, -2.0, 2.0);
-  histosTH2F["diff_y_vs_dy_25_5_vs_25"] = new TH2F("diff_y_vs_dy_25_5_vs_25", "diff_y_vs_dy_25_5_vs_25" , 100, -20.0, 20.0, 100, -2.0, 2.0);
+    histosTH2F["diff_y_vs_dy_25_5_vs_5"] = new TH2F("diff_y_vs_dy_25_5_vs_5", "diff_y_vs_dy_25_5_vs_5" , 100, -20.0, 20.0, 100, -2.0, 2.0);
+    histosTH2F["diff_y_vs_dy_25_5_vs_25"] = new TH2F("diff_y_vs_dy_25_5_vs_25", "diff_y_vs_dy_25_5_vs_25" , 100, -20.0, 20.0, 100, -2.0, 2.0);
 
-  histosTH2F["diff_y_vs_dy_124_104_vs_104"] = new TH2F("diff_y_vs_dy_124_104_vs_104", "diff_y_vs_dy_124_104_vs_104" , 100, -20.0, 20.0, 100, -2.0, 2.0);
-  histosTH2F["diff_y_vs_dy_124_104_vs_124"] = new TH2F("diff_y_vs_dy_124_104_vs_124", "diff_y_vs_dy_124_104_vs_124" , 100, -20.0, 20.0, 100, -2.0, 2.0);
+    histosTH2F["diff_y_vs_dy_124_104_vs_104"] = new TH2F("diff_y_vs_dy_124_104_vs_104", "diff_y_vs_dy_124_104_vs_104" , 100, -20.0, 20.0, 100, -2.0, 2.0);
+    histosTH2F["diff_y_vs_dy_124_104_vs_124"] = new TH2F("diff_y_vs_dy_124_104_vs_124", "diff_y_vs_dy_124_104_vs_124" , 100, -20.0, 20.0, 100, -2.0, 2.0);
 
-  histosTH2F["diff_y_vs_dy_125_105_vs_105"] = new TH2F("diff_y_vs_dy_125_105_vs_105", "diff_y_vs_dy_125_105_vs_105" , 100, -20.0, 20.0, 100, -2.0, 2.0);
-  histosTH2F["diff_y_vs_dy_125_105_vs_125"] = new TH2F("diff_y_vs_dy_125_105_vs_125", "diff_y_vs_dy_125_105_vs_125" , 100, -20.0, 20.0, 100, -2.0, 2.0);
+    histosTH2F["diff_y_vs_dy_125_105_vs_105"] = new TH2F("diff_y_vs_dy_125_105_vs_105", "diff_y_vs_dy_125_105_vs_105" , 100, -20.0, 20.0, 100, -2.0, 2.0);
+    histosTH2F["diff_y_vs_dy_125_105_vs_125"] = new TH2F("diff_y_vs_dy_125_105_vs_125", "diff_y_vs_dy_125_105_vs_125" , 100, -20.0, 20.0, 100, -2.0, 2.0);
 
-  histosTH2F["th_x_local_vs_RP"] = new TH2F("th_x_local_vs_RP", "th_x_local_vs_RP" , 100, -5.0e-4, 5.0e-4, 100, -5.0e-4, 5.0e-4);
-  histosTH2F["th_y_local_vs_RP"] = new TH2F("th_y_local_vs_RP", "th_y_local_vs_RP" , 100, -5.0e-4, 5.0e-4, 100, -5.0e-4, 5.0e-4);
+    histosTH2F["th_x_local_vs_RP"] = new TH2F("th_x_local_vs_RP", "th_x_local_vs_RP" , 100, -5.0e-4, 5.0e-4, 100, -5.0e-4, 5.0e-4);
+    histosTH2F["th_y_local_vs_RP"] = new TH2F("th_y_local_vs_RP", "th_y_local_vs_RP" , 100, -5.0e-4, 5.0e-4, 100, -5.0e-4, 5.0e-4);
 
-  addHistos() ;
-  addLabels() ;
+    addHistos() ;
+    addLabels() ;
+    
+    ifstream events_to_check("events_to_test.txt") ;
+
+    string word ;
+    edm::EventNumber_t test_event_number ;
+
+    while(events_to_check >> test_event_number)
+    {
+      vector_events_to_check.push_back(test_event_number) ;
+      // cout << test_event_number << endl ;
+    }
+    
+  }
   
   tree = new TTree("TReducedNtuple", "TReducedNtuple") ;  
 
@@ -1208,17 +1223,6 @@ void ElasticAnalyzer::beginJob()
   tree->Branch("track_right_far_horizontal_thx",          &right_far_horizontal.thx,              "track_right_far_horizontal_thx/D") ;
   tree->Branch("track_right_far_horizontal_thy",          &right_far_horizontal.thy,              "track_right_far_horizontal_thy/D") ;
   
-  ifstream events_to_check("events_to_test.txt") ;
-
-  string word ;
-  edm::EventNumber_t test_event_number ;
-  
-  while(events_to_check >> test_event_number)
-  {
-    vector_events_to_check.push_back(test_event_number) ;
-    // cout << test_event_number << endl ;
-  }
-
 }
 
 void ElasticAnalyzer::endJob()
