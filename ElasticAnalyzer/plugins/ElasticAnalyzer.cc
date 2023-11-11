@@ -73,6 +73,8 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>
   edm::EDGetTokenT<edm::DetSetVector<TotemRPUVPattern>> rpPatternToken_ ;
 //  edm::EDGetTokenT<edm::DetSetVector<CTPPSDiamondRecHit>> tokenDiamondHits_ ;
 
+  bool add_tests ;
+
   std::string diagonal;  
   std::string outputFileName;  
   std::string offsetFileName;  
@@ -143,6 +145,7 @@ ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(
   // tokenDiamondHits_(consumes<edm::DetSetVector<CTPPSDiamondRecHit>>(iConfig.getUntrackedParameter<edm::InputTag>("ctppsDiamondRecHits"))),
   diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName")), offsetFileName(iConfig.getParameter<std::string>("offsetFileName")) 
 {
+  add_tests = false ;
   position_dist_ = new Distribution(iConfig.getParameterSet("position_distribution")) ;
 
   ifstream offsets(offsetFileName) ;
@@ -490,140 +493,15 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   std::string output = ss.str();
 
   cout << iEvent.time().unixTime() << " " << output << endl ;
-
-  map<unsigned int, TAnalyser_class> vector_analyser_class ;
-
-  for (const auto &pv : iEvent.get(rpPatternToken_))
-  {
-    const CTPPSDetId detId(pv.detId());
-    const unsigned int rpDecId = detId.arm() * 100 + detId.station() * 10 + detId.rp();
-
-    // cout << "Now I am using patterns" << endl ;
-
-    // require exactly 1 U and 1 V pattern, i.e. unique U-V association
-    unsigned int n_U = 0, n_V = 0;
-    unsigned int idx_U = 0, idx_V = 0;
-    for (unsigned int pi = 0; pi < pv.size(); pi++)
-    {
-      const TotemRPUVPattern &pattern = pv[pi];
-
-      switch (pattern.getProjection()) {
-        case TotemRPUVPattern::projU:
-          n_U++;
-          idx_U = pi;
-          break;
-
-        case TotemRPUVPattern::projV:
-          n_V++;
-          idx_V = pi;
-          break;
-
-        default:
-          break;
-      }
-    }
-
-    if (n_U != 1 || n_V != 1)
-      continue;
-
-    // skip if patterns not reasonable
-    if (!pv[idx_U].getFittable() || !pv[idx_V].getFittable())
-      continue;
-
-    int counter_u_v = 0 ;
-    int counter = 0 ;
-    // cout << endl ;
-    
-    string strip_orientation = "U-strip JUU" ;
-
-    for (const auto &pattern : {pv[idx_U], pv[idx_V]})
-    {
-
-      // cout << endl ;
-
-      int u_counter = 0 ;
-      int v_counter = 0 ;
-
-      for (const auto &hitsDetSet : pattern.getHits())
-      {
-        for (auto &hit : hitsDetSet)
-        {
-
-          // cout << strip_orientation << " position" << counter << " " << hit.getPosition() << endl ;
-          
-          histosTH1F["strips"]->Fill(hit.getPosition()) ;
-
-          if(strip_orientation.compare("U-strip JUU") == 0)
-          {
-            histosTH1F["strips_u"]->Fill(hit.getPosition()) ;
-            histosTH2F["strips_u_per_plane"]->Fill(hit.getPosition(), u_counter) ;
-            
-            vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_u[u_counter] = hit.getPosition() ;
-            
-            ++u_counter ;
-          }
-
-          if(strip_orientation.compare("V-strip VII") == 0)
-          {
-            histosTH1F["strips_v"]->Fill(hit.getPosition()) ;
-            histosTH2F["strips_v_per_plane"]->Fill(hit.getPosition(), v_counter) ;
-
-            vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_v[v_counter] = hit.getPosition() ;
-
-            ++v_counter ;
-          }
-          
-
-          counter++ ;
-        }
-      }
-      strip_orientation = "V-strip VII" ;
-    }
-
-  }
   
-  vector<edm::EventNumber_t>::iterator an_iterator = find(vector_events_to_check.begin(), vector_events_to_check.end(), event_number) ;
-
-  bool to_be_tested = false ;
-  if(an_iterator != vector_events_to_check.end()) { cout << "Success " << event_number << " " << (*an_iterator) << endl ; to_be_tested = true ; }
-  
-  int track_index = 0 ;
-
-  map<int, int>  occurances ;
-  
-  for(unsigned int i = 0 ; i < RP_numbers.size() ; ++i)
-  {
-    occurances[RP_numbers[i]] = 0 ;
-  }
-  
-  for(const auto& track : iEvent.get(tracksToken_))
-  {
-    CTPPSDetId rpId(track.getRPId());
-    unsigned int rpDecId = (100*rpId.arm()) + (10*rpId.station()) + (1*rpId.rp());
-
-    occurances[rpDecId]++ ;
-  }
-  
-  bool ok_for_test = true ;
-
-  for(unsigned int i = 0 ; i < RP_numbers.size() ; ++i)
-  {
-    if(occurances[RP_numbers[i]] > 1) ok_for_test = false ;
-  }
-
   for(const auto& track : iEvent.get(tracksToken_))
   {
   
     CTPPSDetId rpId(track.getRPId());
     unsigned int rpDecId = (100*rpId.arm()) + (10*rpId.station()) + (1*rpId.rp());
 
-    cout << "hihi event_number " << (*an_iterator) << " track_index " << track_index <<  " rpDecId " << rpDecId << " X : " << track.getX() << " Y : " << track.getY() << endl ;
-
-   if(ok_for_test && to_be_tested) cout << "hihi event_number " << (*an_iterator) << " track_index " << track_index <<  " rpDecId " << rpDecId << " X : " << track.getX() << " Y : " << track.getY() << endl ;
-   ++track_index ;
-    
-   // if(event_number == 22902132) cout << "hihi rpDecId " << rpDecId << " X : " << track.getX() << " Y :  " << track.getY() << endl ;    
-    
+    // ++track_index ;
+    // if(event_number == 22902132) cout << "hihi rpDecId " << rpDecId << " X : " << track.getX() << " Y :  " << track.getY() << endl ;    
     // if(2,3,22,23)
     
     if((rpId.rp() == 2) || (rpId.rp() == 3))
@@ -782,195 +660,306 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     if(verbosity > 1) cout << "left_top_right_bottom" << endl ;
     tree->Fill() ;  
   }
-
-  map <int, int> map_RPids_occurance_in_event ;
-  map<unsigned int, RP_struct_type> map_RPs ;
-
-  for(const auto& track : iEvent.get(tracksToken_))
-  {
-    CTPPSDetId rpId(track.getRPId());
-    unsigned int rpDecId = (100*rpId.arm()) + (10*rpId.station()) + (1*rpId.rp());
-    
-    for(unsigned int i = 0 ; i < vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_u.size() ; ++i)
+  
+  if(add_tests)
     {
-      double dxu = vector_analyser_class[rpId].map_from_strip_number_to_hit_positions_u[i] - track.getX() ;
-      
-      histosTH1F["residual_u"]->Fill(dxu) ;
+      map<unsigned int, TAnalyser_class> vector_analyser_class ;
+
+      for (const auto &pv : iEvent.get(rpPatternToken_))
+      {
+        const CTPPSDetId detId(pv.detId());
+        const unsigned int rpDecId = detId.arm() * 100 + detId.station() * 10 + detId.rp();
+
+        // cout << "Now I am using patterns" << endl ;
+
+        // require exactly 1 U and 1 V pattern, i.e. unique U-V association
+        unsigned int n_U = 0, n_V = 0;
+        unsigned int idx_U = 0, idx_V = 0;
+        for (unsigned int pi = 0; pi < pv.size(); pi++)
+        {
+          const TotemRPUVPattern &pattern = pv[pi];
+
+          switch (pattern.getProjection()) {
+            case TotemRPUVPattern::projU:
+              n_U++;
+              idx_U = pi;
+              break;
+
+            case TotemRPUVPattern::projV:
+              n_V++;
+              idx_V = pi;
+              break;
+
+            default:
+              break;
+          }
+        }
+
+        if (n_U != 1 || n_V != 1)
+          continue;
+
+        // skip if patterns not reasonable
+        if (!pv[idx_U].getFittable() || !pv[idx_V].getFittable())
+          continue;
+
+        int counter_u_v = 0 ;
+        int counter = 0 ;
+        // cout << endl ;
+
+        string strip_orientation = "U-strip JUU" ;
+
+        for (const auto &pattern : {pv[idx_U], pv[idx_V]})
+        {
+
+          // cout << endl ;
+
+          int u_counter = 0 ;
+          int v_counter = 0 ;
+
+          for (const auto &hitsDetSet : pattern.getHits())
+          {
+            for (auto &hit : hitsDetSet)
+            {
+
+              // cout << strip_orientation << " position" << counter << " " << hit.getPosition() << endl ;
+
+              histosTH1F["strips"]->Fill(hit.getPosition()) ;
+
+              if(strip_orientation.compare("U-strip JUU") == 0)
+              {
+                histosTH1F["strips_u"]->Fill(hit.getPosition()) ;
+                histosTH2F["strips_u_per_plane"]->Fill(hit.getPosition(), u_counter) ;
+
+                vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_u[u_counter] = hit.getPosition() ;
+
+                ++u_counter ;
+              }
+
+              if(strip_orientation.compare("V-strip VII") == 0)
+              {
+                histosTH1F["strips_v"]->Fill(hit.getPosition()) ;
+                histosTH2F["strips_v_per_plane"]->Fill(hit.getPosition(), v_counter) ;
+
+                vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_v[v_counter] = hit.getPosition() ;
+
+                ++v_counter ;
+              }
+
+
+              counter++ ;
+            }
+          }
+          strip_orientation = "V-strip VII" ;
+        }
+
+      }
+
+      int track_index = 0 ;
+
+      map<int, int>  occurances ;
+
+      for(unsigned int i = 0 ; i < RP_numbers.size() ; ++i)
+      {
+        occurances[RP_numbers[i]] = 0 ;
+      }
+
+      for(const auto& track : iEvent.get(tracksToken_))
+      {
+        CTPPSDetId rpId(track.getRPId());
+        unsigned int rpDecId = (100*rpId.arm()) + (10*rpId.station()) + (1*rpId.rp());
+
+        occurances[rpDecId]++ ;
+      }
+
+    map <int, int> map_RPids_occurance_in_event ;
+    map<unsigned int, RP_struct_type> map_RPs ;
+
+    for(const auto& track : iEvent.get(tracksToken_))
+    {
+      CTPPSDetId rpId(track.getRPId());
+      unsigned int rpDecId = (100*rpId.arm()) + (10*rpId.station()) + (1*rpId.rp());
+
+      for(unsigned int i = 0 ; i < vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_u.size() ; ++i)
+      {
+        double dxu = vector_analyser_class[rpId].map_from_strip_number_to_hit_positions_u[i] - track.getX() ;
+
+        histosTH1F["residual_u"]->Fill(dxu) ;
+      }
+
+      for(unsigned int i = 0 ; i < vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_v.size() ; ++i)
+      {
+        double dxv = vector_analyser_class[rpId].map_from_strip_number_to_hit_positions_v[i] - track.getX() ;
+
+        histosTH1F["residual_v"]->Fill(dxv) ;
+      }
+
+      map_RPids_occurance_in_event[rpDecId]++;
+
+      histosTH2F["scatter_plot_xy"]->Fill(track.getX(), track.getY()) ;
+
+      stringstream ss ;
+      ss << rpDecId ;
+
+      histosTH2F[("scatter_plot_xy_" + ss.str()).c_str()]->Fill(track.getX(), track.getY()) ;
+
+      RP_struct_type my_RP_struct ;
+
+      my_RP_struct.validity = kTRUE ;
+      my_RP_struct.rpDecId = rpDecId ;
+      my_RP_struct.x = track.getX() ;
+      my_RP_struct.y = track.getY() ;
+      my_RP_struct.thx = track.getTx() ;
+      my_RP_struct.thy = track.getTy() ;
+
+      map_RPs[rpDecId] = my_RP_struct ;
+
     }
 
-    for(unsigned int i = 0 ; i < vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_v.size() ; ++i)
-    {
-      double dxv = vector_analyser_class[rpId].map_from_strip_number_to_hit_positions_v[i] - track.getX() ;
-      
-      histosTH1F["residual_v"]->Fill(dxv) ;
-    }
+    // const DetSetVector<CTPPSDiamondRecHit> hitsDiamond ;
 
-    map_RPids_occurance_in_event[rpDecId]++;
+  //  for(const auto&pv : iEvent.get(tokenDiamondHits_))
+  //  {
+  //    cout << "diamond" << endl ;
+  //  }
 
-    histosTH2F["scatter_plot_xy"]->Fill(track.getX(), track.getY()) ;
+    int RPsfound_3 = 0 ;
+    int RPsfound_4 = 0 ;
+    int RPsfound_23 = 0 ;
+    int RPsfound_24 = 0 ;
 
-    stringstream ss ;
-    ss << rpDecId ;
-
-    histosTH2F[("scatter_plot_xy_" + ss.str()).c_str()]->Fill(track.getX(), track.getY()) ;
-
-    RP_struct_type my_RP_struct ;
-
-    my_RP_struct.validity = kTRUE ;
-    my_RP_struct.rpDecId = rpDecId ;
-    my_RP_struct.x = track.getX() ;
-    my_RP_struct.y = track.getY() ;
-    my_RP_struct.thx = track.getTx() ;
-    my_RP_struct.thy = track.getTy() ;
-    
-    map_RPs[rpDecId] = my_RP_struct ;
-    
-  }
-
-  // const DetSetVector<CTPPSDiamondRecHit> hitsDiamond ;
-  
-//  for(const auto&pv : iEvent.get(tokenDiamondHits_))
-//  {
-//    cout << "diamond" << endl ;
-//  }
-
-  int RPsfound_3 = 0 ;
-  int RPsfound_4 = 0 ;
-  int RPsfound_23 = 0 ;
-  int RPsfound_24 = 0 ;
-
-  for(map<unsigned int, RP_struct_type>::iterator it = map_RPs.begin() ; it != map_RPs.end() ; ++it)
-  {
-    if(it->first == 3) ++RPsfound_3 ;
-    if(it->first == 4) ++RPsfound_4 ;
-    if(it->first == 23) ++RPsfound_23 ;
-    if(it->first == 24) ++RPsfound_24 ;
-  }
-  
-  if((RPsfound_3 == 1) && (RPsfound_4 == 1)&&(RPsfound_23 == 1) && (RPsfound_24 == 1))
-  {
     for(map<unsigned int, RP_struct_type>::iterator it = map_RPs.begin() ; it != map_RPs.end() ; ++it)
     {
-      if((it->first == 3) || (it->first == 4) || (it->first == 23) || (it->first == 24))
+      if(it->first == 3) ++RPsfound_3 ;
+      if(it->first == 4) ++RPsfound_4 ;
+      if(it->first == 23) ++RPsfound_23 ;
+      if(it->first == 24) ++RPsfound_24 ;
+    }
+
+    if((RPsfound_3 == 1) && (RPsfound_4 == 1)&&(RPsfound_23 == 1) && (RPsfound_24 == 1))
+    {
+      for(map<unsigned int, RP_struct_type>::iterator it = map_RPs.begin() ; it != map_RPs.end() ; ++it)
       {
-        histosTH2F["test"]->Fill(it->second.x, it->second.y) ;
-        
-        if(fabs(map_RPs[3].x - map_RPs[4].x) < 0.2) histosTH2F["test2"]->Fill(it->second.x, it->second.y) ;
+        if((it->first == 3) || (it->first == 4) || (it->first == 23) || (it->first == 24))
+        {
+          histosTH2F["test"]->Fill(it->second.x, it->second.y) ;
+
+          if(fabs(map_RPs[3].x - map_RPs[4].x) < 0.2) histosTH2F["test2"]->Fill(it->second.x, it->second.y) ;
+        }
       }
     }
-  }
-  
-  for(map <int, int>::iterator it = map_RPids_occurance_in_event.begin() ; it != map_RPids_occurance_in_event.end() ; ++it)
-  for(map <int, int>::iterator it2 = map_RPids_occurance_in_event.begin() ; it2 != map_RPids_occurance_in_event.end() ; ++it2)
-  {
-    histosTH2F["RP_correlation"]->Fill(it->first, it2->first) ;
-  }
 
-  bool simulation = false ;
-
-  for(map<unsigned int, RP_struct_type>::iterator it = map_RPs.begin() ; it != map_RPs.end() ; ++it)
-  for(map<unsigned int, RP_struct_type>::iterator it2 = it ; it2 != map_RPs.end() ; ++it2)
-  {
-    if(it == it2) continue ;
-
-    unsigned int rpDecId1 = it->first ;
-    unsigned int rpDecId2 = it2->first ;
-
-    if(rpDecId1 > rpDecId2)
+    for(map <int, int>::iterator it = map_RPids_occurance_in_event.begin() ; it != map_RPids_occurance_in_event.end() ; ++it)
+    for(map <int, int>::iterator it2 = map_RPids_occurance_in_event.begin() ; it2 != map_RPids_occurance_in_event.end() ; ++it2)
     {
-      cout << "strange " << iEvent.id() << endl ;
-      exit(1) ;
+      histosTH2F["RP_correlation"]->Fill(it->first, it2->first) ;
     }
 
-    if((rpDecId1 == 4) && (rpDecId2 == 24))
+    bool simulation = false ;
+
+    for(map<unsigned int, RP_struct_type>::iterator it = map_RPs.begin() ; it != map_RPs.end() ; ++it)
+    for(map<unsigned int, RP_struct_type>::iterator it2 = it ; it2 != map_RPs.end() ; ++it2)
     {
-      histosTH2F["diff_x_vs_dx_24_4_vs_4"]->Fill(it->second.x, (it2->second.x - it->second.x)) ;
-      histosTH2F["diff_x_vs_dx_24_4_vs_24"]->Fill(it2->second.x, (it2->second.x - it->second.x)) ;
+      if(it == it2) continue ;
 
-      histosTH2F["diff_y_vs_dy_24_4_vs_4"]->Fill(it->second.y, (it2->second.y - it->second.y)) ;
-      histosTH2F["diff_y_vs_dy_24_4_vs_24"]->Fill(it2->second.y, (it2->second.y - it->second.y)) ;
-      
-      double th_x = (it2->second.x - it->second.x) / RP_distance_mm ;
-      double th_y = (it2->second.y - it->second.y) / RP_distance_mm ;
+      unsigned int rpDecId1 = it->first ;
+      unsigned int rpDecId2 = it2->first ;
 
-      histosTH2F["th_x_local_vs_RP"]->Fill(it->second.thx, th_x) ;
-      histosTH2F["th_y_local_vs_RP"]->Fill(it->second.thy, th_y) ;
-    }
+      if(rpDecId1 > rpDecId2)
+      {
+        cout << "strange " << iEvent.id() << endl ;
+        exit(1) ;
+      }
 
-    if((rpDecId1 == 5) && (rpDecId2 == 25))
-    {
-      histosTH2F["diff_x_vs_dx_25_5_vs_5"]->Fill(it->second.x, (it2->second.x - it->second.x)) ;
-      histosTH2F["diff_x_vs_dx_25_5_vs_25"]->Fill(it2->second.x, (it2->second.x - it->second.x)) ;
+      if((rpDecId1 == 4) && (rpDecId2 == 24))
+      {
+        histosTH2F["diff_x_vs_dx_24_4_vs_4"]->Fill(it->second.x, (it2->second.x - it->second.x)) ;
+        histosTH2F["diff_x_vs_dx_24_4_vs_24"]->Fill(it2->second.x, (it2->second.x - it->second.x)) ;
 
-      histosTH2F["diff_y_vs_dy_25_5_vs_5"]->Fill(it->second.y, (it2->second.y - it->second.y)) ;
-      histosTH2F["diff_y_vs_dy_25_5_vs_25"]->Fill(it2->second.y, (it2->second.y - it->second.y)) ;
-    }
+        histosTH2F["diff_y_vs_dy_24_4_vs_4"]->Fill(it->second.y, (it2->second.y - it->second.y)) ;
+        histosTH2F["diff_y_vs_dy_24_4_vs_24"]->Fill(it2->second.y, (it2->second.y - it->second.y)) ;
 
-    if((rpDecId1 == 104) && (rpDecId2 == 124))
-    {
-      histosTH2F["diff_x_vs_dx_124_104_vs_104"]->Fill(it->second.x, (it2->second.x - it->second.x)) ;
-      histosTH2F["diff_x_vs_dx_124_104_vs_124"]->Fill(it2->second.x, (it2->second.x - it->second.x)) ;
+        double th_x = (it2->second.x - it->second.x) / RP_distance_mm ;
+        double th_y = (it2->second.y - it->second.y) / RP_distance_mm ;
 
-      histosTH2F["diff_y_vs_dy_124_104_vs_104"]->Fill(it->second.y, (it2->second.y - it->second.y)) ;
-      histosTH2F["diff_y_vs_dy_124_104_vs_124"]->Fill(it2->second.y, (it2->second.y - it->second.y)) ;
-    }
+        histosTH2F["th_x_local_vs_RP"]->Fill(it->second.thx, th_x) ;
+        histosTH2F["th_y_local_vs_RP"]->Fill(it->second.thy, th_y) ;
+      }
 
-    if((rpDecId1 == 105) && (rpDecId2 == 125))
-    {
-      histosTH2F["diff_x_vs_dx_125_105_vs_105"]->Fill(it->second.x, (it2->second.x - it->second.x)) ;
-      histosTH2F["diff_x_vs_dx_125_105_vs_125"]->Fill(it2->second.x, (it2->second.x - it->second.x)) ;
+      if((rpDecId1 == 5) && (rpDecId2 == 25))
+      {
+        histosTH2F["diff_x_vs_dx_25_5_vs_5"]->Fill(it->second.x, (it2->second.x - it->second.x)) ;
+        histosTH2F["diff_x_vs_dx_25_5_vs_25"]->Fill(it2->second.x, (it2->second.x - it->second.x)) ;
 
-      histosTH2F["diff_y_vs_dy_125_105_vs_105"]->Fill(it->second.y, (it2->second.y - it->second.y)) ;
-      histosTH2F["diff_y_vs_dy_125_105_vs_125"]->Fill(it2->second.y, (it2->second.y - it->second.y)) ;
-    }
+        histosTH2F["diff_y_vs_dy_25_5_vs_5"]->Fill(it->second.y, (it2->second.y - it->second.y)) ;
+        histosTH2F["diff_y_vs_dy_25_5_vs_25"]->Fill(it2->second.y, (it2->second.y - it->second.y)) ;
+      }
 
-    if(simulation)
-    {
-      RP_struct_type RP_hor, RP_ver ;
+      if((rpDecId1 == 104) && (rpDecId2 == 124))
+      {
+        histosTH2F["diff_x_vs_dx_124_104_vs_104"]->Fill(it->second.x, (it2->second.x - it->second.x)) ;
+        histosTH2F["diff_x_vs_dx_124_104_vs_124"]->Fill(it2->second.x, (it2->second.x - it->second.x)) ;
 
-      RP_hor.validity = kTRUE ;
-      RP_hor.rpDecId = 3 ;
-      RP_hor.x = myrand.Uniform() ;
-      RP_hor.y = myrand.Uniform() ;
-      RP_hor.thx = myrand.Uniform() ;
-      RP_hor.thy = myrand.Uniform() ;
+        histosTH2F["diff_y_vs_dy_124_104_vs_104"]->Fill(it->second.y, (it2->second.y - it->second.y)) ;
+        histosTH2F["diff_y_vs_dy_124_104_vs_124"]->Fill(it2->second.y, (it2->second.y - it->second.y)) ;
+      }
 
-      RP_ver.validity = kTRUE ;
-      RP_ver.rpDecId = 4 ;
-      RP_ver.x = myrand.Uniform() ;
-      RP_ver.y = myrand.Uniform() ;
-      RP_ver.thx = myrand.Uniform() ;
-      RP_ver.thy = myrand.Uniform() ;
-      
-      map<unsigned int, RP_struct_type> mc_map ;
-      mc_map[RP_hor.rpDecId] = RP_hor ;
-      mc_map[RP_ver.rpDecId ] = RP_ver ;
+      if((rpDecId1 == 105) && (rpDecId2 == 125))
+      {
+        histosTH2F["diff_x_vs_dx_125_105_vs_105"]->Fill(it->second.x, (it2->second.x - it->second.x)) ;
+        histosTH2F["diff_x_vs_dx_125_105_vs_125"]->Fill(it2->second.x, (it2->second.x - it->second.x)) ;
 
-      map<unsigned int, RP_struct_type>::iterator it3 = mc_map.begin() ;
-      map<unsigned int, RP_struct_type>::iterator it4 = mc_map.begin() ;
-      it4++ ;
+        histosTH2F["diff_y_vs_dy_125_105_vs_105"]->Fill(it->second.y, (it2->second.y - it->second.y)) ;
+        histosTH2F["diff_y_vs_dy_125_105_vs_125"]->Fill(it2->second.y, (it2->second.y - it->second.y)) ;
+      }
 
-      TestDetectorPair(it3, it4, 3, 4) ;
-      
-      cout << "Simulation" << endl ;
-    }
-    else
-    {
-      TestDetectorPair(it, it2, 3, 4, 0.107729, -0.0202505, 0.020) ;
-      TestDetectorPair(it, it2, 3, 5,  0.0368000 ,-0.0130, 0.022) ;
+      if(simulation)
+      {
+        RP_struct_type RP_hor, RP_ver ;
 
-      TestDetectorPair(it, it2, 23, 24,  0.037, -0.014, 0.022) ;
-      TestDetectorPair(it, it2, 23, 25, -0.006, -0.01,  0.022) ;
+        RP_hor.validity = kTRUE ;
+        RP_hor.rpDecId = 3 ;
+        RP_hor.x = myrand.Uniform() ;
+        RP_hor.y = myrand.Uniform() ;
+        RP_hor.thx = myrand.Uniform() ;
+        RP_hor.thy = myrand.Uniform() ;
 
-      TestDetectorPair(it, it2, 103, 104, 0.05 ,-0.0079, 0.022) ;
-      TestDetectorPair(it, it2, 103, 105, 0.05 ,-0.0079, 0.022) ;
+        RP_ver.validity = kTRUE ;
+        RP_ver.rpDecId = 4 ;
+        RP_ver.x = myrand.Uniform() ;
+        RP_ver.y = myrand.Uniform() ;
+        RP_ver.thx = myrand.Uniform() ;
+        RP_ver.thy = myrand.Uniform() ;
 
-      TestDetectorPair(it, it2, 123, 124, 0.05 ,-0.0079, 0.022) ;
-      TestDetectorPair(it, it2, 123, 125, 0.05 ,-0.0079, 0.022) ;
+        map<unsigned int, RP_struct_type> mc_map ;
+        mc_map[RP_hor.rpDecId] = RP_hor ;
+        mc_map[RP_ver.rpDecId ] = RP_ver ;
 
-      // TestDetectorPair2(it, it2, 3, 23, 0.0 ,0.0, 0.0) ;
-      // TestDetectorPair2(it, it2, 4, 24, 0.0 ,0.0, 0.0) ;
-      // TestDetectorPair2(it, it2, 5, 25, 0.0 ,0.0, 0.0) ;
+        map<unsigned int, RP_struct_type>::iterator it3 = mc_map.begin() ;
+        map<unsigned int, RP_struct_type>::iterator it4 = mc_map.begin() ;
+        it4++ ;
+
+        TestDetectorPair(it3, it4, 3, 4) ;
+
+        cout << "Simulation" << endl ;
+      }
+      else
+      {
+        TestDetectorPair(it, it2, 3, 4, 0.107729, -0.0202505, 0.020) ;
+        TestDetectorPair(it, it2, 3, 5,  0.0368000 ,-0.0130, 0.022) ;
+
+        TestDetectorPair(it, it2, 23, 24,  0.037, -0.014, 0.022) ;
+        TestDetectorPair(it, it2, 23, 25, -0.006, -0.01,  0.022) ;
+
+        TestDetectorPair(it, it2, 103, 104, 0.05 ,-0.0079, 0.022) ;
+        TestDetectorPair(it, it2, 103, 105, 0.05 ,-0.0079, 0.022) ;
+
+        TestDetectorPair(it, it2, 123, 124, 0.05 ,-0.0079, 0.022) ;
+        TestDetectorPair(it, it2, 123, 125, 0.05 ,-0.0079, 0.022) ;
+
+        // TestDetectorPair2(it, it2, 3, 23, 0.0 ,0.0, 0.0) ;
+        // TestDetectorPair2(it, it2, 4, 24, 0.0 ,0.0, 0.0) ;
+        // TestDetectorPair2(it, it2, 5, 25, 0.0 ,0.0, 0.0) ;
+      }
     }
   }
 }
