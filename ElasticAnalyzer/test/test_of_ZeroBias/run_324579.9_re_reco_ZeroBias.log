@@ -1,0 +1,10 @@
+--------------------
+CMSSW version: CMSSW_10_2_0_pre5
+CMSSW installation: /afs/cern.ch/work/j/jkaspar/software/ctpps/development/ctpps_relative_alignment_10_2_0/CMSSW_10_2_0_pre5
+start: Thu Oct 18 14:42:19 CEST 2018
+--------------------
+18-Oct-2018 14:43:20 CEST  Initiating request to open file root://eoscms.cern.ch//eos/cms/store/data/Run2018D/ZeroBias3/AOD/PromptReco-v2/000/324/579/00000/4DF739BE-B881-4B4E-ACB6-3D1487BA06D2.root
+18-Oct-2018 14:43:32 CEST  Successfully opened file root://eoscms.cern.ch//eos/cms/store/data/Run2018D/ZeroBias3/AOD/PromptReco-v2/000/324/579/00000/4DF739BE-B881-4B4E-ACB6-3D1487BA06D2.root
+18-Oct-2018 14:54:25 CEST  Closed file root://eoscms.cern.ch//eos/cms/store/data/Run2018D/ZeroBias3/AOD/PromptReco-v2/000/324/579/00000/4DF739BE-B881-4B4E-ACB6-3D1487BA06D2.root
+--------------------
+end: Thu Oct 18 14:54:34 CEST 2018

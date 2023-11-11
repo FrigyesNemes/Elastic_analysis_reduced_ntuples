@@ -15,6 +15,9 @@ process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration.StandardSequences.MagneticField_AutoFromDBCurrent_cff')
 
+#process.load("CalibPPS.ESProducers.ctppsRPAlignmentCorrectionsDataESSourceXML_cfi")
+#process.ctppsRPAlignmentCorrectionsDataESSourceXML.RealFiles = cms.vstring('alignment_files/results_cumulative_factored_Jan.xml')
+
 from Configuration.AlCa.GlobalTag import GlobalTag
 # process.GlobalTag.globaltag = "101X_dataRun2_Express_v8"
 process.GlobalTag.globaltag = "101X_dataRun2_Prompt_v11"
@@ -29,27 +32,33 @@ process.maxEvents = cms.untracked.PSet(
 process.source = cms.Source("PoolSource",
   fileNames = cms.untracked.vstring(
 #"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/Totem1/version5/run_324536.1_re_reco_Totem1.root",
-#"root://eostotem//eos/totem/data/offline/2018/450GeV/beta11/Totem1/version5/run_324575.0_re_reco_Totem1.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta11/Totem1/version5/run_324575.0_re_reco_Totem1.root",
 #"root://eostotem.cern.ch///eos/totem/data/offline/2018/450GeV/beta11/ZeroBias/version5/run_324579.6_re_reco_ZeroBias.root",
 #"root://eostotem//eos/totem/data/offline/2018/450GeV/beta11/Totem1/version5/run_324579.1_re_reco_Totem1.root",
 #"root://eostotem//eos/totem/data/offline/2018/450GeV/beta11/Totem1/version5/run_324579.2_re_reco_Totem1.root",
 #"root://eostotem//eos/totem/data/offline/2018/450GeV/beta11/Totem1/version5/run_324578.0_re_reco_Totem1.root",
 #"root://eostotem.cern.ch///eos/totem/data/offline/2018/450GeV/beta100/Totem1/version5/run_324458.1_re_reco_Totem1.root",
 #"root://eostotem.cern.ch///eos/totem/data/offline/2018/450GeV/beta100/Totem1/version5/run_324530.2_re_reco_Totem1.root",
+#"root://eostotem//eos/totem/data/offline/2018/450GeV/beta11/Totem1/version3/run_324579.0_re_reco_Totem1.root",
+#"root://eostotem//eos/totem/data/offline/2018/450GeV/beta11/Totem1/version1/run_324579.0_reco_Totem1.root",
 #"root://eostotem//eos/totem/data/offline/2018/450GeV/beta11/Totem1/version5/run_324579.0_re_reco_Totem1.root",
-"root://eostotem//eos/totem/data/offline/2018/450GeV/beta11/Totem1/version5/run_324579.1_re_reco_Totem1.root",
+#"root://eostotem//eos/totem/data/offline/2018/450GeV/beta11/Totem1/version5/run_324579.1_re_reco_Totem1.root",
 #"root://eostotem//eos/totem/data/offline/2018/450GeV/beta11/Totem1/version5/run_324579.2_re_reco_Totem1.root",
-#"root://eostotem.cern.ch//eos/totem/data/offline/2018/450GeV/beta11/ZeroBias/version1/run_324579.24_re_reco_ZeroBias.root"
+#"root://eostotem.cern.ch//eos/totem/data/offline/2018/450GeV/beta11/ZeroBias/version1/run_324579.0_re_reco_ZeroBias.root",
+#"file:test_reco/output.root"
+#"file:test_reco/output_v2.root"
+#"file:test_reco/output_v4.root"
 )
 )
 
 
 process.analyzer = cms.EDAnalyzer("ElasticAnalyzer",
-  verbosity = cms.untracked.int32(0),
+  verbosity = cms.untracked.int32(2),
   diagonal = cms.string("LBRT"),
   tracks = cms.untracked.InputTag('ctppsLocalTrackLiteProducer'),
+#  ctppsDiamondRecHits = cms.untracked.InputTag('ctppsDiamondRecHits'),
   rpPatternTag = cms.InputTag('totemRPUVPatternFinder'),
-  outputFileName = cms.string("output_test.root"),
+  outputFileName = cms.string("output_test_v2.root"),
   #offsetFileName = cms.string("data/offsets_no_slopes.txt"),
   offsetFileName = cms.string("data/offsets.txt"),
 
