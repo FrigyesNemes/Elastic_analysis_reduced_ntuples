@@ -462,7 +462,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   RunNumber_t run_number = iEvent.run() ;
 
 
-	if(verbosity > 0)
+  if(verbosity > 0)
   {
     cout << "Eventinfo " << run_number << " " << event_number << " (" <<  iEvent.id() << ")" << endl ;
   }
@@ -546,7 +546,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     {
       if(rpDecId ==  25)
       {
-		  ++valid_vertical_RPs_along_a_diagonal ;
+        ++valid_vertical_RPs_along_a_diagonal ;
 
         left_far.validity = kTRUE ;
         left_far.x = track.getX() ;
@@ -556,7 +556,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       }
       else if(rpDecId ==   5)
       {
-		  ++valid_vertical_RPs_along_a_diagonal ;
+        ++valid_vertical_RPs_along_a_diagonal ;
 
         left_near.validity = kTRUE ;
         left_near.x = track.getX() ;
@@ -566,7 +566,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       }
       else if(rpDecId == 104)
       {
-		  ++valid_vertical_RPs_along_a_diagonal ;
+        ++valid_vertical_RPs_along_a_diagonal ;
 
         right_near.validity = kTRUE ;
         right_near.x = track.getX() ;
@@ -576,7 +576,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       }
       else if(rpDecId == 124)
       {
-		  ++valid_vertical_RPs_along_a_diagonal ;
+        ++valid_vertical_RPs_along_a_diagonal ;
 
         right_far.validity = kTRUE ;
         right_far.x = track.getX() ;
@@ -593,7 +593,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     {
       if(rpDecId ==  24)
       {
-		  ++valid_vertical_RPs_along_a_diagonal ;
+        ++valid_vertical_RPs_along_a_diagonal ;
 
         left_far.validity = kTRUE ;
         left_far.x = track.getX() ;
@@ -603,7 +603,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       }
       else if(rpDecId ==   4)
       {
-		  ++valid_vertical_RPs_along_a_diagonal ;
+        ++valid_vertical_RPs_along_a_diagonal ;
 
         left_near.validity = kTRUE ;
         left_near.x = track.getX() ;
@@ -613,7 +613,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       }
       else if(rpDecId == 105)
       {
-		  ++valid_vertical_RPs_along_a_diagonal ;
+        ++valid_vertical_RPs_along_a_diagonal ;
 
         right_near.validity = kTRUE ;
         right_near.x = track.getX() ;
@@ -623,7 +623,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       }
       else if(rpDecId == 125)
       {
-		  ++valid_vertical_RPs_along_a_diagonal ;
+        ++valid_vertical_RPs_along_a_diagonal ;
 
         right_far.validity = kTRUE ;
         right_far.x = track.getX() ;
