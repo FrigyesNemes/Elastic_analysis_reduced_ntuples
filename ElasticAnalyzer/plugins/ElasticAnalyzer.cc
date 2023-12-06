@@ -649,6 +649,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     tree->Fill() ;  
   }
   
+  const double offset_from_geom = 7.0 * sqrt(2.0) ;
+  
   if(add_tests)
   {
       map<unsigned int, TAnalyser_class> vector_analyser_class ;
@@ -702,6 +704,9 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         double first_u_hit_position = 0 ;
         double first_v_hit_position = 0 ;
 
+        double avg_u_hit_position = 0 ;
+        double avg_v_hit_position = 0 ;
+
         for (const auto &pattern : {pv[idx_U], pv[idx_V]})
         {
 
@@ -720,6 +725,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
               {
                 histosTH1F["strips_u"]->Fill(hit.getPosition()) ;
                 histosTH2F["strips_u_per_plane"]->Fill(hit.getPosition(), u_counter) ;
+                avg_u_hit_position += hit.getPosition() ;
                 
                 if(u_counter == 0) first_u_hit_position = hit.getPosition() ;
                 else
@@ -736,6 +742,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
               {
                 histosTH1F["strips_v"]->Fill(hit.getPosition()) ;
                 histosTH2F["strips_v_per_plane"]->Fill(hit.getPosition(), v_counter) ;
+                avg_v_hit_position += hit.getPosition() ;
 
                 if(v_counter == 0) first_v_hit_position = hit.getPosition() ;
                 else
@@ -759,6 +766,9 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
         stringstream ss ;
         ss << rpDecId ;
+
+        histosTH2F["strips_u_v_positions"]->Fill((avg_u_hit_position / u_counter) , (avg_v_hit_position / v_counter) ) ;
+        histosTH2F["strips_u_v_positions_with_offset"]->Fill((avg_u_hit_position / u_counter) + offset_from_geom , (avg_v_hit_position / v_counter)  + offset_from_geom) ;
 
         string name2 = "strips_u_per_plane_" + ss.str() ;
         string name3 = "strips_v_per_plane_" + ss.str() ;
@@ -1132,6 +1142,9 @@ void ElasticAnalyzer::beginJob()
 
     histosTH2F["strips_u_per_plane"] = new TH2F("strips_u_per_plane", "strips_u_per_plane", 100, -20.0, 20.0, 10, 0, 10);
     histosTH2F["strips_v_per_plane"] = new TH2F("strips_v_per_plane", "strips_v_per_plane", 100, -20.0, 20.0, 10, 0, 10);
+
+    histosTH2F["strips_u_v_positions"] = new TH2F("strips_u_v_positions", "strips_u_v_positions", 100, -20.0, 20.0, 100, -20, 20);
+    histosTH2F["strips_u_v_positions_with_offset"] = new TH2F("strips_u_v_positions_with_offset", "strips_u_v_positions_with_offset", 100, -20.0, 20.0, 100, -20, 20);
 
     histosTH1F["hit_position_diff_u"] = new TH1F("hit_position_diff_u", "hit_position_diff_u", 100, -1.0, 1.0);
     histosTH1F["hit_position_diff_v"] = new TH1F("hit_position_diff_v", "hit_position_diff_v", 100, -1.0, 1.0);
