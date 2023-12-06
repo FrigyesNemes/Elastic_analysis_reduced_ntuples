@@ -145,7 +145,7 @@ ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(
   // tokenDiamondHits_(consumes<edm::DetSetVector<CTPPSDiamondRecHit>>(iConfig.getUntrackedParameter<edm::InputTag>("ctppsDiamondRecHits"))),
   diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName")), offsetFileName(iConfig.getParameter<std::string>("offsetFileName")) 
 {
-  add_tests = false ;
+  add_tests = true ;
   position_dist_ = new Distribution(iConfig.getParameterSet("position_distribution")) ;
 
   if(add_tests)
@@ -650,7 +650,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   }
   
   if(add_tests)
-    {
+  {
       map<unsigned int, TAnalyser_class> vector_analyser_class ;
 
       for (const auto &pv : iEvent.get(rpPatternToken_))
@@ -696,13 +696,13 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
         string strip_orientation = "U-strip JUU" ;
 
+        int u_counter = 0 ;
+        int v_counter = 0 ;
+
         for (const auto &pattern : {pv[idx_U], pv[idx_V]})
         {
 
           // cout << endl ;
-
-          int u_counter = 0 ;
-          int v_counter = 0 ;
 
           for (const auto &hitsDetSet : pattern.getHits())
           {
@@ -737,8 +737,19 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
               counter++ ;
             }
           }
+
           strip_orientation = "V-strip VII" ;
+
         }
+
+        stringstream ss ;
+        ss << rpDecId ;
+
+        string name2 = "strips_u_per_plane_" + ss.str() ;
+        string name3 = "strips_v_per_plane_" + ss.str() ;
+
+        histosTH1F[name2.c_str()]->Fill(u_counter) ;
+        histosTH1F[name3.c_str()]->Fill(v_counter) ;
 
       }
 
@@ -999,9 +1010,14 @@ void ElasticAnalyzer::addHistos()
     ss << RP_numbers[i] ;
 
     string name = "scatter_plot_xy_" + ss.str() ;
+    string name2 = "strips_u_per_plane_" + ss.str() ;
+    string name3 = "strips_v_per_plane_" + ss.str() ;
 
     histosTH2F[name] = new TH2F(name.c_str(), name.c_str(), 100, -40.0, 40.0, 100, -40.0, 40.0);
+    histosTH1F[name2.c_str()] = new TH1F(name2.c_str(), name2.c_str(), 10, 0, 10);
+    histosTH1F[name3.c_str()] = new TH1F(name3.c_str(), name3.c_str(), 10, 0, 10);
   }
+
 
   const int gap_between_horizontals_in_array = 3 ;
 
