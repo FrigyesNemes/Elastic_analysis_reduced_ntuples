@@ -698,6 +698,9 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
         int u_counter = 0 ;
         int v_counter = 0 ;
+        
+        double first_u_hit_position = 0 ;
+        double first_v_hit_position = 0 ;
 
         for (const auto &pattern : {pv[idx_U], pv[idx_V]})
         {
@@ -717,6 +720,12 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
               {
                 histosTH1F["strips_u"]->Fill(hit.getPosition()) ;
                 histosTH2F["strips_u_per_plane"]->Fill(hit.getPosition(), u_counter) ;
+                
+                if(u_counter == 0) first_u_hit_position = hit.getPosition() ;
+                else
+                {
+                  histosTH1F["hit_position_diff_u"]->Fill(hit.getPosition() - first_u_hit_position) ;
+                }
 
                 vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_u[u_counter] = hit.getPosition() ;
 
@@ -727,6 +736,12 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
               {
                 histosTH1F["strips_v"]->Fill(hit.getPosition()) ;
                 histosTH2F["strips_v_per_plane"]->Fill(hit.getPosition(), v_counter) ;
+
+                if(v_counter == 0) first_v_hit_position = hit.getPosition() ;
+                else
+                {
+                  histosTH1F["hit_position_diff_v"]->Fill(hit.getPosition() - first_v_hit_position) ;
+                }
 
                 vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_v[v_counter] = hit.getPosition() ;
 
@@ -1117,6 +1132,9 @@ void ElasticAnalyzer::beginJob()
 
     histosTH2F["strips_u_per_plane"] = new TH2F("strips_u_per_plane", "strips_u_per_plane", 100, -20.0, 20.0, 10, 0, 10);
     histosTH2F["strips_v_per_plane"] = new TH2F("strips_v_per_plane", "strips_v_per_plane", 100, -20.0, 20.0, 10, 0, 10);
+
+    histosTH1F["hit_position_diff_u"] = new TH1F("hit_position_diff_u", "hit_position_diff_u", 100, -1.0, 1.0);
+    histosTH1F["hit_position_diff_v"] = new TH1F("hit_position_diff_v", "hit_position_diff_v", 100, -1.0, 1.0);
 
     histosTH2F["RP_correlation"] = new TH2F("RP_correlation", "RP_correlation" , (125 - 3) + 1, 3, 125, (125 - 3) + 1, 3, 125);
     histosTH2F["RP_covariance"] = new TH2F("RP_covariance", "RP_covariance" , (125 - 3) + 1, 3, 125, (125 - 3) + 1, 3, 125);
