@@ -36,6 +36,7 @@
 #include "DataFormats/CTPPSDetId/interface/TotemRPDetId.h"
 #include "DataFormats/CTPPSReco/interface/CTPPSLocalTrackLite.h"
 #include "DataFormats/CTPPSReco/interface/CTPPSLocalTrackLite.h"
+#include "DataFormats/CTPPSReco/interface/CTPPSPixelRecHit.h"
 #include "ElasticAnalysis/ElasticAnalyzer/interface/ElasticAnalyzer.h"
 
 using namespace std;
