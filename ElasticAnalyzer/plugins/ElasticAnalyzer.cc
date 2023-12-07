@@ -715,6 +715,11 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
           for (const auto &hitsDetSet : pattern.getHits())
           {
+            const CTPPSDetId detId2(hitsDetSet.detId());
+            TotemRPDetId stDetId(detId2);
+
+            cout << stDetId.plane() << endl ;
+          
             for (auto &hit : hitsDetSet)
             {
 
