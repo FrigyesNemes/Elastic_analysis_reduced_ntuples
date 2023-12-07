@@ -3,6 +3,8 @@ vector<int> RP_numbers = {3, 4, 5, 23, 24, 25, 103, 104, 105, 123, 124, 125} ;
 
 void plots()
 {
+  gStyle->SetOptStat("");
+
   vector<double> runs = {324575, 324576, 324578, 324579, 324580, 324581} ;
   TCanvas c ;
   c.SetLogz() ;
@@ -15,6 +17,7 @@ void plots()
   string histo_name = "" ;
   string histo2_name = "strips_u_v_positions" ;
   string histo3_name = "strips_v_per_plane_" ;
+  histo3_name = "strips_u_per_plane_" ;
 
   string x_axis_name = "" ;
   string y_axis_name = "" ;
@@ -62,6 +65,10 @@ void plots()
     double maximum = -1 ;
     TH1D *just_a_pointer = NULL ;
     
+    TLegend *legend = new TLegend(0.6, 0.15, 0.85, 0.85) ;
+    
+    int k = 0 ;
+    
     for(int j = 0 ; j < RP_numbers.size() ; ++j)
     {
       stringstream ss2 ;
@@ -70,18 +77,34 @@ void plots()
       TH1D *hist3 = ((TH1D *)file->Get((histo3_name + ss2.str()).c_str())) ;
       cout << hist3 << endl ;
       
-      if(j == 0)
+      if(hist3->GetEntries() == 0) continue ;
+      
+      ++k ;
+  
+      if(k == 1)
       {
         hist3->Draw("") ;
+        hist3->SetTitle("") ;
+        hist3->SetTitle("") ;
         just_a_pointer = hist3 ;
+        hist3->GetXaxis()->SetRangeUser(0, 10) ;
+        
+        if(histo3_name.compare("strips_u_per_plane_") == 0) hist3->GetXaxis()->SetTitle("Active u planes") ;
+        if(histo3_name.compare("strips_v_per_plane_") == 0) hist3->GetXaxis()->SetTitle("Active v planes") ;
       }
       else hist3->Draw("same") ;
       
-      if(maximum > hist3->GetMaximum()) maximum = hist3->GetMaximum() ;
+      hist3->SetLineColor(j) ;
+      
+      legend->AddEntry(hist3, ss2.str().c_str(), "l") ;
+      
+      if(maximum < hist3->GetMaximum()) maximum = hist3->GetMaximum() ;
       
     }
 
-    just_a_pointer->GetYaxis()->SetRangeUser(0, maximum) ;
+    cout << "maximum: " << maximum << endl ;  
+    just_a_pointer->GetYaxis()->SetRangeUser(0, maximum*1.1) ;
+    legend->Draw("same") ;
     c.SaveAs(("scripts/plots/c_" + histo3_name + "_" + ss.str() + ".pdf").c_str()) ;
 
     file->Close() ;
