@@ -77,7 +77,10 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>
   bool add_tests ;
   
   int zero_bias_events ;
-  int pile_up_events ;
+  int pile_up_events_LBRT ;
+  int pile_up_events_LTRB ;
+  int pile_up_events_strict_LBRT ;
+  int pile_up_events_strict_LTRB ;
 
   std::string diagonal;  
   std::string outputFileName;  
@@ -183,7 +186,10 @@ ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(
 
 
   zero_bias_events = 0 ;
-  pile_up_events = 0 ;
+  pile_up_events_LBRT = 0 ;
+  pile_up_events_LTRB = 0 ;
+  pile_up_events_strict_LBRT = 0 ;
+  pile_up_events_strict_LTRB = 0 ;
 
 }
 
@@ -471,6 +477,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   RunNumber_t run_number = iEvent.run() ;
 
   ++zero_bias_events ;
+  histosTH1F["timestamps_zero_bias"]->Fill(event_info_timestamp) ;
 
   if(verbosity > 0)
   {
@@ -660,6 +667,9 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   }
   
   const double offset_from_geom = 7.0 * sqrt(2.0) ;
+
+  map<int, bool>  map_from_RP_id_to_activity ;
+  for(unsigned int i = 0 ; i < RP_numbers.size() ; ++i) map_from_RP_id_to_activity[RP_numbers[i]] = false ;
   
   if(add_tests)
   {
@@ -669,7 +679,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       {
         const CTPPSDetId detId(pv.detId());
         const unsigned int rpDecId = detId.arm() * 100 + detId.station() * 10 + detId.rp();
-        cout << rpDecId << endl ;
+        // cout << rpDecId << endl ;
 
         // cout << "Now I am using patterns" << endl ;
 
@@ -747,11 +757,13 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
                   histosTH1F["hit_position_diff_u"]->Fill(hit.getPosition() - first_u_hit_position) ;
                 }
 
-                cout << "  u" << stDetId.plane() << endl ;
+                // cout << "  u" << stDetId.plane() << endl ;
 
                 vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_u[u_counter] = hit.getPosition() ;
 
                 ++u_counter ;
+                
+                map_from_RP_id_to_activity[rpDecId] = true ;
               }
 
               if(strip_orientation.compare("V-strip VII") == 0)
@@ -766,11 +778,13 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
                   histosTH1F["hit_position_diff_v"]->Fill(hit.getPosition() - first_v_hit_position) ;
                 }
 
-                cout << "  v" << stDetId.plane() << endl ;
+                // cout << "  v" << stDetId.plane() << endl ;
 
                 vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_v[v_counter] = hit.getPosition() ;
 
                 ++v_counter ;
+
+                map_from_RP_id_to_activity[rpDecId] = true ;
               }
 
 
@@ -795,6 +809,12 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         histosTH1F[name3.c_str()]->Fill(v_counter) ;
 
       }
+      
+      if(map_from_RP_id_to_activity[4] || map_from_RP_id_to_activity[24] || map_from_RP_id_to_activity[105] || map_from_RP_id_to_activity[125]) { ++pile_up_events_LTRB ; histosTH1F["pile_up_events_LTRB"]->Fill(event_info_timestamp) ; }
+      if(map_from_RP_id_to_activity[5] || map_from_RP_id_to_activity[25] || map_from_RP_id_to_activity[104] || map_from_RP_id_to_activity[124]) { ++pile_up_events_LBRT ; histosTH1F["pile_up_events_LBRT"]->Fill(event_info_timestamp) ; }
+
+      if((map_from_RP_id_to_activity[4] && map_from_RP_id_to_activity[24]) || (map_from_RP_id_to_activity[105] && map_from_RP_id_to_activity[125])) { ++pile_up_events_strict_LTRB ; histosTH1F["pile_up_events_strict_LTRB"]->Fill(event_info_timestamp) ; }
+      if((map_from_RP_id_to_activity[5] && map_from_RP_id_to_activity[25]) || (map_from_RP_id_to_activity[104] && map_from_RP_id_to_activity[124])) { ++pile_up_events_strict_LBRT ; histosTH1F["pile_up_events_strict_LBRT"]->Fill(event_info_timestamp) ; }
 
       int track_index = 0 ;
 
@@ -1198,6 +1218,12 @@ void ElasticAnalyzer::beginJob()
     histosTH2F["th_x_local_vs_RP"] = new TH2F("th_x_local_vs_RP", "th_x_local_vs_RP" , 100, -5.0e-4, 5.0e-4, 100, -5.0e-4, 5.0e-4);
     histosTH2F["th_y_local_vs_RP"] = new TH2F("th_y_local_vs_RP", "th_y_local_vs_RP" , 100, -5.0e-4, 5.0e-4, 100, -5.0e-4, 5.0e-4);
 
+    histosTH1F["timestamps_zero_bias"] = new TH1F("timestamps_zero_bias", "timestamps_zero_bias", 100, 1539526140, 1539548000);
+    histosTH1F["pile_up_events_LBRT"] = new TH1F("pile_up_events_LBRT", "pile_up_events_LBRT", 100, 1539526140, 1539548000);
+    histosTH1F["pile_up_events_LTRB"] = new TH1F("pile_up_events_LTRB", "pile_up_events_LTRB", 100, 1539526140, 1539548000);
+    histosTH1F["pile_up_events_strict_LBRT"] = new TH1F("pile_up_events_strict_LBRT", "pile_up_events_strict_LBRT", 100, 1539526140, 1539548000);
+    histosTH1F["pile_up_events_strict_LTRB"] = new TH1F("pile_up_events_strict_LTRB", "pile_up_events_strict_LTRB", 100, 1539526140, 1539548000);
+    
     addHistos() ;
     addLabels() ;
     
@@ -1387,6 +1413,10 @@ void ElasticAnalyzer::endJob()
     map_of_hists[it->first]->Write() ;
   }
   
+  cout << "pile_up_events_LBRT: " << pile_up_events_LBRT << endl ;
+  cout << "pile_up_events_LTRB: " << pile_up_events_LTRB << endl ;
+  cout << "pile_up_events_strict_LBRT: " << pile_up_events_strict_LBRT << endl ;
+  cout << "pile_up_events_strict_LTRB: " << pile_up_events_strict_LTRB << endl ;
   cout << "zero_bias_events: " << zero_bias_events << endl ;
 
   delete f_out;
