@@ -1039,8 +1039,8 @@ void ElasticAnalyzer::addHistos()
     string name3 = "strips_v_per_plane_" + ss.str() ;
 
     histosTH2F[name] = new TH2F(name.c_str(), name.c_str(), 100, -40.0, 40.0, 100, -40.0, 40.0);
-    histosTH1F[name2.c_str()] = new TH1F(name2.c_str(), name2.c_str(), 10, 0, 10);
-    histosTH1F[name3.c_str()] = new TH1F(name3.c_str(), name3.c_str(), 10, 0, 10);
+    histosTH1F[name2.c_str()] = new TH1F(name2.c_str(), name2.c_str(), 30, 0, 30);
+    histosTH1F[name3.c_str()] = new TH1F(name3.c_str(), name3.c_str(), 30, 0, 30);
   }
 
 
@@ -1140,8 +1140,8 @@ void ElasticAnalyzer::beginJob()
     histosTH1F["residual_u"] = new TH1F("residual_u", "residual_u", 100, -20.0, 20.0);
     histosTH1F["residual_v"] = new TH1F("residual_v", "residual_v", 100, -20.0, 20.0);
 
-    histosTH2F["strips_u_per_plane"] = new TH2F("strips_u_per_plane", "strips_u_per_plane", 100, -20.0, 20.0, 10, 0, 10);
-    histosTH2F["strips_v_per_plane"] = new TH2F("strips_v_per_plane", "strips_v_per_plane", 100, -20.0, 20.0, 10, 0, 10);
+    histosTH2F["strips_u_per_plane"] = new TH2F("strips_u_per_plane", "strips_u_per_plane", 100, -20.0, 20.0, 30, 0, 30);
+    histosTH2F["strips_v_per_plane"] = new TH2F("strips_v_per_plane", "strips_v_per_plane", 100, -20.0, 20.0, 30, 0, 30);
 
     histosTH2F["strips_u_v_positions"] = new TH2F("strips_u_v_positions", "strips_u_v_positions", 100, -20.0, 20.0, 100, -20, 20);
     histosTH2F["strips_u_v_positions_with_offset"] = new TH2F("strips_u_v_positions_with_offset", "strips_u_v_positions_with_offset", 100, -20.0, 20.0, 100, -20, 20);
