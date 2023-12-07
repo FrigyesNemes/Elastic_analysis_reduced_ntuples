@@ -75,6 +75,9 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>
 //  edm::EDGetTokenT<edm::DetSetVector<CTPPSDiamondRecHit>> tokenDiamondHits_ ;
 
   bool add_tests ;
+  
+  int zero_bias_events ;
+  int pile_up_events ;
 
   std::string diagonal;  
   std::string outputFileName;  
@@ -177,6 +180,11 @@ ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(
 
     offsets.close() ;
   }
+
+
+  zero_bias_events = 0 ;
+  pile_up_events = 0 ;
+
 }
 
 ElasticAnalyzer::~ElasticAnalyzer()
@@ -462,6 +470,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   EventNumber_t event_number = iEvent.id().event() ;
   RunNumber_t run_number = iEvent.run() ;
 
+  ++zero_bias_events ;
 
   if(verbosity > 0)
   {
@@ -660,6 +669,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       {
         const CTPPSDetId detId(pv.detId());
         const unsigned int rpDecId = detId.arm() * 100 + detId.station() * 10 + detId.rp();
+        cout << rpDecId << endl ;
 
         // cout << "Now I am using patterns" << endl ;
 
@@ -718,8 +728,6 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
             const CTPPSDetId detId2(hitsDetSet.detId());
             TotemRPDetId stDetId(detId2);
 
-            cout << stDetId.plane() << endl ;
-          
             for (auto &hit : hitsDetSet)
             {
 
@@ -739,6 +747,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
                   histosTH1F["hit_position_diff_u"]->Fill(hit.getPosition() - first_u_hit_position) ;
                 }
 
+                cout << "  u" << stDetId.plane() << endl ;
+
                 vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_u[u_counter] = hit.getPosition() ;
 
                 ++u_counter ;
@@ -755,6 +765,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
                 {
                   histosTH1F["hit_position_diff_v"]->Fill(hit.getPosition() - first_v_hit_position) ;
                 }
+
+                cout << "  v" << stDetId.plane() << endl ;
 
                 vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_v[v_counter] = hit.getPosition() ;
 
@@ -1374,6 +1386,8 @@ void ElasticAnalyzer::endJob()
   {
     map_of_hists[it->first]->Write() ;
   }
+  
+  cout << "zero_bias_events: " << zero_bias_events << endl ;
 
   delete f_out;
   
