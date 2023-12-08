@@ -728,13 +728,22 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         double avg_u_hit_position = 0 ;
         double avg_v_hit_position = 0 ;
 
+        map<int, int> map_u_counter ;
+        map<int, int> map_v_counter ;
+
+        for(int i = 0 ; i < 5 ; ++i)
+        {
+          map_u_counter[i] = 0 ;
+          map_v_counter[i] = 0 ;
+        }
+
         for (const auto &pattern : {pv[idx_U], pv[idx_V]})
         {
-
           // cout << endl ;
 
           for (const auto &hitsDetSet : pattern.getHits())
           {
+          
             const CTPPSDetId detId2(hitsDetSet.detId());
             TotemRPDetId stDetId(detId2);
 
@@ -757,6 +766,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
                   histosTH1F["hit_position_diff_u"]->Fill(hit.getPosition() - first_u_hit_position) ;
                 }
 
+                map_u_counter[stDetId.plane()]++ ; 
                 // cout << "  u" << stDetId.plane() << endl ;
 
                 vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_u[u_counter] = hit.getPosition() ;
@@ -778,6 +788,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
                   histosTH1F["hit_position_diff_v"]->Fill(hit.getPosition() - first_v_hit_position) ;
                 }
 
+                map_v_counter[stDetId.plane()]++ ; 
                 // cout << "  v" << stDetId.plane() << endl ;
 
                 vector_analyser_class[rpDecId].map_from_strip_number_to_hit_positions_v[v_counter] = hit.getPosition() ;
@@ -795,6 +806,13 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
           strip_orientation = "V-strip VII" ;
 
         }
+        
+        for(int i = 0 ; i < 5 ; ++i)
+        {
+          if(map_u_counter[i] > 5) cout << "too full" << endl ;
+          if(map_v_counter[i] > 5) cout << "too full" << endl ;
+        }
+        
 
         stringstream ss ;
         ss << rpDecId ;
