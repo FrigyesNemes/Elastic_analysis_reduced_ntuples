@@ -152,7 +152,7 @@ ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(
   // tokenDiamondHits_(consumes<edm::DetSetVector<CTPPSDiamondRecHit>>(iConfig.getUntrackedParameter<edm::InputTag>("ctppsDiamondRecHits"))),
   diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName")), offsetFileName(iConfig.getParameter<std::string>("offsetFileName")) 
 {
-  add_tests = true ;
+  add_tests = false ;
   position_dist_ = new Distribution(iConfig.getParameterSet("position_distribution")) ;
 
   if(add_tests)
@@ -477,7 +477,6 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   RunNumber_t run_number = iEvent.run() ;
 
   ++zero_bias_events ;
-  histosTH1F["timestamps_zero_bias"]->Fill(event_info_timestamp) ;
 
   if(verbosity > 0)
   {
@@ -673,6 +672,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   
   if(add_tests)
   {
+			histosTH1F["timestamps_zero_bias"]->Fill(event_info_timestamp) ;
+  
       map<unsigned int, TAnalyser_class> vector_analyser_class ;
 
       for (const auto &pv : iEvent.get(rpPatternToken_))
@@ -819,6 +820,8 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
         histosTH2F["strips_u_v_positions"]->Fill((avg_u_hit_position / u_counter) , (avg_v_hit_position / v_counter) ) ;
         histosTH2F["strips_u_v_positions_with_offset"]->Fill((avg_u_hit_position / u_counter) + offset_from_geom , (avg_v_hit_position / v_counter)  + offset_from_geom) ;
+
+        histosTH2F["strips_u_v_correlation"]->Fill(u_counter , v_counter) ;
 
         string name2 = "strips_u_per_plane_" + ss.str() ;
         string name3 = "strips_v_per_plane_" + ss.str() ;
@@ -1200,6 +1203,8 @@ void ElasticAnalyzer::beginJob()
     histosTH2F["strips_v_per_plane"] = new TH2F("strips_v_per_plane", "strips_v_per_plane", 100, -20.0, 20.0, 30, 0, 30);
 
     histosTH2F["strips_u_v_positions"] = new TH2F("strips_u_v_positions", "strips_u_v_positions", 100, -20.0, 20.0, 100, -20, 20);
+    histosTH2F["strips_u_v_correlation"] = new TH2F("strips_u_v_correlation", "strips_u_v_correlation", 20, 0.0, 20.0, 20, 0.0, 20);
+    
     histosTH2F["strips_u_v_positions_with_offset"] = new TH2F("strips_u_v_positions_with_offset", "strips_u_v_positions_with_offset", 100, -20.0, 20.0, 100, -20, 20);
 
     histosTH1F["hit_position_diff_u"] = new TH1F("hit_position_diff_u", "hit_position_diff_u", 100, -1.0, 1.0);
