@@ -1,8 +1,8 @@
 #eos ls /eos/totem/data/offline/2018/450GeV/beta11/Totem1/version5/ > files.txt
 #grep root files.txt > root_files.txt
 
-#DIAGONAL=LBRT
-DIAGONAL=LTRB
+DIAGONAL=LBRT
+#DIAGONAL=LTRB
 for i in `cat root_files.txt`
 do
 	#echo $i

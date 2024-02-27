@@ -152,7 +152,7 @@ ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(
   // tokenDiamondHits_(consumes<edm::DetSetVector<CTPPSDiamondRecHit>>(iConfig.getUntrackedParameter<edm::InputTag>("ctppsDiamondRecHits"))),
   diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName")), offsetFileName(iConfig.getParameter<std::string>("offsetFileName")) 
 {
-  add_tests = false ;
+  add_tests = true ;
   position_dist_ = new Distribution(iConfig.getParameterSet("position_distribution")) ;
 
   if(add_tests)
@@ -257,8 +257,8 @@ void ElasticAnalyzer::TestDetectorPair(map<unsigned int, RP_struct_type>::iterat
     // cout << "xoffset " << key_for_coords << "x " << x_offset_for_dx_cut << endl ;
     // cout << "yoffset " << key_for_coords << "y " << y_offset_for_dy_cut << endl ;
 
-    histosTH2F[name_x]->Fill(it2->second.x, it2->second.x - it1->second.x) ;
-    histosTH2F[name_y]->Fill(it2->second.y, it2->second.y - it1->second.y) ;
+    histosTH2F[name_x]->Fill(it1->second.x, it2->second.x - it1->second.x) ;
+    histosTH2F[name_y]->Fill(it1->second.y, it2->second.y - it1->second.y) ;
 
     histosTH1F[("h" + name_x).c_str()]->Fill((it2->second.x - it1->second.x) - x_offset_for_dx_cut) ;
     histosTH1F[("h" + name_y).c_str()]->Fill((it2->second.y - it1->second.y) - y_offset_for_dy_cut) ;
@@ -421,14 +421,14 @@ void ElasticAnalyzer::TestDetectorPair2(map<unsigned int, RP_struct_type>::itera
     string name_x = "dx_" + ss_1.str() + "_" + ss_2.str() ;
     string name_y = "dy_" + ss_1.str() + "_" + ss_2.str() ;
     
-    vector2d vector_x(it2->second.x, it2->second.x - it1->second.x) ;
-    vector2d vector_y(it2->second.y, it2->second.y - it1->second.y) ;
+    vector2d vector_x(it1->second.x, it2->second.x - it1->second.x) ;
+    vector2d vector_y(it1->second.y, it2->second.y - it1->second.y) ;
 
-    vector2d vector_x_step1 = vector_x.subtract(mymap["x_" + key_for_coords]) ;
-    vector2d vector_y_step1 = vector_y.subtract(mymap["y_" + key_for_coords]) ;
+    vector2d vector_x_step1(0,0) ;
+    vector2d vector_y_step1(0,0) ;
 
-    double vector_x_step2 = vector_x_step1.scalar(mymap["nx_" + key_for_coords]) ;
-    double vector_y_step2  = vector_y_step1.scalar(mymap["ny_" + key_for_coords]) ;
+    double vector_x_step2 = 0.0 ;
+    double vector_y_step2 = 0.0 ;
 
     histosTH2F[name_x]->Fill(it2->second.x, it2->second.x - it1->second.x) ;
     histosTH2F[name_y]->Fill(it2->second.y, it2->second.y - it1->second.y) ;
@@ -450,10 +450,10 @@ void ElasticAnalyzer::TestDetectorPair2(map<unsigned int, RP_struct_type>::itera
 
       histosTH2F[name_x2]->Fill(it1->second.x, it1->second.y) ;
       histosTH2F[name_y2]->Fill(it2->second.x, it2->second.y) ;
-//      histosTH2F[name_x3]->Fill(it1->second.x, it2->second.x - it1->second.x) ;
-//      histosTH2F[name_x4]->Fill(it1->second.y, it2->second.y - it1->second.y) ;
-      histosTH2F[name_x3]->Fill(it1->second.x, vector_x_step2) ;
-      histosTH2F[name_x4]->Fill(it1->second.y, vector_y_step2) ;
+      histosTH2F[name_x3]->Fill(it1->second.x, it2->second.x - it1->second.x) ;
+      histosTH2F[name_x4]->Fill(it1->second.y, it2->second.y - it1->second.y) ;
+      // histosTH2F[name_x3]->Fill(it1->second.x, vector_x_step2) ;
+      // histosTH2F[name_x4]->Fill(it1->second.y, vector_y_step2) ;
 
       histosTH2F[name_x5]->Fill(it1->second.x, (it2->second.x - (slope_x * it2->second.x)) - it1->second.x) ;
       histosTH2F[name_x6]->Fill(it1->second.y, (it2->second.y - (slope_y * it2->second.y)) - it1->second.y) ;
@@ -1039,9 +1039,13 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         TestDetectorPair(it, it2, 123, 124, 0.05 ,-0.0079, 0.022) ;
         TestDetectorPair(it, it2, 123, 125, 0.05 ,-0.0079, 0.022) ;
 
-        // TestDetectorPair2(it, it2, 3, 23, 0.0 ,0.0, 0.0) ;
-        // TestDetectorPair2(it, it2, 4, 24, 0.0 ,0.0, 0.0) ;
-        // TestDetectorPair2(it, it2, 5, 25, 0.0 ,0.0, 0.0) ;
+        TestDetectorPair2(it, it2, 3, 23, 0.0 ,0.0, 0.0) ;
+        TestDetectorPair2(it, it2, 4, 24, 0.0 ,0.0, 0.0) ;
+        TestDetectorPair2(it, it2, 5, 25, 0.0 ,0.0, 0.0) ;
+
+        TestDetectorPair2(it, it2, 103, 123, 0.0 ,0.0, 0.0) ;
+        TestDetectorPair2(it, it2, 104, 124, 0.0 ,0.0, 0.0) ;
+        TestDetectorPair2(it, it2, 105, 125, 0.0 ,0.0, 0.0) ;
       }
     }
   }
@@ -1057,10 +1061,10 @@ void ElasticAnalyzer::addLabels(int first, int second)
   string name_x  = "dx_" + ss1.str() + "_" + ss2.str() ;
   string name_y  = "dy_" + ss1.str() + "_" + ss2.str() ;
 
-  string name_xx = "x_{RP, " + ss2.str() + "} (mm)" ;
+  string name_xx = "x_{RP, " + ss1.str() + "} (mm)" ;
   string name_xy = "x_{RP, " + ss2.str() + "} - x_{RP, " + ss1.str() + "} (mm)" ;
 
-  string name_yx = "y_{RP, " + ss2.str() + "} (mm)" ;
+  string name_yx = "y_{RP, " + ss1.str() + "} (mm)" ;
   string name_yy = "y_{RP, " + ss2.str() + "} - y_{RP, " + ss1.str() + "} (mm)" ;
 
   histosTH2F[name_x]->GetXaxis()->SetTitle(name_xx.c_str()) ;
@@ -1182,6 +1186,43 @@ void ElasticAnalyzer::addHistos()
   histosTH2F["sy_vs_dy_3_if_3_23"] = new TH2F("y_vs_dy_3_if_3_23", "y_vs_dy_3_if_3_23", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
   histosTH2F["sy_vs_dy_4_if_4_24"] = new TH2F("y_vs_dy_4_if_4_24", "y_vs_dy_4_if_4_24", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
   histosTH2F["sy_vs_dy_5_if_5_25"] = new TH2F("y_vs_dy_5_if_5_25", "y_vs_dy_5_if_5_25", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+
+
+
+
+  histosTH2F["xy_103_if_103_123"] = new TH2F("xy_103_123", "xy_103_123", 100, -20.0, 20.0, 100, -20.0, 20.0);
+  histosTH2F["xy_104_if_104_124"] = new TH2F("xy_104_124", "xy_104_124", 100, -20.0, 20.0, 100, -20.0, 20.0);
+  histosTH2F["xy_105_if_105_125"] = new TH2F("xy_105_125", "xy_105_125", 100, -20.0, 20.0, 100, -20.0, 20.0);
+
+  histosTH2F["xy_123_if_103_123"] = new TH2F("xy_123_if_103_123", "xy_123_if_103_123", 100, -20.0, 20.0, 100, -20.0, 20.0);
+  histosTH2F["xy_124_if_104_124"] = new TH2F("xy_124_if_104_124", "xy_124_if_104_124", 100, -20.0, 20.0, 100, -20.0, 20.0);
+  histosTH2F["xy_125_if_105_125"] = new TH2F("xy_125_if_105_125", "xy_125_if_105_125", 100, -20.0, 20.0, 100, -20.0, 20.0);
+
+  histosTH2F["dx_103_123"] = new TH2F("dx_103_123", "dx_103_123", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["dx_104_124"] = new TH2F("dx_104_124", "dx_104_124", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["dx_105_125"] = new TH2F("dx_105_125", "dx_105_125", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+
+  histosTH2F["dy_103_123"] = new TH2F("dy_103_123", "dy_103_123", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["dy_104_124"] = new TH2F("dy_104_124", "dy_104_124", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["dy_105_125"] = new TH2F("dy_105_125", "dy_105_125", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+
+  histosTH2F["x_vs_dx_103_if_103_123"] = new TH2F("x_vs_dx_103_if_103_123", "x_vs_dx_103_if_103_123", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["x_vs_dx_104_if_104_124"] = new TH2F("x_vs_dx_104_if_104_124", "x_vs_dx_104_if_104_124", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["x_vs_dx_105_if_105_125"] = new TH2F("x_vs_dx_105_if_105_125", "x_vs_dx_105_if_105_125", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+
+  histosTH2F["y_vs_dy_103_if_103_123"] = new TH2F("y_vs_dy_103_if_103_123", "y_vs_dy_103_if_103_123", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["y_vs_dy_104_if_104_124"] = new TH2F("y_vs_dy_104_if_104_124", "y_vs_dy_104_if_104_124", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["y_vs_dy_105_if_105_125"] = new TH2F("y_vs_dy_105_if_105_125", "y_vs_dy_105_if_105_125", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+
+  histosTH2F["sx_vs_dx_103_if_103_123"] = new TH2F("x_vs_dx_103_if_103_123", "x_vs_dx_103_if_103_123", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["sx_vs_dx_104_if_104_124"] = new TH2F("x_vs_dx_104_if_104_124", "x_vs_dx_104_if_104_124", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["sx_vs_dx_105_if_105_125"] = new TH2F("x_vs_dx_105_if_105_125", "x_vs_dx_105_if_105_125", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+
+  histosTH2F["sy_vs_dy_103_if_103_123"] = new TH2F("y_vs_dy_103_if_103_123", "y_vs_dy_103_if_103_123", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["sy_vs_dy_104_if_104_124"] = new TH2F("y_vs_dy_104_if_104_124", "y_vs_dy_104_if_104_124", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+  histosTH2F["sy_vs_dy_105_if_105_125"] = new TH2F("y_vs_dy_105_if_105_125", "y_vs_dy_105_if_105_125", 100, -20.0, 20.0, 100, -vertical_boundary_mm2, vertical_boundary_mm2);
+
+
 
 }
 

@@ -1,0 +1,1 @@
+cmsRun XXXX &> /dev/null &
