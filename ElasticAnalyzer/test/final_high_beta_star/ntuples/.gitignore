@@ -1,0 +1,6 @@
+plot
+fig
+results
+*.pdf
+*.png
+*.root
