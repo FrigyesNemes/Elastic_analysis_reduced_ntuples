@@ -116,7 +116,11 @@ int main(int argc, char *argv[])
   plots_to_save_file2.close() ;
   gStyle->SetLineScalePS(.3) ;
   
-  const bool overlap = true ;
+  const bool overlap = false ;
+  
+  TLine line(-20, -0.15, 20, 0.15) ;
+  
+  line.SetLineStyle(kDashed) ;
 
   for(int i = 0 ; i < plots_to_save2.size() ; ++i)
   {
@@ -125,6 +129,12 @@ int main(int argc, char *argv[])
   
     TH2F *histo2 = (TH2F *)file->Get(plot_to_save2.c_str()) ;
     TH2F *histo3 = (TH2F *)file->Get(plot_to_save3.c_str()) ;
+    
+    string title1(histo2->GetTitle()) ;
+    string title2(histo3->GetTitle()) ;
+    string title = title1 + " " + title2 ;
+    
+    histo2->SetTitle(title.c_str()) ;
     
     histo2->GetXaxis()->SetTitle("x (mm)") ;
     histo2->GetYaxis()->SetTitle("y (mm)") ;
@@ -138,16 +148,16 @@ int main(int argc, char *argv[])
     if(chunk.compare("dx") == 0) 
     {
       histo2->GetXaxis()->SetTitle("x (mm)") ;
-      histo2->GetYaxis()->SetTitle("dx (mm)") ;
+      histo2->GetYaxis()->SetTitle("#Delta x (mm)") ;
       histo3->GetXaxis()->SetTitle("x (mm)") ;
-      histo3->GetYaxis()->SetTitle("dx (mm)") ;
+      histo3->GetYaxis()->SetTitle("#Delta x (mm)") ;
     }
     else if(chunk.compare("dy") == 0) 
     {
       histo2->GetXaxis()->SetTitle("y (mm)") ;
-      histo2->GetYaxis()->SetTitle("dy (mm)") ;
+      histo2->GetYaxis()->SetTitle("#Delta y (mm)") ;
       histo3->GetXaxis()->SetTitle("y (mm)") ;
-      histo3->GetYaxis()->SetTitle("dy (mm)") ;
+      histo3->GetYaxis()->SetTitle("#Delta y (mm)") ;
     }
     
     
@@ -164,6 +174,8 @@ int main(int argc, char *argv[])
 
       histo2->Draw("scat") ;
       if(overlap) histo3->Draw("same scat") ;
+      
+      if(chunk.compare("dy") == 0) line.Draw("same") ;
 
       // c.SetLogz() ;
  
@@ -218,8 +230,29 @@ int main(int argc, char *argv[])
     if(histo4 != NULL)
     {
 
+      histo4->GetXaxis()->SetTitle("x (mm)") ;
+      histo4->GetYaxis()->SetTitle("#Delta x (mm)") ;
+
       histo5->GetXaxis()->SetTitle("x (mm)") ;
       histo5->GetYaxis()->SetTitle("#Delta x (mm)") ;
+
+      histo6->GetXaxis()->SetTitle("x (mm)") ;
+      histo6->GetYaxis()->SetTitle("#Delta x (mm)") ;
+      
+      string chunk = plot_to_save4.substr(0,2) ;
+
+      if(chunk.compare("dy") == 0) 
+      {
+      histo4->GetXaxis()->SetTitle("y (mm)") ;
+      histo4->GetYaxis()->SetTitle("#Delta y (mm)") ;
+
+      histo5->GetXaxis()->SetTitle("y (mm)") ;
+      histo5->GetYaxis()->SetTitle("#Delta y (mm)") ;
+
+      histo6->GetXaxis()->SetTitle("y (mm)") ;
+      histo6->GetYaxis()->SetTitle("#Delta y (mm)") ;
+      }
+      
 
       histo4->SetMarkerColor(kRed) ;
       histo4->SetLineColor(kRed) ;
@@ -239,7 +272,7 @@ int main(int argc, char *argv[])
       histo6->Draw("colz") ;
       histo4->Draw("same scat") ;
 
-      // c.SetLogz() ;
+      c.SetLogz() ;
  
       c.SetGridx() ;
       c.SetGridy() ;
