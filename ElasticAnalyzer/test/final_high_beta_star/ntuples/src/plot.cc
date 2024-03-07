@@ -69,7 +69,14 @@ int main(int argc, char *argv[])
   
   plots_to_save_file.close() ;
 
-  TFile *file = TFile::Open("../output_LBRT_run_324462.0_re_reco_Totem1.root") ;
+  vector<int> runs = {324462, 324532, 324536} ;
+
+  int run = runs[2] ;
+
+  stringstream ss ;
+  ss << run ;
+
+  TFile *file = TFile::Open(("../output_LBRT_run_" + ss.str() + ".0_re_reco_Totem1.root").c_str()) ;
 
   TCanvas c ;
 
@@ -90,7 +97,8 @@ int main(int argc, char *argv[])
       c.SetGridx() ;
       c.SetGridy() ;
 
-      c.SaveAs(("../fig/2024_02_29_plots_for_meeting/" + plot_to_save + ".pdf").c_str()) ;
+      c.SaveAs(("fig/" + ss.str() + "/"  + plot_to_save + ".pdf").c_str()) ;
+      c.SaveAs(("fig/" + ss.str() + "/"  + plot_to_save + ".png").c_str()) ;
     }
     else
     {
@@ -185,9 +193,9 @@ int main(int argc, char *argv[])
       string postfix = "" ;
       if(overlap) postfix = "_overlap" ;
 
-      c.SaveAs(("../fig/2024_02_29_plots_for_meeting/" + plot_to_save2 + postfix + ".pdf").c_str()) ;
-      c.SaveAs(("../fig/2024_02_29_plots_for_meeting/" + plot_to_save2 + postfix +  ".root").c_str()) ;
-      c.SaveAs(("../fig/2024_02_29_plots_for_meeting/" + plot_to_save2 + postfix +  ".png").c_str()) ;
+      c.SaveAs(("fig/" + ss.str() + "/"  + plot_to_save2 + postfix + ".pdf").c_str()) ;
+      c.SaveAs(("fig/" + ss.str() + "/"  + plot_to_save2 + postfix +  ".root").c_str()) ;
+      c.SaveAs(("fig/" + ss.str() + "/"  + plot_to_save2 + postfix +  ".png").c_str()) ;
     }
     else
     {
@@ -277,21 +285,21 @@ int main(int argc, char *argv[])
       c.SetGridx() ;
       c.SetGridy() ;
 
-      c.SaveAs(("../fig/2024_02_29_plots_for_meeting/" + plot_to_save4 + ".pdf").c_str()) ;
+      c.SaveAs(("fig/" + ss.str() + "/"  + plot_to_save4 + ".pdf").c_str()) ;
 
       histo4->Draw("colz") ;
-      c.SaveAs(("../fig/2024_02_29_plots_for_meeting/" + plot_to_save4 + "_v1.pdf").c_str()) ;
+      c.SaveAs(("fig/" + ss.str() + "/"  + plot_to_save4 + "_v1.pdf").c_str()) ;
 
       histo5->Draw("colz") ;
       histo4->Draw("same scat") ;
-      c.SaveAs(("../fig/2024_02_29_plots_for_meeting/" + plot_to_save4 + "_v2.pdf").c_str()) ;
+      c.SaveAs(("fig/" + ss.str() + "/"  + plot_to_save4 + "_v2.pdf").c_str()) ;
 
       histo5->SetMarkerColor(kRed) ;
       histo5->SetLineColor(kRed) ;
       histo5->SetMarkerSize(0.2) ;
       histo6->Draw("colz") ;
       histo5->Draw("same colz") ;
-      c.SaveAs(("../fig/2024_02_29_plots_for_meeting/" + plot_to_save4 + "_v3.pdf").c_str()) ;
+      c.SaveAs(("fig/" + ss.str() + "/"  + plot_to_save4 + "_v3.pdf").c_str()) ;
 
     }
     else
