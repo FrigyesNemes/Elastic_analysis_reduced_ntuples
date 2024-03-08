@@ -8,6 +8,10 @@ TRandom3 myrandom_variable ;
 
 int main()
 {
+   const int myseed = 12 ;
+
+	myrandom_variable.SetSeed(myseed) ;
+
 	TGraphErrors *graph = new TGraphErrors() ;
 	
 	const int number_of_measurements = 10 ;
