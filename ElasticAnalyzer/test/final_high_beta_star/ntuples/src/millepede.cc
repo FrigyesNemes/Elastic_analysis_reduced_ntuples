@@ -22,7 +22,7 @@ int initial_fit(TMatrixD *ap)
   TVectorD yv(number_of_measurements) ;
   TMatrixD VI(number_of_measurements, number_of_measurements) ;
 
-  TMatrixD A(number_of_measurements, number_of_parameters) ;
+  TMatrixD *A = new TMatrixD(number_of_measurements, number_of_parameters) ;
 
   double sigma = 0.5 ;
 
@@ -45,19 +45,19 @@ int initial_fit(TMatrixD *ap)
     graph->AddPoint(i, y) ;
     graph->SetPointError(i, 0, 1) ;
     
-    A(i, 0) = 1 ;
-    A(i, 1) = i ;
+    (*A)(i, 0) = 1 ;
+    (*A)(i, 1) = i ;
   }
 
   TVectorD theta(number_of_parameters), y_predicted(number_of_measurements), thetae(number_of_parameters) ;
   
-  y_predicted = A*theta ;
+  y_predicted = (*A)*theta ;
   
   TMatrixD AT(number_of_parameters, number_of_measurements) ;
-  AT.Transpose(A) ;
+  AT.Transpose(*A) ;
 
   TMatrixD ATVIAI(number_of_parameters, number_of_parameters) ;
-   ATVIAI = (AT*VI*A).Invert() ;
+   ATVIAI = (AT*VI*(*A)).Invert() ;
   
   thetae = (ATVIAI*AT*VI)*yv ;
   thetae.Print() ;
@@ -70,7 +70,7 @@ int initial_fit(TMatrixD *ap)
   graph->Draw("ap") ;
   c.SaveAs("fig/c.pdf") ;
   
-  ap = &A ;
+  ap = A ;
 }
 
 
@@ -92,5 +92,7 @@ int main()
     initial_fit(ap) ;
     
     copy_matrix(ap, &large_matrix_A) ;
+    
+    delete ap ;
   }
 }
