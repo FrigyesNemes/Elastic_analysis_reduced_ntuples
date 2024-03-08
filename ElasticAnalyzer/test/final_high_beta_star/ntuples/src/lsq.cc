@@ -14,8 +14,22 @@ int main()
 	const int number_of_parameters = 2 ;
 
 	TVectorD yv(number_of_measurements) ;
+	TMatrixD VI(number_of_measurements, number_of_measurements) ;
 
 	TMatrixD A(number_of_measurements, number_of_parameters) ;
+
+	double sigma = 0.5 ;
+
+	for(int i = 0 ; i < number_of_measurements ; ++i)
+	for(int j = 0 ; j < number_of_measurements ; ++j)
+	{
+		VI(i,j) = 0.0 ;
+
+		if(i == j) VI(i,j) = (sigma * sigma) ;
+	}
+	VI.Invert() ;
+	VI.Print() ;
+
 
 	for(int i = 0 ; i < number_of_measurements ; ++i)
 	{
@@ -37,9 +51,9 @@ int main()
 	AT.Transpose(A) ;
 
 	TMatrixD ATVIAI(number_of_parameters, number_of_parameters) ;
-   ATVIAI = (AT*A).Invert() ;
+   ATVIAI = (AT*VI*A).Invert() ;
 	
-	thetae = (ATVIAI*AT)*yv ;
+	thetae = (ATVIAI*AT*VI)*yv ;
 	thetae.Print() ;
 	
 	graph->Fit("pol1") ;
