@@ -8,6 +8,10 @@ TRandom3 myrandom_variable ;
 
 int main()
 {
+}
+
+int initial_fit()
+{
    const int myseed = 12 ;
 
 	myrandom_variable.SetSeed(myseed) ;
@@ -67,4 +71,9 @@ int main()
 	graph->SetMarkerStyle(20) ;
 	graph->Draw("ap") ;
 	c.SaveAs("fig/c.pdf") ;
+}
+
+
+int alignment_fit()
+{
 }
