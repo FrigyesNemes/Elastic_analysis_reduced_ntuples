@@ -50,7 +50,7 @@ class mytype
 	int get()  { return entries ; } 
 } ;
 
-int main()
+void stat_1()
 {
 	ifstream files("files.txt") ;
 	string word ;
@@ -69,11 +69,53 @@ int main()
 		myfile->Close() ;
 	}
 	
+	files.close() ;
+	
 	cout << endl ;
 	
 	for(map<int, mytype>::iterator it = mymap.begin() ; it != mymap.end() ; ++it)
 	{
 		cout << it->first << " " << it->second.get() << endl ;
 	}
+}
+
+void stat_2(string diagonal) 
+{
+	ifstream runs("/afs/cern.ch/work/f/fnemes/main_workspace_github_ssh_4/Projects/TOTEM_Projects/Physics_projects/Physics_analysis/Proton_proton_scattering/Elastic_scattering/Projects/2023/E_CM_900_GeV_beta_star_100_m/General_settings/List_of_runs.txt") ;
+
+	string word ;
 	
+	while(runs >> word)
+	{
+		string actual_filename = "/afs/cern.ch/work/f/fnemes/tmp/pp/E_CM_900_GeV_beta_star_100_m/Analysis_output_files/7291/Diagonals/DIAGONAL_" + diagonal + "/All_root_files_to_define_cuts_run_" + word + "/Generic.root" ;
+      if(access(actual_filename.c_str(), F_OK) != 0)
+		{
+			cout << "Problem 1 " << word << endl ;
+			continue ;
+		}
+		
+
+		TFile *myfile = TFile::Open(actual_filename.c_str()) ;
+	
+		TH2D *histo1 = (TH2D *)(myfile->Get("P0000_PlotsCollection_x_mm_y_mm_near_left")) ;
+		TH1D *histo2 = (TH1D *)(myfile->Get("P0057_PlotsCollection_dN_dt_GeV2")) ;
+		
+		if(histo1 != NULL)
+		{
+			cout << word << " " << histo1->GetEntries() << " " << histo2->GetEntries() << endl ;
+		}
+		else
+		{	
+			cout << "Problem 2 " << word << endl ;
+		}
+
+		myfile->Close() ;
+	}
+}
+
+int main()
+{
+	// stat_1() ;
+	// stat_2("LEFT_BOTTOM_RIGHT_TOP") ;
+	stat_2("LEFT_TOP_RIGHT_BOTTOM") ;
 }
