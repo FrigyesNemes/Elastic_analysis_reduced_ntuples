@@ -6,8 +6,21 @@
 
 TRandom3 myrandom_variable ;
 
+void van_der_waals(double R, double T, double v, double b, double a)
+{
+	double p = ((R * T) / (v - b)) - (a / v*v) ;
+}
+
+void yukawa(double r, double g, double alpha, double m)
+{
+	double V = -(g*g) * (exp(-alpha * m * r) / r) ;
+}
+
 int main()
 {
+	van_der_waals(1, 2, 3, 4, 5) ;
+	yukawa(1, 2, 3, 4) ;
+
    const int myseed = 12 ;
 
 	myrandom_variable.SetSeed(myseed) ;
