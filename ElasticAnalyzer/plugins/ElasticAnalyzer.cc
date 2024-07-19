@@ -152,7 +152,7 @@ ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(
   // tokenDiamondHits_(consumes<edm::DetSetVector<CTPPSDiamondRecHit>>(iConfig.getUntrackedParameter<edm::InputTag>("ctppsDiamondRecHits"))),
   diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName")), offsetFileName(iConfig.getParameter<std::string>("offsetFileName")) 
 {
-  add_tests = false ;
+  add_tests = true ;
   position_dist_ = new Distribution(iConfig.getParameterSet("position_distribution")) ;
 
   if(add_tests)
@@ -672,6 +672,7 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   
   if(add_tests)
   {
+			histosTH1F["timestamps_zero_bias_var"]->Fill(event_info_timestamp) ;
 			histosTH1F["timestamps_zero_bias"]->Fill(event_info_timestamp) ;
   
       map<unsigned int, TAnalyser_class> vector_analyser_class ;
@@ -1282,12 +1283,39 @@ void ElasticAnalyzer::beginJob()
     histosTH2F["th_x_local_vs_RP"] = new TH2F("th_x_local_vs_RP", "th_x_local_vs_RP" , 100, -5.0e-4, 5.0e-4, 100, -5.0e-4, 5.0e-4);
     histosTH2F["th_y_local_vs_RP"] = new TH2F("th_y_local_vs_RP", "th_y_local_vs_RP" , 100, -5.0e-4, 5.0e-4, 100, -5.0e-4, 5.0e-4);
 
-    histosTH1F["timestamps_zero_bias"] = new TH1F("timestamps_zero_bias", "timestamps_zero_bias", 100, 1539526140, 1539548000);
-    histosTH1F["pile_up_events_LBRT"] = new TH1F("pile_up_events_LBRT", "pile_up_events_LBRT", 100, 1539526140, 1539548000);
-    histosTH1F["pile_up_events_LTRB"] = new TH1F("pile_up_events_LTRB", "pile_up_events_LTRB", 100, 1539526140, 1539548000);
-    histosTH1F["pile_up_events_strict_LBRT"] = new TH1F("pile_up_events_strict_LBRT", "pile_up_events_strict_LBRT", 100, 1539526140, 1539548000);
-    histosTH1F["pile_up_events_strict_LTRB"] = new TH1F("pile_up_events_strict_LTRB", "pile_up_events_strict_LTRB", 100, 1539526140, 1539548000);
-    
+    const int scenario_beta_star_11_m_900_GeV  = 1 ;
+    const int scenario_beta_star_100_m_900_GeV = 2 ;
+
+    int scenario = 0 ;
+    scenario = scenario_beta_star_100_m_900_GeV ;
+
+    if(scenario == scenario_beta_star_11_m_900_GeV)
+    {
+        histosTH1F["timestamps_zero_bias_var"] = new TH1F("timestamps_zero_bias_var", "timestamps_zero_bias_var", 100, 1, 0);
+        histosTH1F["timestamps_zero_bias"] = new TH1F("timestamps_zero_bias", "timestamps_zero_bias", 100, 1539526140, 1539548000);
+        histosTH1F["pile_up_events_LBRT"] = new TH1F("pile_up_events_LBRT", "pile_up_events_LBRT", 100, 1539526140, 1539548000);
+        histosTH1F["pile_up_events_LTRB"] = new TH1F("pile_up_events_LTRB", "pile_up_events_LTRB", 100, 1539526140, 1539548000);
+        histosTH1F["pile_up_events_strict_LBRT"] = new TH1F("pile_up_events_strict_LBRT", "pile_up_events_strict_LBRT", 100, 1539526140, 1539548000);
+        histosTH1F["pile_up_events_strict_LTRB"] = new TH1F("pile_up_events_strict_LTRB", "pile_up_events_strict_LTRB", 100, 1539526140, 1539548000);
+    }
+    else if(scenario == scenario_beta_star_100_m_900_GeV)
+    {
+        long int limit_lo = 1539441890 ;
+        long int limit_hi = 1539441930 ;
+
+        histosTH1F["timestamps_zero_bias_var"] = new TH1F("timestamps_zero_bias_var", "timestamps_zero_bias_var", 100, 1, 0);
+        histosTH1F["timestamps_zero_bias"] = new TH1F("timestamps_zero_bias", "timestamps_zero_bias", 100, limit_lo, limit_hi);
+        histosTH1F["pile_up_events_LBRT"] = new TH1F("pile_up_events_LBRT", "pile_up_events_LBRT", 100, limit_lo, limit_hi);
+        histosTH1F["pile_up_events_LTRB"] = new TH1F("pile_up_events_LTRB", "pile_up_events_LTRB", 100, limit_lo, limit_hi);
+        histosTH1F["pile_up_events_strict_LBRT"] = new TH1F("pile_up_events_strict_LBRT", "pile_up_events_strict_LBRT", 100, limit_lo, limit_hi);
+        histosTH1F["pile_up_events_strict_LTRB"] = new TH1F("pile_up_events_strict_LTRB", "pile_up_events_strict_LTRB", 100, limit_lo, limit_hi);
+    }
+    else
+    {
+	exit(1) ;
+	cout << "Unknown scenario!" << endl ;
+    }
+
     addHistos() ;
     addLabels() ;
     
