@@ -31,8 +31,6 @@ process.maxEvents = cms.untracked.PSet(
 
 process.source = cms.Source("PoolSource",
   fileNames = cms.untracked.vstring(
-#"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.0_re_reco_ZeroBias.root",
-"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.17_re_reco_ZeroBias.root",
 )
 )
 
@@ -43,7 +41,7 @@ process.analyzer = cms.EDAnalyzer("ElasticAnalyzer",
   tracks = cms.untracked.InputTag('ctppsLocalTrackLiteProducer'),
 #  ctppsDiamondRecHits = cms.untracked.InputTag('ctppsDiamondRecHits'),
   rpPatternTag = cms.InputTag('totemRPUVPatternFinder'),
-  outputFileName = cms.string("output_run_324461_re_reco_ZeroBias.root"),
+  outputFileName = cms.string("output_run_XXXX_re_reco_ZeroBias.root"),
   #offsetFileName = cms.string("data/offsets_no_slopes.txt"),
   offsetFileName = cms.string("data/offsets.txt"),
 

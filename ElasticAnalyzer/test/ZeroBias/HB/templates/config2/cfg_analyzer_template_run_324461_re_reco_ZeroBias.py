@@ -31,8 +31,24 @@ process.maxEvents = cms.untracked.PSet(
 
 process.source = cms.Source("PoolSource",
   fileNames = cms.untracked.vstring(
-#"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.0_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.0_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.10_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.11_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.12_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.13_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.14_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.15_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.16_re_reco_ZeroBias.root",
 "root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.17_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.1_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.2_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.3_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.4_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.5_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.6_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.7_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.8_re_reco_ZeroBias.root",
+"root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.9_re_reco_ZeroBias.root",
 )
 )
 
@@ -43,7 +59,7 @@ process.analyzer = cms.EDAnalyzer("ElasticAnalyzer",
   tracks = cms.untracked.InputTag('ctppsLocalTrackLiteProducer'),
 #  ctppsDiamondRecHits = cms.untracked.InputTag('ctppsDiamondRecHits'),
   rpPatternTag = cms.InputTag('totemRPUVPatternFinder'),
-  outputFileName = cms.string("output_run_324461_re_reco_ZeroBias.root"),
+  outputFileName = cms.string("output_run_XXXX_re_reco_ZeroBias.root"),
   #offsetFileName = cms.string("data/offsets_no_slopes.txt"),
   offsetFileName = cms.string("data/offsets.txt"),
 
