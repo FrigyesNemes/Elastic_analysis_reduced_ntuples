@@ -120,6 +120,10 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>
   Distribution *position_dist_;
 
   TTree *tree ;
+
+  unsigned long int event_info_timestamp_min ;
+  unsigned long int event_info_timestamp_max ;
+
 };
 
 ElasticAnalyzer::Distribution::Distribution(const edm::ParameterSet &ps) {
@@ -150,7 +154,7 @@ ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(
   tracksToken_(consumes<std::vector<CTPPSLocalTrackLite>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks"))),
   rpPatternToken_(consumes<edm::DetSetVector<TotemRPUVPattern>>(iConfig.getParameter<edm::InputTag>("rpPatternTag"))),
   // tokenDiamondHits_(consumes<edm::DetSetVector<CTPPSDiamondRecHit>>(iConfig.getUntrackedParameter<edm::InputTag>("ctppsDiamondRecHits"))),
-  diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName")), offsetFileName(iConfig.getParameter<std::string>("offsetFileName")) 
+  diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName")), offsetFileName(iConfig.getParameter<std::string>("offsetFileName")), event_info_timestamp_min(LONG_MAX), event_info_timestamp_max(LONG_MIN)
 {
   add_tests = true ;
   position_dist_ = new Distribution(iConfig.getParameterSet("position_distribution")) ;
@@ -672,8 +676,11 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   
   if(add_tests)
   {
-			histosTH1F["timestamps_zero_bias_var"]->Fill(event_info_timestamp) ;
-			histosTH1F["timestamps_zero_bias"]->Fill(event_info_timestamp) ;
+		if(event_info_timestamp < event_info_timestamp_min) event_info_timestamp_min = event_info_timestamp ;
+		if(event_info_timestamp_max < event_info_timestamp) event_info_timestamp_max = event_info_timestamp ;
+
+		histosTH1F["timestamps_zero_bias_var"]->Fill(event_info_timestamp) ;
+		histosTH1F["timestamps_zero_bias"]->Fill(event_info_timestamp) ;
   
       map<unsigned int, TAnalyser_class> vector_analyser_class ;
 
