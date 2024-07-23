@@ -154,7 +154,7 @@ ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(
   tracksToken_(consumes<std::vector<CTPPSLocalTrackLite>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks"))),
   rpPatternToken_(consumes<edm::DetSetVector<TotemRPUVPattern>>(iConfig.getParameter<edm::InputTag>("rpPatternTag"))),
   // tokenDiamondHits_(consumes<edm::DetSetVector<CTPPSDiamondRecHit>>(iConfig.getUntrackedParameter<edm::InputTag>("ctppsDiamondRecHits"))),
-  diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName")), offsetFileName(iConfig.getParameter<std::string>("offsetFileName")), event_info_timestamp_min(LONG_MAX), event_info_timestamp_max(LONG_MIN)
+  diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName")), offsetFileName(iConfig.getParameter<std::string>("offsetFileName")), event_info_timestamp_min(LONG_MAX), event_info_timestamp_max(0)
 {
   add_tests = true ;
   position_dist_ = new Distribution(iConfig.getParameterSet("position_distribution")) ;
@@ -1057,6 +1057,15 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       }
     }
   }
+
+  bool per_event_test = false ;
+
+  if(per_event_test)
+  {
+    cout << "event_info_timestamp_min: " << event_info_timestamp_min << endl ;
+    cout << "event_info_timestamp_max: " << event_info_timestamp_max << endl ;
+  }
+
 }
 
 void ElasticAnalyzer::addLabels(int first, int second)
