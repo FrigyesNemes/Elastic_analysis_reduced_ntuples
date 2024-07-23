@@ -1512,6 +1512,9 @@ void ElasticAnalyzer::endJob()
     map_of_hists[it->first]->Write() ;
   }
   
+  cout << "event_info_timestamp_min: " << event_info_timestamp_min << endl ;
+  cout << "event_info_timestamp_max: " << event_info_timestamp_max << endl ;
+
   cout << "pile_up_events_LBRT: " << pile_up_events_LBRT << endl ;
   cout << "pile_up_events_LTRB: " << pile_up_events_LTRB << endl ;
   cout << "pile_up_events_strict_LBRT: " << pile_up_events_strict_LBRT << endl ;
