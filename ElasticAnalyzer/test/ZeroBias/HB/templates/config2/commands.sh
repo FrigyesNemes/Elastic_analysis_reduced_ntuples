@@ -3,4 +3,7 @@ do
 	echo $i
 	minimum=`grep event_info_timestamp_min ../../tmp/results\_$i.txt | awk '{ print $2 }'`
 	maximum=`grep event_info_timestamp_max ../../tmp/results\_$i.txt | awk '{ print $2 }'`
+
+	sed -isave "s/\"timestamp_minimum\"/$minimum/g" cfg_analyzer_template_run\_$i\_re_reco_ZeroBias.py
+	sed -isave2 "s/\"timestamp_maximum\"/$maximum/g" cfg_analyzer_template_run\_$i\_re_reco_ZeroBias.py
 done
