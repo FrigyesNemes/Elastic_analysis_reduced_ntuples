@@ -94,6 +94,9 @@ process.analyzer = cms.EDAnalyzer("ElasticAnalyzer",
   outputFileName = cms.string("output_run_324519_re_reco_ZeroBias.root"),
   #offsetFileName = cms.string("data/offsets_no_slopes.txt"),
   offsetFileName = cms.string("data/offsets.txt"),
+  timestamp_minimum = cms.string("timestamp_minimum"),
+  timestamp_maximum = cms.string("timestamp_maximum"),
+
 
    position_distribution = cms.PSet(
       type = cms.string("box"),
