@@ -16,11 +16,8 @@ void yukawa(double r, double g, double alpha, double m)
 	double V = -(g*g) * (exp(-alpha * m * r) / r) ;
 }
 
-int main()
+void lsq()
 {
-	van_der_waals(1, 2, 3, 4, 5) ;
-	yukawa(1, 2, 3, 4) ;
-
    const int myseed = 12 ;
 
 	myrandom_variable.SetSeed(myseed) ;
@@ -80,4 +77,11 @@ int main()
 	graph->SetMarkerStyle(20) ;
 	graph->Draw("ap") ;
 	c.SaveAs("fig/c.pdf") ;
+}
+
+int main()
+{
+	van_der_waals(1, 2, 3, 4, 5) ;
+	yukawa(1, 2, 3, 4) ;
+   lsq() ;
 }
