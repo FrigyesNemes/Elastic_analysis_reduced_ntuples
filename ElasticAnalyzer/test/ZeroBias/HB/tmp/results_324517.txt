@@ -1,111 +1,63 @@
-23-Jul-2024 15:35:16 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.0_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:35:18 CEST pre-events
+23-Jul-2024 17:35:49 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.0_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 23-Jul-2024 17:35:52 CEST pre-events
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 15:35:19 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.0_re_reco_ZeroBias.root
-23-Jul-2024 15:35:34 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.0_re_reco_ZeroBias.root
-23-Jul-2024 15:35:34 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.10_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:35:36 CEST PostProcessEvent
+23-Jul-2024 17:35:53 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.0_re_reco_ZeroBias.root
+23-Jul-2024 17:36:22 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.0_re_reco_ZeroBias.root
+23-Jul-2024 17:36:22 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.1_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 23-Jul-2024 17:36:24 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 15:35:36 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.10_re_reco_ZeroBias.root
-23-Jul-2024 15:35:51 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.10_re_reco_ZeroBias.root
-23-Jul-2024 15:35:51 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.11_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:35:53 CEST PostProcessEvent
+23-Jul-2024 17:36:24 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.1_re_reco_ZeroBias.root
+23-Jul-2024 17:36:46 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.1_re_reco_ZeroBias.root
+23-Jul-2024 17:36:46 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.2_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 23-Jul-2024 17:36:48 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 15:35:53 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.11_re_reco_ZeroBias.root
-23-Jul-2024 15:35:54 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.11_re_reco_ZeroBias.root
-23-Jul-2024 15:35:54 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.12_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:35:56 CEST PostProcessEvent
+23-Jul-2024 17:36:48 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.2_re_reco_ZeroBias.root
+23-Jul-2024 17:37:14 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.2_re_reco_ZeroBias.root
+23-Jul-2024 17:37:14 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.3_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 23-Jul-2024 17:37:16 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 15:35:56 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.12_re_reco_ZeroBias.root
-23-Jul-2024 15:36:11 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.12_re_reco_ZeroBias.root
-23-Jul-2024 15:36:11 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.13_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:36:13 CEST PostProcessEvent
+23-Jul-2024 17:37:16 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.3_re_reco_ZeroBias.root
+23-Jul-2024 17:37:39 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.3_re_reco_ZeroBias.root
+23-Jul-2024 17:37:39 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.4_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 23-Jul-2024 17:37:41 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 15:36:13 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.13_re_reco_ZeroBias.root
-23-Jul-2024 15:36:16 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.13_re_reco_ZeroBias.root
-23-Jul-2024 15:36:16 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.14_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:36:18 CEST PostProcessEvent
+23-Jul-2024 17:37:42 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.4_re_reco_ZeroBias.root
+23-Jul-2024 17:38:05 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.4_re_reco_ZeroBias.root
+23-Jul-2024 17:38:05 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.5_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 23-Jul-2024 17:38:07 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 15:36:18 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.14_re_reco_ZeroBias.root
-23-Jul-2024 15:36:31 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.14_re_reco_ZeroBias.root
-23-Jul-2024 15:36:31 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.15_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:36:33 CEST PostProcessEvent
+23-Jul-2024 17:38:07 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.5_re_reco_ZeroBias.root
+23-Jul-2024 17:38:30 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.5_re_reco_ZeroBias.root
+23-Jul-2024 17:38:30 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.6_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 23-Jul-2024 17:38:32 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 15:36:33 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.15_re_reco_ZeroBias.root
-23-Jul-2024 15:36:48 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.15_re_reco_ZeroBias.root
-23-Jul-2024 15:36:48 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.16_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:36:50 CEST PostProcessEvent
+23-Jul-2024 17:38:32 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.6_re_reco_ZeroBias.root
+23-Jul-2024 17:38:55 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.6_re_reco_ZeroBias.root
+23-Jul-2024 17:38:55 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.7_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 23-Jul-2024 17:38:57 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 15:36:50 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.16_re_reco_ZeroBias.root
-23-Jul-2024 15:36:51 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.16_re_reco_ZeroBias.root
-23-Jul-2024 15:36:51 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.17_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:36:53 CEST PostProcessEvent
+23-Jul-2024 17:38:57 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.7_re_reco_ZeroBias.root
+23-Jul-2024 17:39:21 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.7_re_reco_ZeroBias.root
+23-Jul-2024 17:39:21 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.8_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 23-Jul-2024 17:39:23 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 15:36:53 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.17_re_reco_ZeroBias.root
-23-Jul-2024 15:36:55 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.17_re_reco_ZeroBias.root
-23-Jul-2024 15:36:55 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.1_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:36:57 CEST PostProcessEvent
+23-Jul-2024 17:39:23 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.8_re_reco_ZeroBias.root
+23-Jul-2024 17:39:44 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.8_re_reco_ZeroBias.root
+23-Jul-2024 17:39:44 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.9_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 23-Jul-2024 17:39:46 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 15:36:57 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.1_re_reco_ZeroBias.root
-23-Jul-2024 15:37:11 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.1_re_reco_ZeroBias.root
-23-Jul-2024 15:37:11 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.2_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:37:13 CEST PostProcessEvent
-Data is served from CERN-PROD instead of original site eoscms
-%MSG
-23-Jul-2024 15:37:13 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.2_re_reco_ZeroBias.root
-23-Jul-2024 15:37:26 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.2_re_reco_ZeroBias.root
-23-Jul-2024 15:37:26 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.3_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:37:28 CEST PostProcessEvent
-Data is served from CERN-PROD instead of original site eoscms
-%MSG
-23-Jul-2024 15:37:28 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.3_re_reco_ZeroBias.root
-23-Jul-2024 15:37:31 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.3_re_reco_ZeroBias.root
-23-Jul-2024 15:37:31 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.4_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:37:33 CEST PostProcessEvent
-Data is served from CERN-PROD instead of original site eoscms
-%MSG
-23-Jul-2024 15:37:33 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.4_re_reco_ZeroBias.root
-23-Jul-2024 15:37:48 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.4_re_reco_ZeroBias.root
-23-Jul-2024 15:37:48 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.5_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:37:50 CEST PostProcessEvent
-Data is served from CERN-PROD instead of original site eoscms
-%MSG
-23-Jul-2024 15:37:50 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.5_re_reco_ZeroBias.root
-23-Jul-2024 15:37:51 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.5_re_reco_ZeroBias.root
-23-Jul-2024 15:37:51 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.6_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:37:53 CEST PostProcessEvent
-Data is served from CERN-PROD instead of original site eoscms
-%MSG
-23-Jul-2024 15:37:53 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.6_re_reco_ZeroBias.root
-23-Jul-2024 15:38:08 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.6_re_reco_ZeroBias.root
-23-Jul-2024 15:38:08 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.7_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:38:11 CEST PostProcessEvent
-Data is served from CERN-PROD instead of original site eoscms
-%MSG
-23-Jul-2024 15:38:11 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.7_re_reco_ZeroBias.root
-23-Jul-2024 15:38:11 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.7_re_reco_ZeroBias.root
-23-Jul-2024 15:38:11 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.8_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:38:13 CEST PostProcessEvent
-Data is served from CERN-PROD instead of original site eoscms
-%MSG
-23-Jul-2024 15:38:13 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.8_re_reco_ZeroBias.root
-23-Jul-2024 15:38:29 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.8_re_reco_ZeroBias.root
-23-Jul-2024 15:38:29 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.9_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 15:38:31 CEST PostProcessEvent
-Data is served from CERN-PROD instead of original site eoscms
-%MSG
-23-Jul-2024 15:38:31 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.9_re_reco_ZeroBias.root
-23-Jul-2024 15:38:32 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324461.9_re_reco_ZeroBias.root
+23-Jul-2024 17:39:46 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.9_re_reco_ZeroBias.root
+23-Jul-2024 17:40:10 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324517.9_re_reco_ZeroBias.root
   TH1_names.push_back("hdx_103_104") ;
   TH1_names.push_back("hdx_103_105") ;
   TH1_names.push_back("hdx_123_124") ;
@@ -331,7 +283,7 @@ fit_limits 19.8 -20.2
 hello
 
 
-################103_123 324
+################103_104 1
  **********
  **    1 **SET ERR           1
  **********
@@ -348,182 +300,26 @@ hello
  **********
  FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
  START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
- FCN=2.87741e+06 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
+ FCN=0.745226 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
                      EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
   EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            0.00000e+00   1.00000e-01   3.33395e-02   3.95667e+05
-   2  b            0.00000e+00   1.00000e-01   3.33395e-02   3.28245e+06
+   1  a            0.00000e+00   1.00000e-01   3.33395e-02  -1.29042e+02
+   2  b            0.00000e+00   1.00000e-01   3.33395e-02  -4.27169e+01
    3  alpha        0.00000e+00     fixed    
  MIGRAD MINIMIZATION HAS CONVERGED.
  MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
  COVARIANCE MATRIX CALCULATED SUCCESSFULLY
- FCN=1.51665e+06 FROM MIGRAD    STATUS=CONVERGED      43 CALLS          44 TOTAL
-                     EDM=2.49273e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ FCN=2.19326e-10 FROM MIGRAD    STATUS=CONVERGED      23 CALLS          24 TOTAL
+                     EDM=4.38652e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a           -2.95528e-01   2.11695e-03   4.26399e-04   2.55084e+00
-   2  b           -2.45171e+00   2.11695e-03   7.36191e-04   1.06912e+00
+   1  a            3.12277e-02   3.81041e-02   6.20200e-06  -2.33026e-03
+   2  b            1.03375e-02   3.81041e-02   6.20200e-06  -8.45273e-05
    3  alpha        0.00000e+00     fixed    
  EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=1
-  4.481e-06  1.010e-14 
-  1.010e-14  4.481e-06 
- PARAMETER  CORRELATION COEFFICIENTS  
-       NO.  GLOBAL      1      2
-        1  0.00000   1.000  0.000
-        2  0.00000   0.000  1.000
- **********
- **    4 **RELEASE           3
- **********
-                   PARAMETER    3  alpha RESTORED TO VARIABLE.
- **********
- **    5 **MIGRAD           0           3
- **********
- START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
- FCN=1.51665e+06 FROM MIGRAD    STATUS=INITIATE        8 CALLS          52 TOTAL
-                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
-  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
-  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a           -2.95528e-01   2.11695e-03   4.26399e-04   2.58522e+00
-   2  b           -2.45171e+00   2.11695e-03   7.36191e-04   1.15031e+00
-   3  alpha        0.00000e+00   1.00000e-01   1.00000e-01  -2.99934e+03
- MIGRAD MINIMIZATION HAS CONVERGED.
- MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
- COVARIANCE MATRIX CALCULATED SUCCESSFULLY
- FCN=1.51561e+06 FROM MIGRAD    STATUS=CONVERGED     180 CALLS         224 TOTAL
-                     EDM=3.30713e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
-  EXT PARAMETER                                   STEP         FIRST   
-  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            1.24027e-01   2.73960e-03   4.24547e-04   7.27563e-01
-   2  b           -3.00000e+00   5.08341e-04   1.09114e-02** at limit **
-   3  alpha        6.66320e-02   2.64667e-04   6.61638e-04   1.45269e-01
- EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=1
-  7.505e-06 -1.154e-13  4.602e-07 
- -1.154e-13  2.218e-19 -1.757e-14 
-  4.602e-07 -1.757e-14  7.005e-08 
- PARAMETER  CORRELATION COEFFICIENTS  
-       NO.  GLOBAL      1      2      3
-        1  0.63474   1.000 -0.089  0.635
-        2  0.14093  -0.089  1.000 -0.141
-        3  0.64034   0.635 -0.141  1.000
-Final parameters: x:   0.124027 y: -3 alpha: 0.066632  number_of_points: 324 ndf=2*number_of_points=648
-
-
-################104_124 15776
- **********
- **    1 **SET ERR           1
- **********
- PARAMETER DEFINITIONS:
-    NO.   NAME         VALUE      STEP SIZE      LIMITS
-     1 a            0.00000e+00  1.00000e-01   -3.00000e+00  3.00000e+00
-     2 b            0.00000e+00  1.00000e-01   -3.00000e+00  3.00000e+00
-     3 alpha        0.00000e+00  1.00000e-01   -1.96350e-01  1.96350e-01
- **********
- **    2 **FIX           3
- **********
- **********
- **    3 **MIGRAD           0           3
- **********
- FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
- START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
- FCN=8.26294e+07 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
-                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
-  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
-  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            0.00000e+00   1.00000e-01   3.33395e-02  -7.98842e+07
-   2  b            0.00000e+00   1.00000e-01   3.33395e-02  -8.95186e+07
-   3  alpha        0.00000e+00     fixed    
- MIGRAD MINIMIZATION HAS CONVERGED.
- MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
- COVARIANCE MATRIX CALCULATED SUCCESSFULLY
- FCN=4.58265e+07 FROM MIGRAD    STATUS=CONVERGED      44 CALLS          45 TOTAL
-                     EDM=3.78721e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
-  EXT PARAMETER                                   STEP         FIRST   
-  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            1.22541e+00   3.03379e-04   3.66213e-04   6.01182e+01
-   2  b            1.37320e+00   3.03379e-04   3.75968e-04   4.92516e+01
-   3  alpha        0.00000e+00     fixed    
- EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=1
-  9.204e-08  1.569e-16 
-  1.569e-16  9.204e-08 
- PARAMETER  CORRELATION COEFFICIENTS  
-       NO.  GLOBAL      1      2
-        1  0.00000   1.000  0.000
-        2  0.00000   0.000  1.000
- **********
- **    4 **RELEASE           3
- **********
-                   PARAMETER    3  alpha RESTORED TO VARIABLE.
- **********
- **    5 **MIGRAD           0           3
- **********
- START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
- FCN=4.58265e+07 FROM MIGRAD    STATUS=INITIATE        8 CALLS          53 TOTAL
-                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
-  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
-  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            1.22541e+00   3.03379e-04   3.66213e-04   5.93436e+01
-   2  b            1.37320e+00   3.03379e-04   3.75968e-04   4.83632e+01
-   3  alpha        0.00000e+00   1.00000e-01   1.00000e-01  -4.77488e+06
- MIGRAD MINIMIZATION HAS CONVERGED.
- MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
- COVARIANCE MATRIX CALCULATED SUCCESSFULLY
- FCN=4.55357e+07 FROM MIGRAD    STATUS=CONVERGED      59 CALLS         104 TOTAL
-                     EDM=9.17301e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
-  EXT PARAMETER                                   STEP         FIRST   
-  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            1.40556e+00   4.49897e-04   3.77132e-04  -8.71513e+01
-   2  b            1.45193e+00   3.38415e-04   3.80756e-04   7.51016e+01
-   3  alpha        2.39013e-02   4.43164e-05   4.79309e-04   4.20861e+01
- EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=1
-  2.024e-07  4.982e-08  1.472e-08 
-  4.982e-08  1.145e-07  6.645e-09 
-  1.472e-08  6.645e-09  1.964e-09 
- PARAMETER  CORRELATION COEFFICIENTS  
-       NO.  GLOBAL      1      2      3
-        1  0.73843   1.000  0.327  0.738
-        2  0.44311   0.327  1.000  0.443
-        3  0.76860   0.738  0.443  1.000
-Final parameters: x:   1.40556 y: 1.45193 alpha: 0.0239013  number_of_points: 15776 ndf=2*number_of_points=31552
-
-
-################105_125 35977
- **********
- **    1 **SET ERR           1
- **********
- PARAMETER DEFINITIONS:
-    NO.   NAME         VALUE      STEP SIZE      LIMITS
-     1 a            0.00000e+00  1.00000e-01   -3.00000e+00  3.00000e+00
-     2 b            0.00000e+00  1.00000e-01   -3.00000e+00  3.00000e+00
-     3 alpha        0.00000e+00  1.00000e-01   -1.96350e-01  1.96350e-01
- **********
- **    2 **FIX           3
- **********
- **********
- **    3 **MIGRAD           0           3
- **********
- FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
- START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
- FCN=9.42725e+07 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
-                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
-  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
-  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            0.00000e+00   1.00000e-01   3.33395e-02  -7.46772e+07
-   2  b            0.00000e+00   1.00000e-01   3.33395e-02   1.19582e+08
-   3  alpha        0.00000e+00     fixed    
- MIGRAD MINIMIZATION HAS CONVERGED.
- MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
- COVARIANCE MATRIX CALCULATED SUCCESSFULLY
- FCN=7.19892e+07 FROM MIGRAD    STATUS=CONVERGED      43 CALLS          44 TOTAL
-                     EDM=7.52861e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
-  EXT PARAMETER                                   STEP         FIRST   
-  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            5.02319e-01   2.00896e-04   2.81403e-04   2.89323e+00
-   2  b           -8.04370e-01   2.00896e-04   2.87974e-04  -4.81356e+00
-   3  alpha        0.00000e+00     fixed    
- EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=1
-  4.036e-08 -2.067e-15 
- -2.067e-15  4.036e-08 
+  1.452e-03 -8.061e-20 
+ -8.061e-20  1.452e-03 
  PARAMETER  CORRELATION COEFFICIENTS  
        NO.  GLOBAL      1      2
         1  0.00000   1.000 -0.000
@@ -536,117 +332,39 @@ Final parameters: x:   1.40556 y: 1.45193 alpha: 0.0239013  number_of_points: 15
  **    5 **MIGRAD           0           3
  **********
  START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
- FCN=7.19892e+07 FROM MIGRAD    STATUS=INITIATE        8 CALLS          52 TOTAL
+ FCN=2.19326e-10 FROM MIGRAD    STATUS=INITIATE        8 CALLS          32 TOTAL
                      EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
   EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            5.02319e-01   2.00896e-04   2.81403e-04   2.44809e+00
-   2  b           -8.04370e-01   2.00896e-04   2.87974e-04  -4.03493e+00
-   3  alpha        0.00000e+00   1.00000e-01   1.00000e-01  -4.53084e+06
- MIGRAD MINIMIZATION HAS CONVERGED.
- MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
- COVARIANCE MATRIX CALCULATED SUCCESSFULLY
- FCN=7.1802e+07 FROM MIGRAD    STATUS=CONVERGED      61 CALLS         105 TOTAL
-                     EDM=3.93627e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
-  EXT PARAMETER                                   STEP         FIRST   
-  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            3.92547e-01   3.23183e-04   2.79472e-04   2.21340e+00
-   2  b           -8.30932e-01   2.10678e-04   2.88350e-04  -5.85246e-01
-   3  alpha        1.62201e-02   3.74833e-05   4.83439e-04  -3.64446e+00
- EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=1
-  1.044e-07  1.606e-08 -9.489e-09 
-  1.606e-08  4.439e-08 -2.378e-09 
- -9.489e-09 -2.378e-09  1.405e-09 
- PARAMETER  CORRELATION COEFFICIENTS  
-       NO.  GLOBAL      1      2      3
-        1  0.78332   1.000  0.236 -0.783
-        2  0.30118   0.236  1.000 -0.301
-        3  0.79242  -0.783 -0.301  1.000
-Final parameters: x:   0.392547 y: -0.830932 alpha: 0.0162201  number_of_points: 35977 ndf=2*number_of_points=71954
-
-
-################23_25 1
- **********
- **    1 **SET ERR           1
- **********
- PARAMETER DEFINITIONS:
-    NO.   NAME         VALUE      STEP SIZE      LIMITS
-     1 a            0.00000e+00  1.00000e-01   -3.00000e+00  3.00000e+00
-     2 b            0.00000e+00  1.00000e-01   -3.00000e+00  3.00000e+00
-     3 alpha        0.00000e+00  1.00000e-01   -1.96350e-01  1.96350e-01
- **********
- **    2 **FIX           3
- **********
- **********
- **    3 **MIGRAD           0           3
- **********
- FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
- START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
- FCN=30.4829 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
-                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
-  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
-  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            0.00000e+00   1.00000e-01   3.33395e-02  -7.91884e+02
-   2  b            0.00000e+00   1.00000e-01   3.33395e-02  -3.58738e+02
-   3  alpha        0.00000e+00     fixed    
- MIGRAD MINIMIZATION HAS CONVERGED.
- MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
- COVARIANCE MATRIX CALCULATED SUCCESSFULLY
- FCN=1.17942e-05 FROM MIGRAD    STATUS=CONVERGED      23 CALLS          24 TOTAL
-                     EDM=2.35884e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
-  EXT PARAMETER                                   STEP         FIRST   
-  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            1.91506e-01   3.81040e-02   6.20204e-06  -5.37337e-01
-   2  b            8.68025e-02   3.81041e-02   6.20204e-06  -5.00459e-02
-   3  alpha        0.00000e+00     fixed    
- EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=1
-  1.452e-03 -5.171e-18 
- -5.171e-18  1.452e-03 
- PARAMETER  CORRELATION COEFFICIENTS  
-       NO.  GLOBAL      1      2
-        1  0.00000   1.000 -0.000
-        2  0.00000  -0.000  1.000
- **********
- **    4 **RELEASE           3
- **********
-                   PARAMETER    3  alpha RESTORED TO VARIABLE.
- **********
- **    5 **MIGRAD           0           3
- **********
- START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
- FCN=1.17942e-05 FROM MIGRAD    STATUS=INITIATE        8 CALLS          32 TOTAL
-                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
-  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
-  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            1.91506e-01   3.81040e-02   6.20204e-06  -5.37337e-01
-   2  b            8.68025e-02   3.81041e-02   6.20204e-06  -5.00459e-02
-   3  alpha        0.00000e+00   1.00000e-01   1.00000e-01  -2.88531e-01
+   1  a            3.12277e-02   3.81041e-02   6.20200e-06  -2.33026e-03
+   2  b            1.03375e-02   3.81041e-02   6.20200e-06  -8.45281e-05
+   3  alpha        0.00000e+00   1.00000e-01   1.00000e-01   9.27019e-04
  MIGRAD MINIMIZATION HAS CONVERGED.
  MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
  MINUIT WARNING IN HESSE   
- ============== MATRIX FORCED POS-DEF BY ADDING 0.001998 TO DIAGONAL.
- FCN=1.2001e-06 FROM MIGRAD    STATUS=CONVERGED      34 CALLS          58 TOTAL
-                     EDM=2.39591e-06    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+ ============== MATRIX FORCED POS-DEF BY ADDING 0.002000 TO DIAGONAL.
+ FCN=2.43072e-11 FROM MIGRAD    STATUS=CONVERGED      34 CALLS          58 TOTAL
+                     EDM=4.85347e-11    STRATEGY= 1      ERR MATRIX NOT POS-DEF
   EXT PARAMETER                APPROXIMATE        STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            1.91584e-01   3.78043e-01   6.21468e-06  -6.97810e-02
-   2  b            8.68098e-02   4.68319e-01   6.20461e-06   1.57621e-01
-   3  alpha        4.70853e-06   5.09008e-02   8.09407e-06   6.05470e-02
+   1  a            3.12281e-02   3.54023e-01   6.20234e-06  -2.31722e-04
+   2  b            1.03375e-02   4.86608e-01   6.20204e-06  -7.40911e-04
+   3  alpha       -1.95455e-08   5.45228e-02   8.68516e-06  -3.31506e-04
  EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=1
-  1.437e-01  1.768e-01 -1.942e-02 
-  1.768e-01  2.211e-01 -2.413e-02 
- -1.942e-02 -2.413e-02  2.651e-03 
+  1.259e-01 -1.719e-01  1.949e-02 
+ -1.719e-01  2.389e-01 -2.692e-02 
+  1.949e-02 -2.692e-02  3.052e-03 
 ERR MATRIX NOT POS-DEF
  PARAMETER  CORRELATION COEFFICIENTS  
        NO.  GLOBAL      1      2      3
-        1  0.99494   1.000  0.992 -0.995
-        2  0.99672   0.992  1.000 -0.997
-        3  0.99800  -0.995 -0.997  1.000
+        1  0.99423   1.000 -0.991  0.994
+        2  0.99696  -0.991  1.000 -0.997
+        3  0.99800   0.994 -0.997  1.000
  ERR MATRIX NOT POS-DEF
-Final parameters: x:   0.191584 y: 0.0868098 alpha: 4.70853e-06  number_of_points: 1 ndf=2*number_of_points=2
+Final parameters: x:   0.0312281 y: 0.0103375 alpha: -1.95455e-08  number_of_points: 1 ndf=2*number_of_points=2
 
 
-################3_23 14535
+################103_123 248
  **********
  **    1 **SET ERR           1
  **********
@@ -663,26 +381,262 @@ Final parameters: x:   0.191584 y: 0.0868098 alpha: 4.70853e-06  number_of_point
  **********
  FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
  START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
- FCN=1.4911e+09 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
+ FCN=1.01758e+07 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
                      EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
   EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            0.00000e+00   1.00000e-01   3.33395e-02  -3.25397e+08
-   2  b            0.00000e+00   1.00000e-01   3.33395e-02   1.98081e+08
+   1  a            0.00000e+00   1.00000e-01   3.33395e-02  -1.67496e+06
+   2  b            0.00000e+00   1.00000e-01   3.33395e-02   3.73628e+06
    3  alpha        0.00000e+00     fixed    
  MIGRAD MINIMIZATION HAS CONVERGED.
  MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
  COVARIANCE MATRIX CALCULATED SUCCESSFULLY
- FCN=1.14781e+09 FROM MIGRAD    STATUS=CONVERGED      65 CALLS          66 TOTAL
-                     EDM=1.12296e-13    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ FCN=7.5204e+06 FROM MIGRAD    STATUS=CONVERGED      52 CALLS          53 TOTAL
+                     EDM=0.00024515    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            3.00000e+00   2.06595e-08   1.94142e-03** at limit **
-   2  b           -3.00000e+00   1.67632e-07   5.53016e-03** at limit **
+   1  a            1.63446e+00   2.41968e-03   1.28819e-03   1.55487e+01
+   2  b           -3.00000e+00   4.53236e-06   2.32759e-03** at limit **
    3  alpha        0.00000e+00     fixed    
  EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=1
-  8.097e-30  1.751e-37 
-  1.751e-37  5.545e-28 
+  5.855e-06 -5.115e-19 
+ -5.115e-19  5.477e-15 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2
+        1  0.00000   1.000 -0.000
+        2  0.00000  -0.000  1.000
+ **********
+ **    4 **RELEASE           3
+ **********
+                   PARAMETER    3  alpha RESTORED TO VARIABLE.
+ MINUIT WARNING IN RELease   
+ ============== VARIABLE2 IS AT ITS LOWER ALLOWED LIMIT.
+ **********
+ **    5 **MIGRAD           0           3
+ **********
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
+ FCN=7.5204e+06 FROM MIGRAD    STATUS=INITIATE       10 CALLS          63 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  a            1.63446e+00   2.41968e-03   1.28819e-03   1.53642e+01
+   2  b           -2.99999e+00   4.53236e-06   2.32759e-03   1.29280e+03
+   3  alpha        0.00000e+00   1.00000e-01   1.00000e-01   3.55908e+05
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=7.46039e+06 FROM MIGRAD    STATUS=CONVERGED      89 CALLS         142 TOTAL
+                     EDM=1.70599e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  a            1.26840e+00   2.79029e-03   1.18701e-03  -1.93805e+00
+   2  b           -3.00000e+00   5.14637e-05   7.81078e-03** at limit **
+   3  alpha       -6.48522e-02   2.59768e-04   1.62059e-03   3.47366e-01
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=1
+  7.786e-06 -8.342e-13  3.610e-07 
+ -8.342e-13  4.534e-16 -1.560e-13 
+  3.610e-07 -1.560e-13  6.748e-08 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3
+        1  0.49800   1.000 -0.014  0.498
+        2  0.02819  -0.014  1.000 -0.028
+        3  0.49845   0.498 -0.028  1.000
+Final parameters: x:   1.2684 y: -3 alpha: -0.0648522  number_of_points: 248 ndf=2*number_of_points=496
+
+
+################104_124 483886
+ **********
+ **    1 **SET ERR           1
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 a            0.00000e+00  1.00000e-01   -3.00000e+00  3.00000e+00
+     2 b            0.00000e+00  1.00000e-01   -3.00000e+00  3.00000e+00
+     3 alpha        0.00000e+00  1.00000e-01   -1.96350e-01  1.96350e-01
+ **********
+ **    2 **FIX           3
+ **********
+ **********
+ **    3 **MIGRAD           0           3
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
+ FCN=1.93917e+09 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  a            0.00000e+00   1.00000e-01   3.33395e-02  -1.46224e+09
+   2  b            0.00000e+00   1.00000e-01   3.33395e-02  -3.05886e+09
+   3  alpha        0.00000e+00     fixed    
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=9.81042e+08 FROM MIGRAD    STATUS=CONVERGED      44 CALLS          45 TOTAL
+                     EDM=0.000341702    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  a            7.31293e-01   5.47787e-05   2.87944e-04   6.25418e+02
+   2  b            1.52979e+00   5.47787e-05   3.24639e-04   1.09955e+03
+   3  alpha        0.00000e+00     fixed    
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=1
+  3.001e-09 -1.178e-16 
+ -1.178e-16  3.001e-09 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2
+        1  0.00000   1.000 -0.000
+        2  0.00000  -0.000  1.000
+ **********
+ **    4 **RELEASE           3
+ **********
+                   PARAMETER    3  alpha RESTORED TO VARIABLE.
+ **********
+ **    5 **MIGRAD           0           3
+ **********
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
+ FCN=9.81042e+08 FROM MIGRAD    STATUS=INITIATE        8 CALLS          53 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  a            7.31293e-01   5.47787e-05   2.87944e-04   6.15885e+02
+   2  b            1.52979e+00   5.47787e-05   3.24639e-04   1.07875e+03
+   3  alpha        0.00000e+00   1.00000e-01   1.00000e-01  -7.58994e+07
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=9.7926e+08 FROM MIGRAD    STATUS=CONVERGED      61 CALLS         106 TOTAL
+                     EDM=8.42715e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  a            8.34007e-01   9.44440e-05   2.90452e-04   4.20944e+01
+   2  b            1.52750e+00   5.47955e-05   3.24171e-04   1.17643e+02
+   3  alpha        9.21715e-03   6.90352e-06   3.11911e-04   5.96025e+01
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=1
+  8.920e-09 -1.044e-10  5.311e-10 
+ -1.044e-10  3.003e-09 -9.372e-12 
+  5.311e-10 -9.372e-12  4.766e-11 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3
+        1  0.81461   1.000 -0.020  0.815
+        2  0.02477  -0.020  1.000 -0.025
+        3  0.81465   0.815 -0.025  1.000
+Final parameters: x:   0.834007 y: 1.5275 alpha: 0.00921715  number_of_points: 483886 ndf=2*number_of_points=967772
+
+
+################105_125 343225
+ **********
+ **    1 **SET ERR           1
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 a            0.00000e+00  1.00000e-01   -3.00000e+00  3.00000e+00
+     2 b            0.00000e+00  1.00000e-01   -3.00000e+00  3.00000e+00
+     3 alpha        0.00000e+00  1.00000e-01   -1.96350e-01  1.96350e-01
+ **********
+ **    2 **FIX           3
+ **********
+ **********
+ **    3 **MIGRAD           0           3
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
+ FCN=1.3854e+09 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  a            0.00000e+00   1.00000e-01   3.33395e-02  -4.22382e+08
+   2  b            0.00000e+00   1.00000e-01   3.33395e-02   1.93376e+09
+   3  alpha        0.00000e+00     fixed    
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=9.25003e+08 FROM MIGRAD    STATUS=CONVERGED      43 CALLS          44 TOTAL
+                     EDM=3.70747e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  a            2.97812e-01   6.50420e-05   3.23567e-04   1.88908e+01
+   2  b           -1.36345e+00   6.50420e-05   3.61456e-04  -1.10591e+02
+   3  alpha        0.00000e+00     fixed    
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=1
+  4.230e-09  2.470e-16 
+  2.470e-16  4.230e-09 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2
+        1  0.00000   1.000  0.000
+        2  0.00000   0.000  1.000
+ **********
+ **    4 **RELEASE           3
+ **********
+                   PARAMETER    3  alpha RESTORED TO VARIABLE.
+ **********
+ **    5 **MIGRAD           0           3
+ **********
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
+ FCN=9.25003e+08 FROM MIGRAD    STATUS=INITIATE        8 CALLS          52 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  a            2.97812e-01   6.50420e-05   3.23567e-04   1.57965e+01
+   2  b           -1.36345e+00   6.50420e-05   3.61456e-04  -9.32691e+01
+   3  alpha        0.00000e+00   1.00000e-01   1.00000e-01  -9.33814e+07
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=9.21496e+08 FROM MIGRAD    STATUS=CONVERGED      59 CALLS         103 TOTAL
+                     EDM=4.92709e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  a            1.27382e-01   1.11723e-04   3.21648e-04  -4.16062e+02
+   2  b           -1.40494e+00   6.89317e-05   3.63703e-04   1.66550e+02
+   3  alpha        1.47412e-02   7.87141e-06   3.39889e-04  -2.63819e+02
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=1
+  1.248e-08  2.074e-09 -7.150e-10 
+  2.074e-09  4.752e-09 -1.797e-10 
+ -7.150e-10 -1.797e-10  6.196e-11 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3
+        1  0.81306   1.000  0.269 -0.813
+        2  0.33117   0.269  1.000 -0.331
+        3  0.82137  -0.813 -0.331  1.000
+Final parameters: x:   0.127382 y: -1.40494 alpha: 0.0147412  number_of_points: 343225 ndf=2*number_of_points=686450
+
+
+################3_23 3509
+ **********
+ **    1 **SET ERR           1
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 a            0.00000e+00  1.00000e-01   -3.00000e+00  3.00000e+00
+     2 b            0.00000e+00  1.00000e-01   -3.00000e+00  3.00000e+00
+     3 alpha        0.00000e+00  1.00000e-01   -1.96350e-01  1.96350e-01
+ **********
+ **    2 **FIX           3
+ **********
+ **********
+ **    3 **MIGRAD           0           3
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
+ FCN=3.44073e+08 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  a            0.00000e+00   1.00000e-01   3.33395e-02  -8.71421e+07
+   2  b            0.00000e+00   1.00000e-01   3.33395e-02   4.97540e+07
+   3  alpha        0.00000e+00     fixed    
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=2.50677e+08 FROM MIGRAD    STATUS=CONVERGED      52 CALLS          53 TOTAL
+                     EDM=0.00019037    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  a            3.00000e+00   6.87407e-08   1.65496e-03** at limit **
+   2  b           -3.00000e+00   4.79669e-07   4.37171e-03** at limit **
+   3  alpha        0.00000e+00     fixed    
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=1
+  2.057e-20  4.327e-27 
+  4.327e-27  8.660e-17 
  PARAMETER  CORRELATION COEFFICIENTS  
        NO.  GLOBAL      1      2
         1  0.00000   1.000  0.000
@@ -699,59 +653,36 @@ Final parameters: x:   0.191584 y: 0.0868098 alpha: 4.70853e-06  number_of_point
  **    5 **MIGRAD           0           3
  **********
  START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
- FCN=1.14781e+09 FROM MIGRAD    STATUS=INITIATE       12 CALLS          78 TOTAL
+ FCN=2.50677e+08 FROM MIGRAD    STATUS=INITIATE       12 CALLS          65 TOTAL
                      EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
   EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            2.99999e+00   2.06595e-08   1.94142e-03  -2.83617e+05
-   2  b           -2.99999e+00   1.67632e-07   5.53016e-03   3.49544e+04
-   3  alpha        0.00000e+00   1.00000e-01   1.00000e-01   4.74586e+07
- MINUIT WARNING IN MIGRAD  
- ============== Negative diagonal element 1 in Error Matrix
- MINUIT WARNING IN MIGRAD  
- ============== Negative diagonal element 2 in Error Matrix
- MINUIT WARNING IN MIGRAD  
- ============== 1.00001 added to diagonal of error matrix
- MIGRAD FAILS TO FIND IMPROVEMENT
- EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
-        -5.4021e-01  1.0000e+00  2.5402e+00
- MINUIT WARNING IN HESSE   
- ============== MATRIX FORCED POS-DEF BY ADDING 0.542752 TO DIAGONAL.
- FCN=1.14082e+09 FROM HESSE     STATUS=NOT POSDEF     16 CALLS         144 TOTAL
-                     EDM=6.56115e+08    STRATEGY= 1      ERR MATRIX NOT POS-DEF
-  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+   1  a            2.99999e+00   6.87407e-08   1.65496e-03  -8.52389e+04
+   2  b           -2.99999e+00   4.79669e-07   4.37171e-03   1.22155e+04
+   3  alpha        0.00000e+00   1.00000e-01   1.00000e-01   1.62333e+07
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=2.43806e+08 FROM MIGRAD    STATUS=CONVERGED     182 CALLS         235 TOTAL
+                     EDM=1.08951e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            2.98176e+00   3.32949e-05   2.00975e-03   1.49454e+07
-   2  b           -2.82026e+00   7.61663e-03   8.75255e-03  -5.02061e+06
-   3  alpha       -5.47843e-02   2.95961e-04   1.85829e-03   9.06898e+06
- MINUIT WARNING IN MIGRAD  
- ============== Negative diagonal element 3 in Error Matrix
- MINUIT WARNING IN MIGRAD  
- ============== 1 added to diagonal of error matrix
- MIGRAD FAILS TO FIND IMPROVEMENT
- MIGRAD TERMINATED WITHOUT CONVERGENCE.
- FCN=1.13264e+09 FROM MIGRAD    STATUS=FAILED        124 CALLS         190 TOTAL
-                     EDM=2.3956e+16    STRATEGY= 1      ERR MATRIX NOT POS-DEF
-  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
-  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            2.97604e+00   3.52530e+00  -0.00000e+00   1.51948e+07
-   2  b           -9.27532e-01   1.86280e+00  -0.00000e+00   8.11303e+06
-   3  alpha       -1.88043e-01   4.46366e-02  -0.00000e+00  -1.51945e+06
+   1  a            3.00000e+00   8.70646e-08   1.83682e-03** at limit **
+   2  b           -1.12782e+00   6.43337e-04   1.76420e-03   3.19085e+00
+   3  alpha       -1.96350e-01   1.02760e-07   7.79876e-03** at limit **
  EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=1
-  1.433e-01 -1.194e-02  2.494e-04 
- -1.194e-02  4.120e+00  8.054e-02 
-  2.494e-04  8.054e-02  1.580e-03 
-ERR MATRIX NOT POS-DEF
+  8.455e-20  6.430e-21 -2.471e-25 
+  6.430e-21  4.139e-07 -3.084e-15 
+ -2.471e-25 -3.084e-15  1.073e-19 
  PARAMETER  CORRELATION COEFFICIENTS  
        NO.  GLOBAL      1      2      3
-        1  0.54873   1.000 -0.016  0.017
-        2  0.99880  -0.016  1.000  0.998
-        3  0.99880   0.017  0.998  1.000
- ERR MATRIX NOT POS-DEF
-Final parameters: x:   2.97604 y: -0.927532 alpha: -0.188043  number_of_points: 14535 ndf=2*number_of_points=29070
+        1  0.00000   1.000  0.000 -0.000
+        2  0.01464   0.000  1.000 -0.015
+        3  0.01464  -0.000 -0.015  1.000
+Final parameters: x:   3 y: -1.12782 alpha: -0.19635  number_of_points: 3509 ndf=2*number_of_points=7018
 
 
-################4_24 7460
+################4_24 25019
  **********
  **    1 **SET ERR           1
  **********
@@ -768,26 +699,26 @@ Final parameters: x:   2.97604 y: -0.927532 alpha: -0.188043  number_of_points: 
  **********
  FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
  START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
- FCN=2.04431e+08 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
+ FCN=8.52186e+08 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
                      EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
   EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            0.00000e+00   1.00000e-01   3.33395e-02   1.37761e+07
-   2  b            0.00000e+00   1.00000e-01   3.33395e-02  -7.10114e+07
+   1  a            0.00000e+00   1.00000e-01   3.33395e-02   2.31075e+07
+   2  b            0.00000e+00   1.00000e-01   3.33395e-02  -2.35832e+08
    3  alpha        0.00000e+00     fixed    
  MIGRAD MINIMIZATION HAS CONVERGED.
  MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
  COVARIANCE MATRIX CALCULATED SUCCESSFULLY
- FCN=1.76142e+08 FROM MIGRAD    STATUS=CONVERGED      52 CALLS          53 TOTAL
-                     EDM=5.5914e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ FCN=7.61665e+08 FROM MIGRAD    STATUS=CONVERGED      46 CALLS          47 TOTAL
+                     EDM=0.000309968    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a           -4.46893e-01   4.41178e-04   9.63755e-04   2.22063e+01
-   2  b            2.30359e+00   4.41178e-04   1.48764e-03   4.37617e+01
+   1  a           -2.23511e-01   2.40906e-04   1.08514e-03   1.07315e+01
+   2  b            2.28113e+00   2.40907e-04   1.66611e-03   2.01257e+02
    3  alpha        0.00000e+00     fixed    
  EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=1
-  1.946e-07 -1.796e-15 
- -1.796e-15  1.946e-07 
+  5.804e-08 -1.619e-15 
+ -1.619e-15  5.804e-08 
  PARAMETER  CORRELATION COEFFICIENTS  
        NO.  GLOBAL      1      2
         1  0.00000   1.000 -0.000
@@ -800,36 +731,36 @@ Final parameters: x:   2.97604 y: -0.927532 alpha: -0.188043  number_of_points: 
  **    5 **MIGRAD           0           3
  **********
  START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
- FCN=1.76142e+08 FROM MIGRAD    STATUS=INITIATE        8 CALLS          61 TOTAL
+ FCN=7.61665e+08 FROM MIGRAD    STATUS=INITIATE        8 CALLS          55 TOTAL
                      EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
   EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a           -4.46893e-01   4.41178e-04   9.63755e-04   2.32043e+01
-   2  b            2.30359e+00   4.41178e-04   1.48764e-03   3.57863e+01
-   3  alpha        0.00000e+00   1.00000e-01   1.00000e-01   1.86055e+06
+   1  a           -2.23511e-01   2.40906e-04   1.08514e-03   1.29508e+01
+   2  b            2.28113e+00   2.40907e-04   1.66611e-03   1.67627e+02
+   3  alpha        0.00000e+00   1.00000e-01   1.00000e-01   4.04512e+06
  MIGRAD MINIMIZATION HAS CONVERGED.
  MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
  COVARIANCE MATRIX CALCULATED SUCCESSFULLY
- FCN=1.76093e+08 FROM MIGRAD    STATUS=CONVERGED      63 CALLS         116 TOTAL
-                     EDM=3.80214e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ FCN=7.61599e+08 FROM MIGRAD    STATUS=CONVERGED      54 CALLS         101 TOTAL
+                     EDM=0.00099784    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a           -5.71703e-01   7.15956e-04   9.70656e-04  -2.60667e+01
-   2  b            2.28651e+00   4.47375e-04   1.47191e-03   2.81209e+01
-   3  alpha       -1.03557e-02   4.67488e-05   9.46877e-04  -2.32477e+00
+   1  a           -3.04464e-01   3.98166e-04   1.08769e-03  -1.09585e+01
+   2  b            2.27146e+00   2.43711e-04   1.65622e-03   3.50803e+02
+   3  alpha       -6.33447e-03   2.47954e-05   1.02572e-03   4.90158e+01
  EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=1
-  5.126e-07  4.184e-08  2.636e-08 
-  4.184e-08  2.001e-07  3.469e-09 
-  2.636e-08  3.469e-09  2.185e-09 
+  1.585e-07  1.169e-08  7.861e-09 
+  1.169e-08  5.940e-08  9.141e-10 
+  7.861e-09  9.141e-10  6.148e-10 
  PARAMETER  CORRELATION COEFFICIENTS  
        NO.  GLOBAL      1      2      3
-        1  0.78758   1.000  0.131  0.788
-        2  0.16586   0.131  1.000  0.166
-        3  0.79014   0.788  0.166  1.000
-Final parameters: x:   -0.571703 y: 2.28651 alpha: -0.0103557  number_of_points: 7460 ndf=2*number_of_points=14920
+        1  0.79620   1.000  0.120  0.796
+        2  0.15126   0.120  1.000  0.151
+        3  0.79815   0.796  0.151  1.000
+Final parameters: x:   -0.304464 y: 2.27146 alpha: -0.00633447  number_of_points: 25019 ndf=2*number_of_points=50038
 
 
-################5_25 53816
+################5_25 23715
  **********
  **    1 **SET ERR           1
  **********
@@ -846,30 +777,30 @@ Final parameters: x:   -0.571703 y: 2.28651 alpha: -0.0103557  number_of_points:
  **********
  FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
  START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
- FCN=6.01372e+08 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
+ FCN=1.22733e+09 FROM MIGRAD    STATUS=INITIATE        8 CALLS           9 TOTAL
                      EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
   EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            0.00000e+00   1.00000e-01   3.33395e-02  -3.14736e+08
-   2  b            0.00000e+00   1.00000e-01   3.33395e-02   1.63605e+08
+   1  a            0.00000e+00   1.00000e-01   3.33395e-02   6.30574e+07
+   2  b            0.00000e+00   1.00000e-01   3.33395e-02   2.30782e+08
    3  alpha        0.00000e+00     fixed    
  MIGRAD MINIMIZATION HAS CONVERGED.
  MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
  COVARIANCE MATRIX CALCULATED SUCCESSFULLY
- FCN=5.0707e+08 FROM MIGRAD    STATUS=CONVERGED      45 CALLS          46 TOTAL
-                     EDM=1.27331e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ FCN=1.12998e+09 FROM MIGRAD    STATUS=CONVERGED      60 CALLS          61 TOTAL
+                     EDM=0.000600094    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            1.41531e+00   1.64258e-04   6.82780e-04  -7.43410e+01
-   2  b           -7.35699e-01   1.64258e-04   6.20982e-04   3.60926e+01
+   1  a           -6.43469e-01   2.47441e-04   1.38607e-03   2.25487e+02
+   2  b           -2.35502e+00   2.47441e-04   2.18537e-03  -2.17371e+02
    3  alpha        0.00000e+00     fixed    
  EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=1
-  2.698e-08 -7.848e-16 
- -7.848e-16  2.698e-08 
+  6.123e-08  1.788e-15 
+  1.788e-15  6.123e-08 
  PARAMETER  CORRELATION COEFFICIENTS  
        NO.  GLOBAL      1      2
-        1  0.00000   1.000 -0.000
-        2  0.00000  -0.000  1.000
+        1  0.00000   1.000  0.000
+        2  0.00000   0.000  1.000
  **********
  **    4 **RELEASE           3
  **********
@@ -878,37 +809,37 @@ Final parameters: x:   -0.571703 y: 2.28651 alpha: -0.0103557  number_of_points:
  **    5 **MIGRAD           0           3
  **********
  START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 3.00e-03
- FCN=5.0707e+08 FROM MIGRAD    STATUS=INITIATE        8 CALLS          54 TOTAL
+ FCN=1.12998e+09 FROM MIGRAD    STATUS=INITIATE        8 CALLS          69 TOTAL
                      EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
   EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            1.41531e+00   1.64258e-04   6.82780e-04  -8.45037e+01
-   2  b           -7.35699e-01   1.64258e-04   6.20982e-04   4.09829e+01
-   3  alpha        0.00000e+00   1.00000e-01   1.00000e-01   2.48057e+07
+   1  a           -6.43469e-01   2.47441e-04   1.38607e-03   2.34846e+02
+   2  b           -2.35502e+00   2.47441e-04   2.18537e-03  -1.63274e+02
+   3  alpha        0.00000e+00   1.00000e-01   1.00000e-01   1.08712e+07
  MIGRAD MINIMIZATION HAS CONVERGED.
  MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
  COVARIANCE MATRIX CALCULATED SUCCESSFULLY
- FCN=5.0453e+08 FROM MIGRAD    STATUS=CONVERGED      70 CALLS         116 TOTAL
-                     EDM=4.74889e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ FCN=1.12953e+09 FROM MIGRAD    STATUS=CONVERGED      74 CALLS         135 TOTAL
+                     EDM=0.00074795    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  a            1.67373e+00   2.32916e-04   7.23593e-04   1.07139e+02
-   2  b           -4.92453e-01   2.22012e-04   6.08767e-04  -1.12602e+02
-   3  alpha       -4.01913e-02   2.52145e-05   8.54202e-04  -7.74800e+00
+   1  a           -4.51107e-01   3.78879e-04   1.36910e-03  -2.02956e+02
+   2  b           -2.30001e+00   2.59948e-04   2.10817e-03  -2.32759e+02
+   3  alpha       -1.63209e-02   2.42838e-05   1.30164e-03  -9.27381e+01
  EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=1
-  5.425e-08  2.466e-08 -4.164e-09 
-  2.466e-08  4.929e-08 -3.766e-09 
- -4.164e-09 -3.766e-09  6.358e-10 
+  1.435e-07  2.286e-08 -6.967e-09 
+  2.286e-08  6.757e-08 -1.934e-09 
+ -6.967e-09 -1.934e-09  5.897e-10 
  PARAMETER  CORRELATION COEFFICIENTS  
        NO.  GLOBAL      1      2      3
-        1  0.70898   1.000  0.477 -0.709
-        2  0.67276   0.477  1.000 -0.673
-        3  0.80472  -0.709 -0.673  1.000
-Final parameters: x:   1.67373 y: -0.492453 alpha: -0.0401913  number_of_points: 53816 ndf=2*number_of_points=107632
-event_info_timestamp_min: 1539301734
-event_info_timestamp_max: 1539302380
-pile_up_events_LBRT: 170890
-pile_up_events_LTRB: 123292
-pile_up_events_strict_LBRT: 68277
-pile_up_events_strict_LTRB: 42157
-zero_bias_events: 6184668
+        1  0.75728   1.000  0.232 -0.757
+        2  0.30645   0.232  1.000 -0.306
+        3  0.76911  -0.757 -0.306  1.000
+Final parameters: x:   -0.451107 y: -2.30001 alpha: -0.0163209  number_of_points: 23715 ndf=2*number_of_points=47430
+event_info_timestamp_min: 1539371351
+event_info_timestamp_max: 1539371746
+pile_up_events_LBRT: 790612
+pile_up_events_LTRB: 600720
+pile_up_events_strict_LBRT: 503889
+pile_up_events_strict_LTRB: 365282
+zero_bias_events: 3782811
