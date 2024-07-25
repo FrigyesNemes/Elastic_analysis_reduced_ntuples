@@ -81,6 +81,8 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>
   int pile_up_events_LTRB ;
   int pile_up_events_strict_LBRT ;
   int pile_up_events_strict_LTRB ;
+  int pile_up_events_LBRT_2RP ;
+  int pile_up_events_LTRB_2RP ;
 
   std::string diagonal;  
   std::string outputFileName;  
@@ -206,6 +208,8 @@ ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(
   pile_up_events_LTRB = 0 ;
   pile_up_events_strict_LBRT = 0 ;
   pile_up_events_strict_LTRB = 0 ;
+  pile_up_events_LBRT_2RP = 0 ;
+  pile_up_events_LTRB_2RP = 0 ;
 
 }
 
@@ -857,6 +861,9 @@ void ElasticAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       if((map_from_RP_id_to_activity[4] && map_from_RP_id_to_activity[24]) || (map_from_RP_id_to_activity[105] && map_from_RP_id_to_activity[125])) { ++pile_up_events_strict_LTRB ; histosTH1F["pile_up_events_strict_LTRB"]->Fill(event_info_timestamp) ; }
       if((map_from_RP_id_to_activity[5] && map_from_RP_id_to_activity[25]) || (map_from_RP_id_to_activity[104] && map_from_RP_id_to_activity[124])) { ++pile_up_events_strict_LBRT ; histosTH1F["pile_up_events_strict_LBRT"]->Fill(event_info_timestamp) ; }
 
+      if(map_from_RP_id_to_activity[24] || map_from_RP_id_to_activity[125]) { ++pile_up_events_LTRB_2RP ; histosTH1F["pile_up_events_LTRB_2RP"]->Fill(event_info_timestamp) ; }
+      if(map_from_RP_id_to_activity[25] || map_from_RP_id_to_activity[124]) { ++pile_up_events_LBRT_2RP ; histosTH1F["pile_up_events_LBRT_2RP"]->Fill(event_info_timestamp) ; }
+
       int track_index = 0 ;
 
       map<int, int>  occurances ;
@@ -1325,6 +1332,9 @@ void ElasticAnalyzer::beginJob()
         histosTH1F["pile_up_events_LTRB"] = new TH1F("pile_up_events_LTRB", "pile_up_events_LTRB", 100, 1539526140, 1539548000);
         histosTH1F["pile_up_events_strict_LBRT"] = new TH1F("pile_up_events_strict_LBRT", "pile_up_events_strict_LBRT", 100, 1539526140, 1539548000);
         histosTH1F["pile_up_events_strict_LTRB"] = new TH1F("pile_up_events_strict_LTRB", "pile_up_events_strict_LTRB", 100, 1539526140, 1539548000);
+
+        histosTH1F["pile_up_events_LBRT_2RP"] = new TH1F("pile_up_events_LBRT_2RP", "pile_up_events_LBRT_2RP", 100, 1539526140, 1539548000);
+        histosTH1F["pile_up_events_LTRB_2RP"] = new TH1F("pile_up_events_LTRB_2RP", "pile_up_events_LTRB_2RP", 100, 1539526140, 1539548000);
     }
     else if(scenario == scenario_beta_star_100_m_900_GeV)
     {
@@ -1339,6 +1349,9 @@ void ElasticAnalyzer::beginJob()
         histosTH1F["pile_up_events_LTRB"] = new TH1F("pile_up_events_LTRB", "pile_up_events_LTRB", 100, limit_lo, limit_hi);
         histosTH1F["pile_up_events_strict_LBRT"] = new TH1F("pile_up_events_strict_LBRT", "pile_up_events_strict_LBRT", 100, limit_lo, limit_hi);
         histosTH1F["pile_up_events_strict_LTRB"] = new TH1F("pile_up_events_strict_LTRB", "pile_up_events_strict_LTRB", 100, limit_lo, limit_hi);
+
+        histosTH1F["pile_up_events_LBRT_2RP"] = new TH1F("pile_up_events_LBRT_2RP", "pile_up_events_LBRT_2RP", 100, limit_lo, limit_hi);
+        histosTH1F["pile_up_events_LTRB_2RP"] = new TH1F("pile_up_events_LTRB_2RP", "pile_up_events_LTRB_2RP", 100, limit_lo, limit_hi);
     }
     else
     {
@@ -1542,6 +1555,10 @@ void ElasticAnalyzer::endJob()
   cout << "pile_up_events_LTRB: " << pile_up_events_LTRB << endl ;
   cout << "pile_up_events_strict_LBRT: " << pile_up_events_strict_LBRT << endl ;
   cout << "pile_up_events_strict_LTRB: " << pile_up_events_strict_LTRB << endl ;
+
+  cout << "pile_up_events_LBRT_2RP: " << pile_up_events_strict_LBRT_2RP << endl ;
+  cout << "pile_up_events_LTRB_2RP: " << pile_up_events_strict_LTRB_2RP << endl ;
+
   cout << "zero_bias_events: " << zero_bias_events << endl ;
 
   delete f_out;
