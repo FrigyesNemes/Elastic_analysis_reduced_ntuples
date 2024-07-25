@@ -124,6 +124,11 @@ class ElasticAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>
   unsigned long int event_info_timestamp_min ;
   unsigned long int event_info_timestamp_max ;
 
+  string timestamp_minimum_str ;
+  string timestamp_maximum_str ;
+
+  unsigned long int timestamp_minimum ;
+  unsigned long int timestamp_maximum ;
 };
 
 ElasticAnalyzer::Distribution::Distribution(const edm::ParameterSet &ps) {
@@ -154,13 +159,20 @@ ElasticAnalyzer::ElasticAnalyzer(const edm::ParameterSet& iConfig) :  verbosity(
   tracksToken_(consumes<std::vector<CTPPSLocalTrackLite>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks"))),
   rpPatternToken_(consumes<edm::DetSetVector<TotemRPUVPattern>>(iConfig.getParameter<edm::InputTag>("rpPatternTag"))),
   // tokenDiamondHits_(consumes<edm::DetSetVector<CTPPSDiamondRecHit>>(iConfig.getUntrackedParameter<edm::InputTag>("ctppsDiamondRecHits"))),
-  diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName")), offsetFileName(iConfig.getParameter<std::string>("offsetFileName")), event_info_timestamp_min(LONG_MAX), event_info_timestamp_max(0)
+  diagonal(iConfig.getParameter<std::string>("diagonal")), outputFileName(iConfig.getParameter<std::string>("outputFileName")), offsetFileName(iConfig.getParameter<std::string>("offsetFileName")), event_info_timestamp_min(LONG_MAX), event_info_timestamp_max(0),
+  timestamp_minimum_str(iConfig.getParameter<string>("timestamp_minimum")), timestamp_maximum_str(iConfig.getParameter<string>("timestamp_maximum"))
 {
   add_tests = true ;
   position_dist_ = new Distribution(iConfig.getParameterSet("position_distribution")) ;
 
   if(add_tests)
   {
+	 timestamp_minimum = atol(timestamp_minimum_str.c_str()) ;
+	 timestamp_maximum = atol(timestamp_maximum_str.c_str()) ;
+
+	 cout << "test_timestamp_minimum " << timestamp_minimum << endl ;
+	 cout << "test_timestamp_maximum " << timestamp_maximum << endl ;
+
     ifstream offsets(offsetFileName) ;
 
     if(!offsets.is_open())
@@ -1316,8 +1328,10 @@ void ElasticAnalyzer::beginJob()
     }
     else if(scenario == scenario_beta_star_100_m_900_GeV)
     {
-        long int limit_lo = 1539441890 ;
-        long int limit_hi = 1539441930 ;
+        long int timestamp_delta = (timestamp_maximum - timestamp_minimum) * 0.1 ;
+	 
+        long int limit_lo = timestamp_minimum - timestamp_delta ;
+        long int limit_hi = timestamp_maximum + timestamp_delta ;
 
         histosTH1F["timestamps_zero_bias_var"] = new TH1F("timestamps_zero_bias_var", "timestamps_zero_bias_var", 100, 1, 0);
         histosTH1F["timestamps_zero_bias"] = new TH1F("timestamps_zero_bias", "timestamps_zero_bias", 100, limit_lo, limit_hi);
