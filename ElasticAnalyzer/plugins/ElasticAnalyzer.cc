@@ -1556,8 +1556,8 @@ void ElasticAnalyzer::endJob()
   cout << "pile_up_events_strict_LBRT: " << pile_up_events_strict_LBRT << endl ;
   cout << "pile_up_events_strict_LTRB: " << pile_up_events_strict_LTRB << endl ;
 
-  cout << "pile_up_events_LBRT_2RP: " << pile_up_events_strict_LBRT_2RP << endl ;
-  cout << "pile_up_events_LTRB_2RP: " << pile_up_events_strict_LTRB_2RP << endl ;
+  cout << "pile_up_events_LBRT_2RP: " << pile_up_events_LBRT_2RP << endl ;
+  cout << "pile_up_events_LTRB_2RP: " << pile_up_events_LTRB_2RP << endl ;
 
   cout << "zero_bias_events: " << zero_bias_events << endl ;
 
