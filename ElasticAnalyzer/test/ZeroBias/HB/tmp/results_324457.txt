@@ -1,3 +1,5 @@
+test_timestamp_minimum 9223372036854775807
+test_timestamp_maximum 0
   TH1_names.push_back("hdx_103_104") ;
   TH1_names.push_back("hdx_103_105") ;
   TH1_names.push_back("hdx_123_124") ;

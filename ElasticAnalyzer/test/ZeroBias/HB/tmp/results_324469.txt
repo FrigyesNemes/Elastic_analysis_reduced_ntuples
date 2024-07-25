@@ -1,147 +1,149 @@
-23-Jul-2024 16:47:53 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.0_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:47:55 CEST pre-events
+24-Jul-2024 17:23:43 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.0_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:23:45 CEST pre-events
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:47:56 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.0_re_reco_ZeroBias.root
-23-Jul-2024 16:48:24 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.0_re_reco_ZeroBias.root
-23-Jul-2024 16:48:24 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.10_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:48:26 CEST PostProcessEvent
+24-Jul-2024 17:23:45 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.0_re_reco_ZeroBias.root
+test_timestamp_minimum 1539330103
+test_timestamp_maximum 1539331488
+24-Jul-2024 17:24:13 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.0_re_reco_ZeroBias.root
+24-Jul-2024 17:24:13 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.10_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:24:15 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:48:26 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.10_re_reco_ZeroBias.root
-23-Jul-2024 16:48:40 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.10_re_reco_ZeroBias.root
-23-Jul-2024 16:48:40 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.11_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:48:42 CEST PostProcessEvent
+24-Jul-2024 17:24:15 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.10_re_reco_ZeroBias.root
+24-Jul-2024 17:24:29 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.10_re_reco_ZeroBias.root
+24-Jul-2024 17:24:29 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.11_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:24:31 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:48:42 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.11_re_reco_ZeroBias.root
-23-Jul-2024 16:48:51 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.11_re_reco_ZeroBias.root
-23-Jul-2024 16:48:51 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.12_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:48:53 CEST PostProcessEvent
+24-Jul-2024 17:24:31 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.11_re_reco_ZeroBias.root
+24-Jul-2024 17:24:39 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.11_re_reco_ZeroBias.root
+24-Jul-2024 17:24:39 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.12_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:24:41 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:48:54 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.12_re_reco_ZeroBias.root
-23-Jul-2024 16:49:16 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.12_re_reco_ZeroBias.root
-23-Jul-2024 16:49:16 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.13_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:49:18 CEST PostProcessEvent
+24-Jul-2024 17:24:41 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.12_re_reco_ZeroBias.root
+24-Jul-2024 17:25:02 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.12_re_reco_ZeroBias.root
+24-Jul-2024 17:25:02 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.13_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:25:04 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:49:18 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.13_re_reco_ZeroBias.root
-23-Jul-2024 16:49:19 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.13_re_reco_ZeroBias.root
-23-Jul-2024 16:49:19 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.14_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:49:21 CEST PostProcessEvent
+24-Jul-2024 17:25:04 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.13_re_reco_ZeroBias.root
+24-Jul-2024 17:25:05 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.13_re_reco_ZeroBias.root
+24-Jul-2024 17:25:05 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.14_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:25:07 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:49:21 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.14_re_reco_ZeroBias.root
-23-Jul-2024 16:49:49 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.14_re_reco_ZeroBias.root
-23-Jul-2024 16:49:49 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.15_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:49:51 CEST PostProcessEvent
+24-Jul-2024 17:25:07 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.14_re_reco_ZeroBias.root
+24-Jul-2024 17:25:33 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.14_re_reco_ZeroBias.root
+24-Jul-2024 17:25:33 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.15_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:25:35 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:49:51 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.15_re_reco_ZeroBias.root
-23-Jul-2024 16:50:01 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.15_re_reco_ZeroBias.root
-23-Jul-2024 16:50:01 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.16_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:50:03 CEST PostProcessEvent
+24-Jul-2024 17:25:35 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.15_re_reco_ZeroBias.root
+24-Jul-2024 17:25:45 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.15_re_reco_ZeroBias.root
+24-Jul-2024 17:25:45 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.16_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:25:47 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:50:03 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.16_re_reco_ZeroBias.root
-23-Jul-2024 16:50:26 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.16_re_reco_ZeroBias.root
-23-Jul-2024 16:50:26 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.17_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:50:29 CEST PostProcessEvent
+24-Jul-2024 17:25:47 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.16_re_reco_ZeroBias.root
+24-Jul-2024 17:26:09 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.16_re_reco_ZeroBias.root
+24-Jul-2024 17:26:09 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.17_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:26:11 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:50:29 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.17_re_reco_ZeroBias.root
-23-Jul-2024 16:50:43 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.17_re_reco_ZeroBias.root
-23-Jul-2024 16:50:43 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.18_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:50:45 CEST PostProcessEvent
+24-Jul-2024 17:26:11 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.17_re_reco_ZeroBias.root
+24-Jul-2024 17:26:24 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.17_re_reco_ZeroBias.root
+24-Jul-2024 17:26:24 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.18_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:26:26 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:50:45 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.18_re_reco_ZeroBias.root
-23-Jul-2024 16:50:47 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.18_re_reco_ZeroBias.root
-23-Jul-2024 16:50:47 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.19_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:50:49 CEST PostProcessEvent
+24-Jul-2024 17:26:26 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.18_re_reco_ZeroBias.root
+24-Jul-2024 17:26:28 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.18_re_reco_ZeroBias.root
+24-Jul-2024 17:26:28 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.19_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:26:30 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:50:49 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.19_re_reco_ZeroBias.root
-23-Jul-2024 16:51:10 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.19_re_reco_ZeroBias.root
-23-Jul-2024 16:51:10 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.1_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:51:12 CEST PostProcessEvent
+24-Jul-2024 17:26:30 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.19_re_reco_ZeroBias.root
+24-Jul-2024 17:26:49 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.19_re_reco_ZeroBias.root
+24-Jul-2024 17:26:49 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.1_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:26:51 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:51:12 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.1_re_reco_ZeroBias.root
-23-Jul-2024 16:51:40 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.1_re_reco_ZeroBias.root
-23-Jul-2024 16:51:40 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.20_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:51:42 CEST PostProcessEvent
+24-Jul-2024 17:26:51 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.1_re_reco_ZeroBias.root
+24-Jul-2024 17:27:19 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.1_re_reco_ZeroBias.root
+24-Jul-2024 17:27:19 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.20_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:27:21 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:51:42 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.20_re_reco_ZeroBias.root
-23-Jul-2024 16:51:59 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.20_re_reco_ZeroBias.root
-23-Jul-2024 16:51:59 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.21_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:52:01 CEST PostProcessEvent
+24-Jul-2024 17:27:21 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.20_re_reco_ZeroBias.root
+24-Jul-2024 17:27:37 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.20_re_reco_ZeroBias.root
+24-Jul-2024 17:27:37 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.21_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:27:39 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:52:01 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.21_re_reco_ZeroBias.root
-23-Jul-2024 16:52:02 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.21_re_reco_ZeroBias.root
-23-Jul-2024 16:52:02 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.22_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:52:04 CEST PostProcessEvent
+24-Jul-2024 17:27:39 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.21_re_reco_ZeroBias.root
+24-Jul-2024 17:27:40 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.21_re_reco_ZeroBias.root
+24-Jul-2024 17:27:40 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.22_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:27:42 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:52:04 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.22_re_reco_ZeroBias.root
-23-Jul-2024 16:52:26 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.22_re_reco_ZeroBias.root
-23-Jul-2024 16:52:26 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.23_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:52:28 CEST PostProcessEvent
+24-Jul-2024 17:27:42 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.22_re_reco_ZeroBias.root
+24-Jul-2024 17:28:03 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.22_re_reco_ZeroBias.root
+24-Jul-2024 17:28:03 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.23_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:28:05 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:52:28 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.23_re_reco_ZeroBias.root
-23-Jul-2024 16:52:43 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.23_re_reco_ZeroBias.root
-23-Jul-2024 16:52:43 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.2_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:52:45 CEST PostProcessEvent
+24-Jul-2024 17:28:05 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.23_re_reco_ZeroBias.root
+24-Jul-2024 17:28:19 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.23_re_reco_ZeroBias.root
+24-Jul-2024 17:28:19 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.2_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:28:21 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:52:45 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.2_re_reco_ZeroBias.root
-23-Jul-2024 16:52:55 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.2_re_reco_ZeroBias.root
-23-Jul-2024 16:52:55 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.3_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:52:57 CEST PostProcessEvent
+24-Jul-2024 17:28:21 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.2_re_reco_ZeroBias.root
+24-Jul-2024 17:28:30 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.2_re_reco_ZeroBias.root
+24-Jul-2024 17:28:30 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.3_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:28:32 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:52:57 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.3_re_reco_ZeroBias.root
-23-Jul-2024 16:53:07 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.3_re_reco_ZeroBias.root
-23-Jul-2024 16:53:07 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.4_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:53:09 CEST PostProcessEvent
+24-Jul-2024 17:28:32 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.3_re_reco_ZeroBias.root
+24-Jul-2024 17:28:41 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.3_re_reco_ZeroBias.root
+24-Jul-2024 17:28:41 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.4_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:28:43 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:53:09 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.4_re_reco_ZeroBias.root
-23-Jul-2024 16:53:38 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.4_re_reco_ZeroBias.root
-23-Jul-2024 16:53:38 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.5_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:53:40 CEST PostProcessEvent
+24-Jul-2024 17:28:43 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.4_re_reco_ZeroBias.root
+24-Jul-2024 17:29:10 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.4_re_reco_ZeroBias.root
+24-Jul-2024 17:29:10 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.5_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:29:12 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:53:40 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.5_re_reco_ZeroBias.root
-23-Jul-2024 16:53:58 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.5_re_reco_ZeroBias.root
-23-Jul-2024 16:53:58 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.6_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:54:00 CEST PostProcessEvent
+24-Jul-2024 17:29:12 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.5_re_reco_ZeroBias.root
+24-Jul-2024 17:29:28 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.5_re_reco_ZeroBias.root
+24-Jul-2024 17:29:28 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.6_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:29:30 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:54:00 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.6_re_reco_ZeroBias.root
-23-Jul-2024 16:54:02 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.6_re_reco_ZeroBias.root
-23-Jul-2024 16:54:02 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.7_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:54:04 CEST PostProcessEvent
+24-Jul-2024 17:29:30 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.6_re_reco_ZeroBias.root
+24-Jul-2024 17:29:31 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.6_re_reco_ZeroBias.root
+24-Jul-2024 17:29:31 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.7_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:29:33 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:54:04 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.7_re_reco_ZeroBias.root
-23-Jul-2024 16:54:23 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.7_re_reco_ZeroBias.root
-23-Jul-2024 16:54:23 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.8_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:54:25 CEST PostProcessEvent
+24-Jul-2024 17:29:33 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.7_re_reco_ZeroBias.root
+24-Jul-2024 17:29:51 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.7_re_reco_ZeroBias.root
+24-Jul-2024 17:29:51 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.8_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:29:53 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:54:25 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.8_re_reco_ZeroBias.root
-23-Jul-2024 16:54:34 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.8_re_reco_ZeroBias.root
-23-Jul-2024 16:54:34 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.9_re_reco_ZeroBias.root
-%MSG-w XrdAdaptor:  file_open 23-Jul-2024 16:54:36 CEST PostProcessEvent
+24-Jul-2024 17:29:53 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.8_re_reco_ZeroBias.root
+24-Jul-2024 17:30:02 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.8_re_reco_ZeroBias.root
+24-Jul-2024 17:30:02 CEST  Initiating request to open file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.9_re_reco_ZeroBias.root
+%MSG-w XrdAdaptor:  file_open 24-Jul-2024 17:30:04 CEST PostProcessEvent
 Data is served from CERN-PROD instead of original site eoscms
 %MSG
-23-Jul-2024 16:54:36 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.9_re_reco_ZeroBias.root
-23-Jul-2024 16:55:04 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.9_re_reco_ZeroBias.root
+24-Jul-2024 17:30:04 CEST  Successfully opened file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.9_re_reco_ZeroBias.root
+24-Jul-2024 17:30:31 CEST  Closed file root://eostotem//eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version5/run_324469.9_re_reco_ZeroBias.root
   TH1_names.push_back("hdx_103_104") ;
   TH1_names.push_back("hdx_103_105") ;
   TH1_names.push_back("hdx_123_124") ;
