@@ -36,7 +36,7 @@ void plots2()
 	
 	long unsigned int delta = (1539287481 - 1539453733) ;
 	
-   TH2D *hist_2d = new TH2D("hist_2d", "hist_2d", 100, 1538e6 - delta, 1540e6 + delta, 100, 100, 160) ;	
+   TH2D *hist_2d = new TH2D("hist_2d", "hist_2d", 100, 15392874e2 , 15394550e2, 100, 0, 0.3) ;	
 	hist_2d->Draw("") ;
 	
 	for(int i = 0 ; i < filenames.size() ; ++i)
@@ -72,13 +72,19 @@ void plots2()
 		hist1->Divide(hist0) ;
 		hist2->Divide(hist0) ;
 		
+		if((filenames[i].compare("output_run_324461_re_reco_ZeroBias") == 0) || (filenames[i].compare("output_run_324462_re_reco_ZeroBias") == 0) || (filenames[i].compare("output_run_324532_re_reco_ZeroBias") == 0) || (filenames[i].compare("output_run_324536_re_reco_ZeroBias") == 0))
+		{
+			hist1->SetLineColor(kBlue) ;
+			hist2->SetLineColor(kRed) ;
+		}
+		
 		c.cd() ;
 
 		if(i==0)
 		{
 			// hist1->GetYaxis()->SetRangeUser(0, 0.2) ;
-			hist1->Draw("same") ;
-			hist2->Draw("same") ;
+			// hist1->Draw("same") ;
+			// hist2->Draw("same") ;
 		}
 		else
 		{
@@ -87,11 +93,16 @@ void plots2()
 		}
 
 		string suffix = "" ;
-		if(use_my_sources) suffix = "_own" ;		
+		if(use_my_sources) suffix = "_own" ;
 		
-		hist1->SaveAs(("plots/" + filenames[i] + "_result_LBRT_hist"+ suffix + ".root").c_str()) ;
-		hist2->SaveAs(("plots/" + filenames[i] + "_result_LTRB_hist"+ suffix + ".root").c_str()) ;
-		myfile->Close() ;
+		bool not_create_summary_figure = false ;
+		
+		if(not_create_summary_figure)
+		{
+			hist1->SaveAs(("plots/" + filenames[i] + "_result_LBRT_hist"+ suffix + ".root").c_str()) ;
+			hist2->SaveAs(("plots/" + filenames[i] + "_result_LTRB_hist"+ suffix + ".root").c_str()) ;
+			myfile->Close() ;
+		}
 	}
 
 	c.SaveAs(("plots/result.root")) ;
