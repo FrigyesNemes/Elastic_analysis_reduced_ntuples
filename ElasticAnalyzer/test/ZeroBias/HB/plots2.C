@@ -41,7 +41,14 @@ void plots2()
 	
 	for(int i = 0 ; i < filenames.size() ; ++i)
 	{
-		TFile *myfile = TFile::Open(("/eos/cms/store/group/phys_diffraction/fnemes/E_CM_900_GeV/Beta_star_100_m/ZeroBias/" + filenames[i] + ".root").c_str()) ;
+
+		TFile *myfile = NULL ;	
+		
+		bool use_my_sources = true ;
+
+		if(use_my_sources) myfile = TFile::Open(("plots/sources/" + filenames[i] + "_new.root").c_str()) ;
+		else myfile = TFile::Open(("/eos/cms/store/group/phys_diffraction/fnemes/E_CM_900_GeV/Beta_star_100_m/ZeroBias/" + filenames[i] + ".root").c_str()) ;	
+		
 		TH1D *hist0 = (TH1D *)myfile->Get("timestamps_zero_bias") ;
 		TH1D *hist1 = (TH1D *)myfile->Get("pile_up_events_LBRT_2RP") ;
 		TH1D *hist2 = (TH1D *)myfile->Get("pile_up_events_LTRB_2RP") ;
@@ -78,10 +85,12 @@ void plots2()
 			hist1->Draw("same") ;
 			hist2->Draw("same") ;
 		}
+
+		string suffix = "" ;
+		if(use_my_sources) suffix = "_own" ;		
 		
-		
-		hist1->SaveAs(("plots/" + filenames[i] + "_result_LBRT_hist.root").c_str()) ;
-		hist2->SaveAs(("plots/" + filenames[i] + "_result_LTRB_hist.root").c_str()) ;
+		hist1->SaveAs(("plots/" + filenames[i] + "_result_LBRT_hist"+ suffix + ".root").c_str()) ;
+		hist2->SaveAs(("plots/" + filenames[i] + "_result_LTRB_hist"+ suffix + ".root").c_str()) ;
 		myfile->Close() ;
 	}
 
