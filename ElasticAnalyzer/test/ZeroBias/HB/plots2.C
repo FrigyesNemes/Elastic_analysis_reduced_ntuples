@@ -76,9 +76,10 @@ void plots2()
 		{
 			hist1->SetLineColor(kBlue) ;
 			hist2->SetLineColor(kRed) ;
-		}
+			
+			cout << filenames[i] << " " << hist1->GetBinContent(50) << " " << hist2->GetBinContent(50) << "\t " << 100.0 * (hist2->GetBinContent(50) - hist1->GetBinContent(50)) << endl ;			
 
-		if((filenames[i].compare("output_run_324457_re_reco_ZeroBias") == 0) ||
+		} else if((filenames[i].compare("output_run_324457_re_reco_ZeroBias") == 0) ||
 		(filenames[i].compare("output_run_324458_re_reco_ZeroBias") == 0) ||
 		(filenames[i].compare("output_run_324460_re_reco_ZeroBias") == 0) ||
 		(filenames[i].compare("output_run_324464_re_reco_ZeroBias") == 0) ||
@@ -94,6 +95,12 @@ void plots2()
 			hist1->SetLineColor(kGreen) ;
 			hist2->SetLineColor(kGreen) ;
 		}
+		else
+		{
+			hist1->SetLineColor(kBlack) ;
+			hist2->SetLineColor(kBlack) ;
+		}
+		
 		
 		c.cd() ;
 
@@ -108,7 +115,7 @@ void plots2()
 			hist1->Draw("same") ;
 			hist2->Draw("same") ;
 		}
-
+		
 		string suffix = "" ;
 		if(use_my_sources) suffix = "_own" ;
 		
