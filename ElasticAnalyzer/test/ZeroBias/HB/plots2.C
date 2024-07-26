@@ -77,6 +77,23 @@ void plots2()
 			hist1->SetLineColor(kBlue) ;
 			hist2->SetLineColor(kRed) ;
 		}
+
+		if((filenames[i].compare("output_run_324457_re_reco_ZeroBias") == 0) ||
+		(filenames[i].compare("output_run_324458_re_reco_ZeroBias") == 0) ||
+		(filenames[i].compare("output_run_324460_re_reco_ZeroBias") == 0) ||
+		(filenames[i].compare("output_run_324464_re_reco_ZeroBias") == 0) ||
+		(filenames[i].compare("output_run_324465_re_reco_ZeroBias") == 0) ||
+		(filenames[i].compare("output_run_324467_re_reco_ZeroBias") == 0) ||
+		(filenames[i].compare("output_run_324469_re_reco_ZeroBias") == 0) ||
+		(filenames[i].compare("output_run_324471_re_reco_ZeroBias") == 0) ||
+		(filenames[i].compare("output_run_324485_re_reco_ZeroBias") == 0) ||
+		(filenames[i].compare("output_run_324509_re_reco_ZeroBias") == 0) ||
+		(filenames[i].compare("output_run_324513_re_reco_ZeroBias") == 0) 
+		)
+		{
+			hist1->SetLineColor(kGreen) ;
+			hist2->SetLineColor(kGreen) ;
+		}
 		
 		c.cd() ;
 
