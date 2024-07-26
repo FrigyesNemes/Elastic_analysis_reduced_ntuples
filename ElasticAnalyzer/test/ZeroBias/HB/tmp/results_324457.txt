@@ -19,7 +19,9 @@ test_timestamp_maximum 0
   TH1_names.push_back("hit_position_diff_u") ;
   TH1_names.push_back("hit_position_diff_v") ;
   TH1_names.push_back("pile_up_events_LBRT") ;
+  TH1_names.push_back("pile_up_events_LBRT_2RP") ;
   TH1_names.push_back("pile_up_events_LTRB") ;
+  TH1_names.push_back("pile_up_events_LTRB_2RP") ;
   TH1_names.push_back("pile_up_events_strict_LBRT") ;
   TH1_names.push_back("pile_up_events_strict_LTRB") ;
   TH1_names.push_back("residual_u") ;
@@ -229,4 +231,6 @@ pile_up_events_LBRT: 0
 pile_up_events_LTRB: 0
 pile_up_events_strict_LBRT: 0
 pile_up_events_strict_LTRB: 0
+pile_up_events_LBRT_2RP: 0
+pile_up_events_LTRB_2RP: 0
 zero_bias_events: 0

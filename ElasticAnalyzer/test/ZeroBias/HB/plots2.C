@@ -33,13 +33,35 @@ void plots2()
 	filenames.push_back("output_run_324536_re_reco_ZeroBias") ;
 
 	TCanvas c ;
-
+	
+	long unsigned int delta = (1539287481 - 1539453733) ;
+	
+   TH2D *hist_2d = new TH2D("hist_2d", "hist_2d", 100, 1538e6 - delta, 1540e6 + delta, 100, 100, 160) ;	
+	hist_2d->Draw("") ;
+	
 	for(int i = 0 ; i < filenames.size() ; ++i)
 	{
-		TFile *myfile = TFile::Open((filenames[i] + ".root").c_str()) ;
+		TFile *myfile = TFile::Open(("/eos/cms/store/group/phys_diffraction/fnemes/E_CM_900_GeV/Beta_star_100_m/ZeroBias/" + filenames[i] + ".root").c_str()) ;
 		TH1D *hist0 = (TH1D *)myfile->Get("timestamps_zero_bias") ;
-		TH1D *hist1 = (TH1D *)myfile->Get("pile_up_events_LBRT") ;
-		TH1D *hist2 = (TH1D *)myfile->Get("pile_up_events_LTRB") ;
+		TH1D *hist1 = (TH1D *)myfile->Get("pile_up_events_LBRT_2RP") ;
+		TH1D *hist2 = (TH1D *)myfile->Get("pile_up_events_LTRB_2RP") ;
+
+		bool create_my_sources = false ;
+		
+		if(create_my_sources)
+		{
+			TFile *output = new TFile(("plots/sources/" + filenames[i] + "_new.root").c_str(), "UPDATE") ;
+			output->cd() ;
+
+			hist0->Write() ;
+			hist1->Write() ;
+			hist2->Write() ;
+
+			output->Write() ;		
+			output->Close() ;
+			delete output ;
+		}
+
 		hist1->Divide(hist0) ;
 		hist2->Divide(hist0) ;
 		
@@ -47,8 +69,8 @@ void plots2()
 
 		if(i==0)
 		{
-			hist1->GetYaxis()->SetRangeUser(0, 0.2) ;
-			hist1->Draw() ;
+			// hist1->GetYaxis()->SetRangeUser(0, 0.2) ;
+			hist1->Draw("same") ;
 			hist2->Draw("same") ;
 		}
 		else
