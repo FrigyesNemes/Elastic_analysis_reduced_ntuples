@@ -6,6 +6,10 @@
 
 TRandom3 myrandom_variable ;
 
+void renorm_group_equations()
+{
+}
+
 void van_der_waals(double R, double T, double v, double b, double a)
 {
 	double p = ((R * T) / (v - b)) - (a / v*v) ;
