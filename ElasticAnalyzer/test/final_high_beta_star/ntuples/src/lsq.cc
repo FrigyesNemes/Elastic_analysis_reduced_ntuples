@@ -13,7 +13,7 @@ void renorm_group_equations()
 
 void van_der_waals(double R, double T, double v, double b, double a)
 {
-	double p = ((R * T) / (v - b)) - (a / v*v) ;
+	double p = ((R * T) / (v - b)) - (a / (v*v)) ;
 }
 
 void yukawa(double r, double g, double alpha, double m)
