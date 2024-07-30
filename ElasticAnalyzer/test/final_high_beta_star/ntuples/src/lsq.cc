@@ -8,7 +8,9 @@ TRandom3 myrandom_variable ;
 
 void renorm_group_equations()
 {
+	double Z ;
 
+	double beta = 1 / Z ;  // to be reviewed
 }
 
 void van_der_waals(double R, double T, double v, double b, double a)
