@@ -18,7 +18,7 @@ void van_der_waals(double R, double T, double v, double b, double a)
 
 void yukawa(double r, double g, double alpha, double m)
 {
-	double V = -(g*g) * (exp(-alpha * m * r) / r) ;
+	double V = -(g*g) * (exp(-alpha * m * r) / r);
 }
 
 void lsq()
