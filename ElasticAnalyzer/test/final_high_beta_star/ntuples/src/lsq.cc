@@ -6,6 +6,11 @@
 
 TRandom3 myrandom_variable ;
 
+void elastic_scattering_of_balls_in_2_dimensions()
+{
+	// to see it gives back Maxwell Boltzmann
+}
+
 void renorm_group_equations()
 {
 	double Z ;
