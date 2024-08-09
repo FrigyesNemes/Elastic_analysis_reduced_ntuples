@@ -6,6 +6,15 @@
 
 TRandom3 myrandom_variable ;
 
+void test_with_springs_in_2D()
+{
+}
+
+void Huygens_with_normal_vector_test()
+{
+	// very general
+}
+
 void elastic_scattering_of_balls_in_2_dimensions()
 {
 	// to see it gives back Maxwell Boltzmann
