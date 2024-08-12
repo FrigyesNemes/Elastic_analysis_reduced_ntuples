@@ -6,6 +6,10 @@
 
 TRandom3 myrandom_variable ;
 
+void Hermite_polynomials()
+{
+}
+
 void Fermi_golden_rule()
 {
 }
