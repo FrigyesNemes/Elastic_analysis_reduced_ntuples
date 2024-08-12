@@ -6,6 +6,10 @@
 
 TRandom3 myrandom_variable ;
 
+void Fermi_golden_rule()
+{
+}
+
 void test_with_springs_in_2D()
 {
 }
